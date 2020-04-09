@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.OperatorDao">
+
+	<!-- Manager与数据库对应的映射关系  -->
+	<resultMap type="cn.edu.zucc.elevator.entity.Operator" id="BeanOperator">
+		<id column="oid" property="id" />
+		<result column="username" property="username" />
+		<result column="realname" property="realname" />
+		<result column="type" property="type" />
+		<result column="telephone" property="telephone" />
+		<result column="avatarUrl" property="avatarUrl" />
+		<result column="licenseUrl" property="licenseUrl" />
+		<result column="createTime" property="createTime" />
+		<result column="odelflag" property="delflag" />
+		<!-- 外键连接company -->
+		<association property="company" javaType="cn.edu.zucc.elevator.entity.Company">
+			<id column="cid" property="id" />
+			<result column="cname" property="cname" />
+			<result column="address" property="address" />
+			<result column="authority" property="authority" />
+			<result column="safetyManagementInfo" property="safetyManagementInfo" />
+			<result column="securityTechnologyInfo" property="securityTechnologyInfo" />
+			<result column="emegyTechnologyInfo" property="emegyTechnologyInfo" />
+			<result column="safetyOrganizationInfo" property="safetyOrganizationInfo" />
+			<result column="sealUrl" property="sealUrl" />
+			<result column="avatarUrl" property="avatarUrl" />
+			<result column="cdelflag" property="delflag" />
+		</association>
+	</resultMap>
+	
+	<!-- 插入操作者信息[实现] -->
+	<insert id="insertOperator" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Operator">
+		INSERT INTO 	
+			operator(username, realname, companyId, type, telephone, avatarUrl, licenseUrl, createTime, delflag)
+		VALUES
+			(#{username}, #{realname}, #{companyId}, #{type}, #{telephone}, #{avatarUrl}, #{licenseUrl}, #{createTime}, #{delflag})
+	</insert>
+	
+	<!-- 修改操作者信息[实现] -->
+	<update id="updateOperator"
+		parameterType="cn.edu.zucc.elevator.entity.Operator">
+		UPDATE 
+			operator
+		<set>
+			<if test="realname!=null">realname=#{realname},</if>
+			<if test="companyId!=null">companyId=#{companyId},</if>
+			<if test="type!=null">type=#{type},</if> 
+			<if test="telephone!=null">telephone=#{telephone},</if>
+			<if test="avatarUrl!=null">avatarUrl=#{avatarUrl},</if>
+			<if test="licenseUrl!=null">licenseUrl=#{licenseUrl}</if>
+		</set>
+		WHERE 
+			id=#{id}
+	</update>
+	
+	<!-- 删除操作者信息[实现] -->
+	<update id="deleteOperator">
+		UPDATE 
+			operator
+		SET
+			delflag = 1
+		WHERE 
+			id=#{operatorId}
+	</update>
+	
+	<!-- 根据操作者id查找操作者信息[实现] -->
+	<select id="selectOperatorById"
+		resultMap="BeanOperator">
+		SELECT 
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			c.id as cid,
+			c.cname as cname,
+			c.address as address,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag
+		FROM 
+			operator o left outer join company c on o.companyId = c.id 
+		WHERE 
+			o.delflag = 0 AND o.id=#{operatorId}
+	</select>
+	
+	<!-- 根据操作者账号查找操作者信息[实现] -->
+	<select id="selectOperatorByUsername"
+		resultMap="BeanOperator">
+		SELECT 
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			c.id as cid,
+			c.cname as cname,
+			c.address as address,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag
+		FROM 
+			operator o left outer join company c on o.companyId = c.id 
+		WHERE 
+			o.delflag = 0 AND o.username=#{username}
+	</select>
+
+	<!-- 根据公司、用户类型、用户名称获取用户列表(获取分页数据)[实现] -->
+	<select id="selectOperatorPageListByCompanyAndTypeAndName"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanOperator">
+		SELECT 
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			c.id as cid,
+			c.cname as cname,
+			c.address as address,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag
+		FROM 
+			operator o left outer join company c on o.companyId = c.id 
+		<where>
+			o.delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND o.companyId = #{userid}
+			</if>
+			<if test="keyWord!='' and keyWord!=null ">
+				AND o.type = #{keyWord}
+			</if>
+			<if test="subkeyWord!='' and subkeyWord!=null ">
+				AND o.realname like '%' #{subkeyWord} '%'
+			</if>
+		</where>
+		ORDER BY 
+			o.createTime DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据公司、用户类型、用户名称获取用户列表(获取数据总数)[实现] -->
+	<select id="selectOperatorPageCountByCompanyAndTypeAndName"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			operator
+		<where>
+			delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND companyId = #{userid}
+			</if>
+			<if test="keyWord!='' and keyWord!=null ">
+				AND type = #{keyWord} 
+			</if>
+			<if test="subkeyWord!='' and subkeyWord!=null ">
+				AND realname like '%' #{subkeyWord} '%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据公司、用户类型、用户名称获取用户列表(获取分页数据)[实现] -->
+	<select id="selectOperatorPageListByCompanyAndTypeGT0AndName"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanOperator">
+		SELECT 
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			c.id as cid,
+			c.cname as cname,
+			c.address as address,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag
+		FROM 
+			operator o left outer join company c on o.companyId = c.id 
+		<where>
+			o.delflag = 0
+			AND o.type > 0 
+			<if test="userid!='' and userid!=null ">
+				AND o.companyId = #{userid}
+			</if>
+			<if test="subkeyWord!='' and subkeyWord!=null ">
+				AND o.realname like '%' #{subkeyWord} '%'
+			</if>
+		</where>
+		ORDER BY 
+			o.createTime DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据公司、用户类型、用户名称获取用户列表(获取数据总数)[实现] -->
+	<select id="selectOperatorPageCountByCompanyAndTypeGT0AndName"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			operator
+		<where>
+			delflag = 0
+			AND type > 0 
+			<if test="userid!='' and userid!=null ">
+				AND companyId = #{userid}
+			</if>
+			<if test="subkeyWord!='' and subkeyWord!=null ">
+				AND realname like '%' #{subkeyWord} '%'
+			</if>
+		</where>
+	</select>
+</mapper>
+  

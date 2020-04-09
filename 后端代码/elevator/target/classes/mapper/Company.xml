@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.CompanyDao">
+
+	<!-- 插入公司信息[实现] -->
+	<insert id="insertCompany" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Company">
+		INSERT INTO 
+		  	company(cname, address, authority, safetyManagementInfo, securityTechnologyInfo, emegyTechnologyInfo, safetyOrganizationInfo, sealUrl, avatarUrl, delflag)
+		VALUES
+			(#{cname}, #{address}, #{authority}, #{safetyManagementInfo}, #{securityTechnologyInfo}, #{emegyTechnologyInfo}, #{safetyOrganizationInfo}, #{sealUrl}, #{avatarUrl}, #{delflag})
+	</insert>
+	
+	<!-- 修改公司信息[实现] -->
+	<update id="updateCompany"
+		parameterType="cn.edu.zucc.elevator.entity.Company">
+		UPDATE 
+			company
+		<set>
+			<if test="cname!=null">cname=#{cname},</if>
+			<if test="address!=null">address=#{address},</if>
+			<if test="authority!=null">authority=#{authority},</if>
+			<if test="safetyManagementInfo!=null">safetyManagementInfo=#{safetyManagementInfo},</if>
+			<if test="securityTechnologyInfo!=null">securityTechnologyInfo=#{securityTechnologyInfo},</if>
+			<if test="emegyTechnologyInfo!=null">emegyTechnologyInfo=#{emegyTechnologyInfo},</if>
+			<if test="safetyOrganizationInfo!=null">safetyOrganizationInfo=#{safetyOrganizationInfo},</if>
+			<if test="sealUrl!=null">sealUrl=#{sealUrl},</if>
+			<if test="avatarUrl!=null">avatarUrl=#{avatarUrl}</if>
+		</set>
+		WHERE 
+			id=#{id}
+	</update>
+	
+	<!-- 删除公司信息[实现] -->
+	<update id="deleteCompany">
+		UPDATE 
+			company
+		SET
+			delflag = 1
+		WHERE 
+			id=#{id}
+	</update>
+	
+	<!-- 根据公司id查询公司信息[实现] -->
+	<select id="selectCompanyById"
+		resultType="cn.edu.zucc.elevator.entity.Company">
+		SELECT 
+			id, cname, address, authority, safetyManagementInfo, securityTechnologyInfo, emegyTechnologyInfo, safetyOrganizationInfo, sealUrl, avatarUrl
+		FROM 
+			company
+		WHERE 
+			delflag = 0 AND id = #{id}
+	</select>
+
+
+	<!-- 根据公司名称获取公司信息列表(获取分页数据)[实现] -->
+	<select id="selectCompanyPageListByName"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="cn.edu.zucc.elevator.entity.Company">
+		SELECT 
+			id, cname, address, authority, safetyManagementInfo, securityTechnologyInfo, emegyTechnologyInfo, safetyOrganizationInfo, sealUrl, avatarUrl
+		FROM 
+			company
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND cname like '%' #{keyWord} '%'
+			</if>
+		</where>
+		ORDER BY 
+			id ASC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+	
+	<!-- 根据公司名称获取公司信息列表2(获取分页数据)[实现] -->
+	<select id="selectCompanyPageListByName2"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="cn.edu.zucc.elevator.entity.Company">
+		SELECT 
+			id, cname, address, authority, safetyManagementInfo, securityTechnologyInfo, emegyTechnologyInfo, safetyOrganizationInfo, sealUrl, avatarUrl
+		FROM 
+			company
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND cname like '%' #{keyWord} '%'
+			</if>
+		</where>
+		ORDER BY 
+			id DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+	
+	<!-- 根据公司名称获取公司列表(获取数据总数)[实现] -->
+	<select id="selectCompanyPageCountByName"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			company
+		<where>
+			delflag = 0 
+			<if test="keyWord!='' and keyWord!=null ">
+				AND cname like '%' #{keyWord} '%'
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据公司类型获取公司列表(获取分页数据)[实现] -->
+	<select id="selectCompanyPageListByType"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="cn.edu.zucc.elevator.entity.Company">
+		SELECT 
+			id, cname, address, authority, safetyManagementInfo, securityTechnologyInfo, emegyTechnologyInfo, safetyOrganizationInfo, sealUrl, avatarUrl
+		FROM 
+			company
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND authority like '%' #{keyWord} '%'
+			</if>
+		</where>
+		ORDER BY 
+			id ASC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据公司类型获取公司列表(获取数据总数)[实现] -->
+	<select id="selectCompanyPageCountByType"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			company
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND authority like '%' #{keyWord} '%' 
+			</if>
+		</where>
+	</select>
+	
+	
+	<!-- 统计公司操作者总数[实现] -->
+	<select id="selectCompanyOperatorCount"
+		resultType="cn.edu.zucc.elevator.entity.CompanyOperatorCount">
+		SELECT 
+		    c.id as id,
+		    c.cname as cname,
+		    c.address as address, 
+		    count(*) as count
+		FROM
+			operator o left outer join company c on o.companyId = c.id
+		WHERE
+			c.id > 0
+		GROUP BY
+			c.id
+		ORDER BY
+			count(*) DESC 
+		LIMIT 
+			#{limit}
+	</select>
+	<!-- 统计公司电梯总数[实现] -->
+	<select id="selectCompanyElevatorCount"
+		resultType="cn.edu.zucc.elevator.entity.CompanyElevatorCount">
+		SELECT 
+		    c.id as id,
+		    c.cname as cname,
+		    c.address as address, 
+		    count(*) as count
+		FROM
+			elevator e left outer join company c on e.companyId = c.id
+		WHERE
+			c.id > 0
+		GROUP BY
+			c.id
+		ORDER BY
+			count(*) DESC
+		LIMIT 
+			#{limit}
+	</select>
+</mapper>
+  

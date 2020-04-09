@@ -1,0 +1,234 @@
+<head>
+		<meta charset="UTF-8">
+		<title>电梯记录</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.fl{
+				margin-left: 0px;
+			}
+			.fr{
+				margin-top: 5px;
+			}
+			.elevatorlabel{
+				margin: 5px auto;
+			}
+		</style>
+	</head>
+
+	<body class="layui-layout-body" style="padding-top: 15px; padding-left: 20px; padding-right: 20px;">
+		<div style="color: #393D49; margin-bottom: 10px; margin-right: 20px; padding: 10px; background: #F0F0F0;">
+			<b>提示：</b>该电梯目前的状态为<span id="state"></span>，可以查看以下电梯记录：
+		</div>
+					
+		<div class="layui-tab layui-tab-card">
+			<ul class="layui-tab-title">
+			    <li id="li-construction" class="layui-this">施工记录</li>
+			    <li id="li-inspection">巡查记录</li>
+			    <li id="li-maintainence">维护记录</li>
+			    <li id="li-testing">检测记录</li>
+			</ul>
+			<div class="layui-tab-content">
+			    <div id="div-construction" class="layui-tab-item layui-show">
+			    	<form class="layui-form layui-form-pane" lay-filter="show_form">
+						<div class="layui-form-item elevatorlabel">
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width: 120px; margin-left: 15px;">施工负责人</label>
+								<div class="layui-input-block " style="margin-left: 135px">
+									<input type="text" name="name" disabled  class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width: 120px; margin-left: 15px;">联系方式</label>
+								<div class="layui-input-block " style="margin-left: 135px">
+									<input type="text" name="telephone" disabled  class="layui-input">
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item elevatorlabel">
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width: 120px; margin-left: 15px;">责任方公司</label>
+								<div class="layui-input-block " style="margin-left: 135px">
+									<input type="text" name="company"  disabled class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width: 120px; margin-left: 15px;">施工类型</label>
+								<div class="layui-input-block " style="margin-left: 135px">
+									<input type="text" name="type"  disabled class="layui-input">
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item elevatorlabel">
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width: 120px; margin-left: 15px;">许可编号</label>
+								<div class="layui-input-block " style="margin-left: 135px">
+									<input type="text" name="licenseNumber"  disabled class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width: 120px; margin-left: 15px;">施工状态</label>
+								<div class="layui-input-block " style="margin-left: 135px">
+									<input type="text" name="state"  disabled class="layui-input">
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item elevatorlabel">
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width: 120px; margin-left: 15px;">开始日期</label>
+								<div class="layui-input-block " style="margin-left: 135px">
+									<input type="text" name="startDate"  disabled class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width: 120px; margin-left: 15px;">结束日期</label>
+								<div class="layui-input-block " style="margin-left: 135px">
+									<input type="text" name="realfinishDate"  disabled class="layui-input">
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item  layui-form-text" style="margin-left: 15px;">
+							<label class="layui-form-label">施工记录</label>
+							<div class="layui-input-block ">
+								<textarea id="record" name="record" class="layui-textarea"></textarea>
+							</div>
+						</div>
+					</form>
+			    </div>
+			    <div id="div-inspection" class="layui-tab-item">
+			    	<div class="layui-row">
+					    <div style="width: 100%;">
+					    	<div style="width: 60%; display: inline-block;">	    
+						  		<span class="fl">
+							        <!--<a class="layui-btn btn-default" lay-event="add" id="btn-add">添加</a>-->
+							        <!--<a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-delete">删除</a>-->
+							        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh2" id="btn-refresh2"><i class="layui-icon layui-icon-refresh-1"></i></a>
+							    </span>
+						    </div>
+						    <div style="width: 39%; display: inline-block;">
+						   		<!--<input style="width: 30%; display: inline-block;" type="text" name="company" id="company" required autocomplete="off" class="layui-input" placeholder="请选择公司">
+						   		<input style="width: 48%; display: inline-block;" class="layui-input" id="keyword" autocomplete="off" placeholder="请输入关键词">
+						   		<button style="width: 19%; display: inline-block;" class="layui-btn" id="btn-search" data-type="reload">搜索</button>-->
+						    </div>
+					    </div>				
+					</div>
+					<div class="layui-row">
+						<table class="layui-hide" id="demo2" lay-filter="test2"></table>
+					</div>
+			    </div>
+			    <div id="div-maintainence" class="layui-tab-item">
+			    	<div class="layui-row">
+					    <div style="width: 100%;">
+					    	<div style="width: 60%; display: inline-block;">	    
+						  		<span class="fl">
+							        <!--<a class="layui-btn btn-default" lay-event="add" id="btn-add">添加</a>-->
+							        <!--<a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-delete">删除</a>-->
+							        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh3" id="btn-refresh3"><i class="layui-icon layui-icon-refresh-1"></i></a>
+							    </span>
+						    </div>
+						    <div style="width: 39%; display: inline-block;">
+						   		<!--<input style="width: 30%; display: inline-block;" type="text" name="company" id="company" required autocomplete="off" class="layui-input" placeholder="请选择公司">
+						   		<input style="width: 48%; display: inline-block;" class="layui-input" id="keyword" autocomplete="off" placeholder="请输入关键词">
+						   		<button style="width: 19%; display: inline-block;" class="layui-btn" id="btn-search" data-type="reload">搜索</button>-->
+						    </div>
+					    </div>				
+					</div>
+					<div class="layui-row">
+						<table class="layui-hide" id="demo3" lay-filter="test3"></table>
+					</div>
+			    </div>
+			    <div id="div-testing" class="layui-tab-item">
+			    	<div class="layui-row">
+					    <div style="width: 100%;">
+					    	<div style="width: 60%; display: inline-block;">	    
+						  		<span class="fl">
+							        <!--<a class="layui-btn btn-default" lay-event="add" id="btn-add">添加</a>-->
+							        <!--<a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-delete">删除</a>-->
+							        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh4" id="btn-refresh4"><i class="layui-icon layui-icon-refresh-1"></i></a>
+							    </span>
+						    </div>
+						    <div style="width: 39%; display: inline-block;">
+						   		<!--<input style="width: 30%; display: inline-block;" type="text" name="company" id="company" required autocomplete="off" class="layui-input" placeholder="请选择公司">
+						   		<input style="width: 48%; display: inline-block;" class="layui-input" id="keyword" autocomplete="off" placeholder="请输入关键词">
+						   		<button style="width: 19%; display: inline-block;" class="layui-btn" id="btn-search" data-type="reload">搜索</button>-->
+						    </div>
+					    </div>				
+					</div>
+					<div class="layui-row">
+						<table class="layui-hide" id="demo4" lay-filter="test4"></table>
+					</div>
+			    </div>
+		  	</div>
+		</div>
+		
+		<script type="text/html" id="operator">
+		    {{d.operator==null?'':d.operator.realname}}
+		</script>
+		<script type="text/html" id="telephone">
+		    {{d.operator==null?'':d.operator.telephone}}
+		</script>
+		<script type="text/html" id="company">
+		    {{d.company==null?'':d.company.cname}}
+		</script>
+		<script type="text/html" id="company2">
+		    {{d.operator.company==null?'':d.operator.company.cname}}
+		</script>
+		<script type="text/html" id="score">
+			{{#  if(d.score >= 0 && d.score < 2){ }}
+			   	<span style="color: #FF5722;"> {{ d.score }} </span>
+			{{#  }else if(d.score >= 2 && d.score < 3){ }}
+				<span style="color: #FFB800;"> {{ d.score }} </span>
+			{{#  }else if(d.score >= 3 && d.score < 4){ }}
+				<span style="color: #5FB878;"> {{ d.score }} </span>
+			{{#  }else{ }}
+				<span style="color: #009688;"> {{ d.score }} </span>
+			{{#  } }}
+		</script>
+		<script type="text/html" id="record2">
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record2">查看记录</a>
+		</script>
+		<script type="text/html" id="record3">
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record3">查看反馈</a>
+		</script>
+		<script type="text/html" id="state3">
+			{{#  if(d.state == 0){ }}
+				<span style="color: #FFB800;"> 待维护 </span>
+			{{#  }else if(d.state == 1){ }}
+				<span style="color: #5FB878;"> 维护中 </span>
+			{{#  }else{ }}
+				<span style="color: #009688;"> 已维护 </span>
+			{{#  } }}
+		</script>
+		<script type="text/html" id="qa3">
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="qa3">查看问题与答案</a>
+		</script>
+		<script type="text/html" id="state4">
+			{{#  if(d.state == 0){ }}
+				<span style="color: #FFB800;"> 待检测 </span>
+			{{#  }else if(d.state == 1){ }}
+				<span style="color: #5FB878;"> 检测中 </span>
+			{{#  }else{ }}
+				<span style="color: #009688;"> 已检测 </span>
+			{{#  } }}
+		</script>
+		<script type="text/html" id="record4">
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record4">查看反馈</a>
+		</script>
+		
+		
+		
+		
+		<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">详细信息</a>
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record">查看电梯记录</a>
+			{{#  if(d.score*20 > 0 && d.state > 1 ){ }}
+				<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="score">得分详情</a>
+			{{#  } }}
+		</script>
+		<script src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="elevator-record.js"></script>
+		<script src="../../conf/conf.js"></script>
+	</body>
+
+</html>

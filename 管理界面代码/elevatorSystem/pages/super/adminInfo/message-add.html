@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>查看消息</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				<div class="layui-form-item">
+					<label class="layui-form-label">发送给</label>
+					<div class="layui-input-block ">
+						<input type="radio" name="sex" value="1" lay-filter="manager" title="管理员" checked>
+      					<input type="radio" name="sex" value="0" lay-filter="operator" title="操作者">
+					</div>
+				</div>
+				<div class="layui-form-item" id="manager-outer">
+					<label class="layui-form-label">选择人员</label>
+					<div class="layui-input-block ">
+						<input type="text" name="receiver" id="receiver" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" id="operator-outer" style="display: none;">
+					<label class="layui-form-label">选择人员</label>
+					<div class="layui-input-block ">
+						<input type="text" name="receiver2" id="receiver2" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label">消息内容</label>
+					<div class="layui-input-block ">
+						<textarea name="content" required lay-verify="required" class="layui-textarea"></textarea>
+					</div>
+				</div>
+				
+				<div class="layui-form-item layui-field-title">
+					<fieldset class="layui-elem-field layui-field-title">
+						
+					</fieldset>
+				</div>
+				<div class="layui-form-item" style="margin: 25px auto; text-align: center;">
+					
+						<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="sub">立即提交</button>
+						<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="reset">重置</button>
+					
+				</div>
+			</form>
+		</div>
+		
+		<script type="text/html" id="cname">
+		    {{d.company==null?'':d.company.cname}}
+		</script>
+		<script type="text/html" id="type">
+		    {{#  if(d.type === 1){ }}
+			    <span style="color: #FF5722;"> 监管人员 </span>
+			{{#  }else{ }}
+			    <span style="color: #009688;"> 单位管理员 </span>
+			{{#  } }}
+		</script> 
+		<script type="text/html" id="cname2">
+		    {{d.company==null?'':d.company.cname}}
+		</script>
+		
+		<script src="../../../src/layui/layui.js" charset="utf-8"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="message-add.js"></script>
+	</body>
+
+</html>
+
+<!-- 发送给...，选择对应人员：....，消息内容：.... -->

@@ -1,0 +1,19 @@
+<!--pages/message/message.wxml-->
+<!-- 通知页面 -->
+<view style='padding-bottom:30rpx'>
+  <view wx:if="{{msg_list.length > 0}}">
+    <view style='width:100%' wx:for="{{msg_list}}">
+      <view style='text-align: center; font-size:14px; color:#80848f; margin-bottom:15rpx; margin-top: 45rpx;'><text>{{item.sendTime}}</text></view>
+      <i-card title="来自【{{item.senderName}}】的消息：">
+        <view slot="content">{{item.content}}</view>
+        <view slot="footer" wx:if="{{item.status == 0}}" style="text-align:right"><view><text style="margin-left:30rpx; color:#19be6b;" bindtap="setStatus" data-id="{{item.id}}" data-index="{{index}}">> 标为已读</text></view></view>
+      </i-card>
+    </view>
+  </view>
+  <view wx:else>
+    <view style="margin:10px; color: #495060;">提示：您暂时没有收到任何消息，请耐心等待...</view>
+    <view style="text-align:center; margin-top:20px;">
+      <image src="/img/sleep.png" style="width:540rpx; height:385rpx;"></image>
+    </view>
+  </view>
+</view>

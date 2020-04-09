@@ -1,0 +1,21 @@
+var info = {
+	// 根据type获取用户类型
+  getType: function (type){
+    if(type == 0)        return "普通用户";
+    else if(type == 1)   return "施工负责人";
+    else if(type == 2)   return "巡查员";
+    else if(type == 3)   return "维护人员";
+    else if(type == 4)   return "检测人员";
+    else if(type == 5)   return "操作者";
+  },
+  // 根据用户身份以及用户头像获取地址
+  getIconSrc: function(url, type) {
+    return url==null?(type==0?'/img/user.svg':'/img/operator.svg'):userInfo.url;
+  }
+};
+// 导出对外暴露的属性
+module.exports = {
+	getType: info.getType,
+  getIconSrc: info.getIconSrc
+}
+

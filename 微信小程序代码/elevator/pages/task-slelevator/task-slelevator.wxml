@@ -1,0 +1,19 @@
+<!--pages/task-slelevator/task-slelevator.wxml-->
+<view class="section">
+  <input style="background-color:#fff; font-size:14px;" bindinput="bindInput" placeholder="输入关键字搜索公司电梯" value='{{AddressName}}'/>
+  <button class='btn-Wc' size='mini'>搜索</button>
+  <!-- <view class='View_Bk'></view> -->
+</view>
+<view id="text_box_outer" style="display:{{searchBoxDisplay}}">
+  <view bindtap="bindSearch" data-index="{{index}}" data-id="{{item.id}}" data-name="{{item.elevatorName}}" class="text_box" wx:for="{{tips}}">
+    <i-row>
+      <i-col span="20" i-class="col-class">
+        <view class="text_box_title">{{item.elevatorName}}</view>
+        <view class="text_box_address">{{item.address}}</view>     
+      </i-col>
+      <i-col span="4" i-class="col-class" style="text-align:center;">
+        <view style="font-size:14px; color:#80848f; margin-top:10px;"><i-icon type="enter" size="18" color="#80848f" /> 选择</view>
+      </i-col>
+    </i-row>
+  </view>
+</view>

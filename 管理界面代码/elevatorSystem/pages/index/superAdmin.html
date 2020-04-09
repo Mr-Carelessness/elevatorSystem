@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>电梯监管系统</title>
+		<link rel="stylesheet" href="../../src/layui/css/layui.css">
+		<style type="text/css">
+			.item{
+				padding-left: 25px; 
+				padding-right: 10px;
+			}
+			.link:hover{
+				color: #01AAED;
+			}
+		</style>
+	</head>
+
+	<body class="layui-layout-body" style="height: 100%;">
+		<div class="layui-layout layui-layout-admin" style="height: 100%;">
+			<div class="layui-header">
+				<div class="layui-logo"><span style="font-weight: 900;"><i class="layui-icon">&#xe7ae;</i> 电梯监管系统</span></div>
+				<!-- 头部区域（可配合layui已有的水平导航） -->
+				<ul class="layui-nav layui-layout-right">
+					<li class="layui-nav-item">
+						<a href="javascript:;">
+							<img id="adminIcon" class="layui-nav-img"> <text id="txt-name">超级管理员</text>
+						</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="superAdminIndex.html" target="right">返回首页</a>
+							</dd>
+							<dd>
+								<a href="../super/adminInfo/adminInfo.html" target="right">基本信息</a>
+							</dd>
+							<dd>
+								<a href="../super/adminInfo/message.html" target="right">我的消息</a>
+							</dd>
+							<dd>
+								<a href="" id="updatePwd">修改密码</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="#" onclick="exitSystem()">退出</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="layui-side layui-bg-black" style="width: 220px;">
+				<div class="layui-side-scroll">
+					<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+					<ul class="layui-nav layui-nav-tree" lay-filter="test" style="width: 220px;"> 
+						<li class="layui-nav-item layui-nav-itemed">  
+							<a class="" href="javascript:;"><i class="layui-icon layui-icon-home" style="font-size: 15px; margin-right: 5px;"></i> 基础模块</a>
+							<dl class="layui-nav-child">
+								<dd class="item">
+									<a href="../super/adminInfo/adminInfo.html" target="right">个人信息概况</a>
+								</dd>
+								<dd class="item">
+									<a href="../super/adminInfo/message.html" target="right">消息中心</a>
+								</dd>
+							</dl>
+						</li>
+						<li class="layui-nav-item layui-nav-itemed">  
+							<a class="" href="javascript:;"><i style="margin-right: 5px;"><img src="../../src/images/icon_inspection.png" style="width: 15px; height: 15px;" /></i> 电梯监管模块</a>
+							<dl class="layui-nav-child">
+								<dd class="item">
+									<a href="../super/company/company.html" target="right">单位管理</a>
+								</dd>
+								<dd class="item">
+									<a href="../super/manager/manager.html" target="right">管理员管理</a>
+								</dd>
+								<dd class="item">
+									<a href="../super/elevator/elevator.html" target="right">电梯管理</a>
+								</dd>
+								<dd class="item">
+									<a href="../super/indices/indices.html" target="right">指标管理</a>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="layui-body" style="z-index: 0; height: 95%;  left: 220px;">
+				<!-- 内容主体区域 -->
+				<div style="height: 100%;">
+					<!-- height:1200 -->
+					<iframe src="superAdminIndex.html" name="right" frameborder="0" width="100%" height="99%"></iframe>
+				</div>
+				
+				<div class="layui-footer" style="margin: 0; border: none; height: 5%; left: 220px; line-height: 40px;">
+					<a class="link" href="http://www.beian.miit.gov.cn/">浙ICP备18045398号</a>, Copyright © <a class="link" href="mailto:31601365@stu.zucc.edu.cn">ShiMengtao</a>
+				</div>
+			</div>
+
+			<!--<div class="layui-footer">
+				底部固定区域
+			</div>-->
+		</div>
+		
+		
+		<script type="text/javascript" src="../../src/js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../../src/myplugs/js/plugs.js"></script>
+		<script src="../../src/layui/layui.js"></script>
+		<script src="../conf/conf.js"></script>
+		<script src="superAdmin.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!--pages/taskstatus/taskstatus.wxml-->
+<i-input title="记录编号" value="{{recordId}}" disabled></i-input>
+<i-input title="电梯编号" value="{{elevatorId}}" disabled></i-input>
+<i-input title="维护者编号" value="{{mtId}}" disabled></i-input>
+<i-input title="待维护时间" value="{{undoneTime}}" disabled></i-input>
+<i-input title="反馈信息" value="{{feedback}}"></i-input>
+<view wx:if="{{recordType ==  '普通记录'}}">
+  <i-input title="详细记录" value="{{recordCt}}"></i-input>
+</view>
+<view wx:else>
+  <i-input title="详细信息：" disabled placeholder='（请认真填写电梯维护的下列条目）'></i-input>
+  <i-panel title="条目1：电梯保持清洁">
+    <i-radio-group current="{{current1}}" bindchange="handleQs1Change" style="color:#80848f">
+        <i-radio wx:for="{{qs}}" position="{{position}}" wx:key="{{item.id}}" value="{{item.name}}">
+        </i-radio>
+    </i-radio-group>
+  </i-panel>
+  <i-panel title="条目2：轿厢检修开关、停止装置工作正常">
+    <i-radio-group current="{{current2}}" bindchange="handleQs2Change" style="color:#80848f">
+        <i-radio wx:for="{{qs}}" position="{{position}}" wx:key="{{item.id}}" value="{{item.name}}">
+        </i-radio>
+    </i-radio-group>
+  </i-panel>
+  <i-panel title="条目3：轿厢报警装置、对讲系统保持正常">
+    <i-radio-group current="{{current3}}" bindchange="handleQs3Change" style="color:#80848f">
+        <i-radio wx:for="{{qs}}" position="{{position}}" wx:key="{{item.id}}" value="{{item.name}}">
+        </i-radio>
+    </i-radio-group>
+  </i-panel>
+  <i-panel title="条目4：轿门运行开启和关闭工作正常">
+    <i-radio-group current="{{current4}}" bindchange="handleQs4Change" style="color:#80848f">
+        <i-radio wx:for="{{qs}}" position="{{position}}" wx:key="{{item.id}}" value="{{item.name}}">
+        </i-radio>
+    </i-radio-group>
+  </i-panel>
+  <i-panel title="条目5：层站召唤、层楼显示齐全有效">
+    <i-radio-group current="{{current5}}" bindchange="handleQs5Change" style="color:#80848f">
+        <i-radio wx:for="{{qs}}" position="{{position}}" wx:key="{{item.id}}" value="{{item.name}}">
+        </i-radio>
+    </i-radio-group>
+  </i-panel>
+  <i-panel title="条目6：层门自动关门装置工作正常">
+    <i-radio-group current="{{current6}}" bindchange="handleQs6Change" style="color:#80848f">
+        <i-radio wx:for="{{qs}}" position="{{position}}" wx:key="{{item.id}}" value="{{item.name}}">
+        </i-radio>
+    </i-radio-group>
+  </i-panel>
+</view>
+<i-button type="primary" bindtap="finishtask">完成任务</i-button>
+
+
+
+
+
+

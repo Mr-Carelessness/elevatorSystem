@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高德地图hello world</title>
+    <style>
+        #container{
+            margin-left:auto;
+            margin-right:auto;
+            height:350px;
+            width:600px;
+        }
+    </style>
+    <script type="text/javascript" src="../../src/js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+	
+<div id="container">
+</div>
+
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=839d1e56add15274d9e56587a2337495"></script>
+<!--<script type="text/javascript" src="gdmap-test.js"></script>-->
+<script>
+	$(function() {
+		var map = new AMap.Map('container');
+		map.setZoom(15);
+		map.plugin(['AMap.Scale'], function() {
+			var scale = new AMap.Scale({});
+			map.addControl(scale);
+		});
+	
+		map.plugin('AMap.Geolocation', function() {
+			var geolocation = new AMap.Geolocation({
+				enableHighAccuracy: true, // 是否使用高精度定位，默认：true
+				convert: true,
+				showMarker: true,
+				panToLocation: true,
+				timeout: 2000
+			});
+	
+			geolocation.getCurrentPosition();
+			map.addControl(geolocation);
+			AMap.event.addListener(geolocation, 'complete', onComplete)
+			AMap.event.addListener(geolocation, 'error', onError)
+	
+			function onComplete(data) {
+				// data是具体的定位信息
+				window.alert("定位成功！");
+			}
+	
+			function onError(data) {
+				// 定位出错
+				window.alert("定位出错！");
+			}
+		})
+	
+	});
+</script>
+
+</body>
+</html>

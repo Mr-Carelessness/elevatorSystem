@@ -1,0 +1,4 @@
+/* pages/elevator-score/elevator-score.wxss */
+.indinfo{
+  padding:12px 15px;
+}

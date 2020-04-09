@@ -1,0 +1,60 @@
+<!--pages/task/task.wxml-->
+<view>
+  <view style="background: -webkit-linear-gradient(top, #2d8cf0, #5cadff, #f8f8f9, #fefeff);">
+    <view class="head" style="width:100%; height:180px; background-image:url('https://zuccsecondary.cn/resource/img/30604592.jpeg'); background-size:100% 100%; -moz-background-size:100% 100%;">
+    </view>
+  </view>
+  <view wx:if="{{userInfo.type > 0}}">
+    <view style="padding:10px 5px 0 15px; color:#495060;">您当前的需要完成的任务有（<text style="font-weight:900;color:#1c2438;">请点击进入完成任务</text>）：</view>
+    <view wx:if="{{userInfo.type==1 || userInfo.type==5}}" style="padding:12px 0px 12px 15px; border: dashed #80848f 2px; margin:10px; border-radius: 5px; background:#fff;" bindtap="finishTask" data-type="1">
+      <i-row>
+        <i-col span="18" i-class="col-class">
+          <view style="font-size:15px; color:#1c2438; font-weight:900; margin-bottom:5px;">电梯施工信息记录</view>
+          <view style="font-size:14px; color:#495060;">您在该任务中需要对您所负责的电梯施工过程进行管理，并记录电梯信息、所使用的设备信息，确保电梯施工高质量完成。</view>
+        </i-col>
+        <i-col span="6" i-class="col-class" style="text-align:center;">
+          <image src="../../img/task-construction.png" style="width:130rpx; height:130rpx; border-radius:65rpx;"></image>
+        </i-col>
+      </i-row>
+    </view>
+    <view wx:if="{{userInfo.type==2 || userInfo.type==5}}" style="padding:12px 0px 12px 15px; border: dashed #80848f 2px; margin:10px; border-radius: 5px; background:#fff;" bindtap="finishTask" data-type="2">
+      <i-row>
+        <i-col span="18" i-class="col-class">
+          <view style="font-size:15px; color:#1c2438; font-weight:900; margin-bottom:5px;">电梯巡查</view>
+          <view style="font-size:14px; color:#495060;">您需要经常巡查您所在单位电梯的安全状况，并进行相关记录。</view>
+        </i-col>
+        <i-col span="6" i-class="col-class" style="text-align:center;">
+          <image src="../../img/task-inspection.png" style="width:130rpx; height:130rpx; border-radius:65rpx;"></image>
+        </i-col>
+      </i-row>
+    </view>
+    <view wx:if="{{userInfo.type==3 || userInfo.type==5}}" style="padding:12px 0px 12px 15px; border: dashed #80848f 2px; margin:10px; border-radius: 5px; background:#fff;" bindtap="finishTask" data-type="3">
+      <i-row>
+        <i-col span="18" i-class="col-class">
+          <view style="font-size:15px; color:#1c2438; font-weight:900; margin-bottom:5px;">电梯维护</view>
+          <view style="font-size:14px; color:#495060;">您需要完成您被分配到的维护任务，对电梯进行维护，并记录维护信息，以问卷的形式填写电梯维护记录调查。</view>
+        </i-col>
+        <i-col span="6" i-class="col-class" style="text-align:center;">
+          <image src="../../img/task-maintainence.png" style="width:130rpx; height:130rpx; border-radius:65rpx;"></image>
+        </i-col>
+      </i-row>
+    </view>
+    <view wx:if="{{userInfo.type==4 || userInfo.type==5}}" style="padding:12px 0px 12px 15px; border: dashed #80848f 2px; margin:10px; border-radius: 5px; background:#fff;" bindtap="finishTask" data-type="4">
+      <i-row>
+        <i-col span="18" i-class="col-class">
+          <view style="font-size:15px; color:#1c2438; font-weight:900; margin-bottom:5px;">电梯检测</view>
+          <view style="font-size:14px; color:#495060;">您需要完成您被分配到的检测任务，检测该电梯是否达到成功运行要求，并记录相关检测信息。</view>
+        </i-col>
+        <i-col span="6" i-class="col-class" style="text-align:center;">
+          <image src="../../img/task-testing.png" style="width:130rpx; height:130rpx; border-radius:65rpx;"></image>
+        </i-col>
+      </i-row>
+    </view>
+  </view>
+  <view wx:else>
+    <view style="padding:15px; color:#80848f; font-weight:900"><text>您当前的身份是普通用户，暂时没有什么任务哦！您可以前往“电梯信息”查看您附近的电梯信息详情！</text></view>
+  </view>
+</view>
+
+
+

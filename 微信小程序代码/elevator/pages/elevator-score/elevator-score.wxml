@@ -1,0 +1,82 @@
+<!--pages/elevator-score/elevator-score.wxml-->
+<view>
+  <view style="margin-top:5px; margin-bottom:20px;">
+    <i-card title="{{name}}">
+        <view slot="content">得分：<text style="font-size:24px; color:{{color.score}}; font-weight:900;">{{score}}</text></view>
+        <view slot="footer">提示：<text style="color:{{color.score}};">{{hint}}</text></view>
+    </i-card>
+  </view>
+  
+  
+
+  <view style="font-size:15px; color:#1c2438; font-weight:900; margin-left:10px;">以下为该电梯的得分详情：</view>
+  <i-panel title="● 单位安全管理">
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">安全管理制度：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind1}}" controlled="true" value="{{ind.ind1}}" disabled />
+      <text style="color:{{color.ind1}}; margin-left:5px;">{{ind.ind1}}</text>
+    </view>
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">安全技术档案：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind2}}" controlled="true" value="{{ind.ind2}}" disabled />
+      <text style="color:{{color.ind2}}; margin-left:5px;">{{ind.ind2}}</text>
+    </view>
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">应急救援机制：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind3}}" controlled="true" value="{{ind.ind3}}" disabled />
+      <text style="color:{{color.ind3}}; margin-left:5px;">{{ind.ind3}}</text>
+    </view>
+  </i-panel>
+  <i-panel title="● 电梯安全状况">
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">日常巡查情况：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind4}}" controlled="true" value="{{ind.ind4}}" disabled />
+      <text style="color:{{color.ind4}}; margin-left:5px;">{{ind.ind4}}</text>
+    </view>
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">定期检查情况：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind5}}" controlled="true" value="{{ind.ind5}}" disabled />
+      <text style="color:{{color.ind5}}; margin-left:5px;">{{ind.ind5}}</text>
+    </view>
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">维保情况：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind6}}" controlled="true" value="{{ind.ind6}}" disabled />
+      <text style="color:{{color.ind6}}; margin-left:5px;">{{ind.ind6}}</text>
+    </view>
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">电梯使用状态：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind7}}" controlled="true" value="{{ind.ind7}}" disabled />
+      <text style="color:{{color.ind7}}; margin-left:5px;">{{ind.ind7}}</text>
+    </view>
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">用户体验：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind8}}" controlled="true" value="{{ind.ind8}}" disabled />
+      <text style="color:{{color.ind8}}; margin-left:5px;">{{ind.ind8}}</text>
+    </view>
+  </i-panel>
+  <i-panel title="● 人员管理">
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">安全管理机构设置：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind9}}" controlled="true" value="{{ind.ind9}}" disabled />
+      <text style="color:{{color.ind9}}; margin-left:5px;">{{ind.ind9}}</text>
+    </view>
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">作业人员持证状况：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind10}}" controlled="true" value="{{ind.ind10}}" disabled />
+      <text style="color:{{color.ind10}}; margin-left:5px;">{{ind.ind10}}</text>
+    </view>
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">安全培训状况：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind11}}" controlled="true" value="{{ind.ind11}}" disabled />
+      <text style="color:{{color.ind11}}; margin-left:5px;">{{ind.ind11}}</text>
+    </view>
+    <view class="indinfo">
+      <text style="font-size:14px; color:#495060;">任务完成度：</text>
+      <wux-rater font-size="{{ 20 }}" activeColor="{{color.ind12}}" controlled="true" value="{{ind.ind12}}" disabled />
+      <text style="color:{{color.ind12}}; margin-left:5px;">{{ind.ind12}}</text>
+    </view>
+  </i-panel>
+  <view style="margin-bottom:10px;"></view>
+</view>
+
+

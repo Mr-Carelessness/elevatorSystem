@@ -1,0 +1,125 @@
+/* pages/elevator/elevator.wxss */
+.map_container{
+  position: absolute;
+  top: 42px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.map{
+  width: 100%;
+  height: 100%;
+}
+
+text{
+  margin: 5px 0;
+  /*display: block;*/
+  font-size:12px;
+}
+.h1{
+  margin: 15px 0;
+  font-size:15px;
+}
+
+.notice-bar{
+  width: 100%;
+  height: 36px; 
+  position: fixed;
+  bottom: 0;
+  z-index: 50;
+}
+.shadow{
+  width: 100%;
+  height: 100%;
+  z-index: 80;
+  position: absolute;
+  top: 0;
+  background-color: #000;
+  opacity: 0.05;
+}
+.choosen{
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  height: 120px; 
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  border: solid #dddee1 1px;
+  border-top-left-radius: 14rpx;
+  border-top-right-radius: 14rpx;
+  z-index: 98;
+}
+.container-box {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 15rpx;
+  margin: 0 auto;
+  z-index: 98;
+}
+
+/* 搜索部分 */
+.section{
+  height: 40px;
+  width: 100%;
+  background-color: #EFEFF4;
+  border-top: 1rpx solid #D7D6DC;
+  border-bottom: 1rpx solid #D7D6DC;
+}
+.section input{
+  width:70%;
+  position: absolute;
+  left: 20rpx;
+  top: 10rpx;
+  border:1px solid #c3c3c3;
+  height:30px;
+  border-radius: 3px;
+  padding: 0 5px;
+
+}
+.btn-Wc{
+  margin-right: 10rpx;
+  margin-left: 10rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 5rpx;
+  width: 20%;
+  background-color: #2b85e4;
+  color: #fff;
+  font-weight: 900;
+  border-radius: 5px;
+  height:30px;
+  /*background-color: #2b85e4;*/
+}
+.text_box{
+  margin: 5px 15px;
+  border-bottom:1px solid #dddee1;
+  padding-bottom:5px;
+  z-index: 110;
+}
+#text_box_outer{
+  position: absolute;
+  top: 42px;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  background-color: white;
+  z-index: 100;
+}
+.text_box_title{
+  font-size: 14px;
+  color: #495060;
+}
+.text_box_address{
+  font-size: 12px;
+  color: #80848f;
+}
+.img_Ss{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 10rpx;
+}

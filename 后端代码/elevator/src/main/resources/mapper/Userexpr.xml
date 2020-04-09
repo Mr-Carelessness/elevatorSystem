@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.UserexprDao"> 
+
+	<!-- Manager与数据库对应的映射关系  -->
+	<resultMap type="cn.edu.zucc.elevator.entity.Userexpr" id="BeanUserexpr">
+		<id column="uid" property="id" />
+		<result column="record" property="record" />
+		<result column="score" property="score" />
+		<result column="elevatorId" property="elevatorId" />
+		<!-- 外键连接operator -->
+		<association property="operator" javaType="cn.edu.zucc.elevator.entity.Operator">
+			<id column="oid" property="id" />
+			<result column="realname" property="realname" />
+			<result column="telephone" property="telephone" />
+			<result column="avatarUrl" property="avatarUrl" />
+		</association>
+	</resultMap>
+	
+	<!-- 插入用户体验信息[实现] -->
+	<insert id="insertUserexpr" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Userexpr">
+		INSERT INTO 
+			userexpr(id, record, score, operatorId, elevatorId, delflag)
+		VALUES
+			(#{id}, #{record}, #{score}, #{operatorId}, #{elevatorId}, #{delflag})
+	</insert>
+	
+	<!-- 删除管理员信息[实现] -->
+	<update id="deleteUserexpr">
+		UPDATE 
+			userexpr
+		SET
+			delflag = 1
+		WHERE 
+			id=#{userexprId}
+	</update>
+
+	<!-- 根据电梯id查找用户体验列表(获取分页数据)[实现] -->
+	<select id="selectUserexprPageListByElevatorId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanUserexpr">
+		SELECT 
+			u.id as uid,
+			u.record as record,
+			u.score as score,
+			u.elevatorId as elevatorId,
+			o.id as oid,
+			o.realname as realname,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl
+		FROM 
+			userexpr u left outer join operator o on u.operatorId = o.id
+		<where>
+			u.delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND u.elevatorId = #{keyWord}
+			</if>
+		</where>
+		ORDER BY 
+			O.id ASC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据电梯id查找用户体验列表(获取数据总数)[实现] -->
+	<select id="selectUserexprPageCountByElevatorId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			userexpr
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND elevatorId = #{keyWord}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据用户id、电梯id查询用户体验记录列表[实现] -->
+	<select id="selectUserexprPageListByOperatorIdAndElevatorId"
+		resultMap="BeanUserexpr">
+		SELECT 
+			u.id as uid,
+			u.record as record,
+			u.score as score,
+			u.elevatorId as elevatorId,
+			o.id as oid,
+			o.realname as realname,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,
+		FROM 
+			userexpr u left outer join operator o on u.operatorId = o.id
+		WHERE 
+			u.delflag = 0 AND u.elevatorId=#{elevatorId} AND u.operatorId=#{operatorId}
+	</select>
+
+	<!-- 根据电梯id查找用户体验平均分(获取数据总数)[实现] -->
+	<select id="selectUserexprAvgScore"
+		resultType="java.lang.Float">
+		SELECT 
+			avg(score) as score
+		FROM 
+			userexpr
+		<where>
+			delflag = 0 AND elevatorId=#{elevatorId}
+		</where>
+	</select>
+</mapper>
+  

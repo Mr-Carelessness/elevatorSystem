@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.DemoDao">
+	<sql id="BaseDemo">
+		id id,
+		name name,
+		level level
+	</sql>
+	<select id="queryDemo"
+		resultType="cn.edu.zucc.elevator.entity.Demo">
+		SELECT id, name, level
+		FROM demo
+		ORDER BY level DESC
+	</select>
+	<select id="queryDemoById"
+		resultType="cn.edu.zucc.elevator.entity.Demo">
+		SELECT id, name, level
+		FROM demo
+		WHERE id=#{demoId}
+		ORDER BY level DESC
+	</select>
+
+
+	<!-- 通过条件分页查询，返回数据集 -->
+	<select id="selectPageList"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="Demo">
+		select
+			id,name,level
+		from demo
+		<where>
+			<if test="keyWord!='' and keyWord!=null ">
+				name like '%' #{keyWord} '%'
+			</if>
+		</where>
+		order by level DESC
+		limit #{start},#{rows}
+	</select>
+
+	<!-- 通过条件分页查询，返回总记录数 -->
+	<select id="selectPageCount"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		select count(1) 
+		from demo
+		<where>
+			<if test="keyWord!='' and keyWord!=null ">
+				name like '%' #{keyWord} '%'
+			</if>
+		</where>
+	</select>
+
+
+
+	<insert id="insertDemo" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Demo">
+		INSERT INTO demo(name,level)
+		VALUES
+		(#{name},#{level})
+	</insert>
+	<update id="updateDemo"
+		parameterType="cn.edu.zucc.elevator.entity.Demo">
+		update demo
+		<set>
+			<if test="name!=null">name=#{name},</if>
+			<if test="level!=null">level=#{level}</if>
+		</set>
+		where id=#{id}
+	</update>
+	<delete id="deleteDemo">
+		DELETE FROM demo
+		WHERE id = #{id}
+	</delete>
+</mapper>
+  

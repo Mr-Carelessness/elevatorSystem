@@ -1,0 +1,24 @@
+var info = {
+  getConstructionState: function(state){
+    if(state ==1)       return "施工中";
+    else if(state == 2) return "施工完成";
+    else                return "待安排";
+  },
+  getMaintainenceState: function(state){
+    if(state ==1)       return "维护中";
+    else if(state == 2) return "维护完成";
+    else                return "待安排";
+  },
+  getTestingState: function(state){
+    if(state ==1)       return "检测中";
+    else if(state == 2) return "检测完成";
+    else                return "待安排";
+  }
+};
+// 导出对外暴露的属性
+module.exports = {
+	getConstructionState: info.getConstructionState,
+  getMaintainenceState: info.getMaintainenceState,
+  getTestingState: info.getTestingState
+}
+

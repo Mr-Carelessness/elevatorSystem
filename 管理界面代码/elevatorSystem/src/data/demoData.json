@@ -1,0 +1,27 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 30,          //数据库数据的总条数
+    "data": [             //根据page=3&limit=10
+        {                 //返回的是第3页的内容，每页的限制条数是10条（data只需要第三页的10条即可）
+            "id": "1",
+            "name": null,
+            "sex": null,
+            "password": "??",
+            "character": null,
+            "enrollment": "????",
+            "class": null,
+            "phonenumber": "123"
+        },
+        {
+            "id": "10",
+            "name": null,
+            "sex": null,
+            "password": "??",
+            "character": null,
+            "enrollment": "????",
+            "class": null,
+            "phonenumber": "123"
+        }
+    ]
+}

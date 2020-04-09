@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>电梯指标得分及详情</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+			.center{
+				text-align: center;
+			}
+			.body{
+				padding-top: 10px;
+			}
+			
+		</style>
+	</head>
+
+	<body class="body">
+		<!--<fieldset class="layui-elem-field layui-field-title" style="margin: 25px;">
+			<legend style="font-weight: 700;">基本信息：</legend>
+		</fieldset>-->
+		
+		
+		<div class="layui-row" style="padding-left: 5px; padding-right: 30px;">
+			
+			
+			
+    		<div class="layui-col-md8">
+    			<form class="layui-form layui-form-pane" lay-filter="show_form" style="padding-left:30px">
+					
+					<div class="layui-form-item" style="margin-bottom: 25px;">
+						<div>
+							<div style="line-height: 40px;">目前该电梯的得分为：<span id="score" style="font-weight: 900;">1.1</span></div>
+							<div id="hint" style="line-height: 40px; color:#393D49; background-color: #f2f2f2; padding-left: 15px; padding-right: 15px; width: 98%;"></div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<fieldset class="layui-elem-field layui-field-title">
+							<legend>具体得分：</legend>
+						</fieldset>
+						<div id="hint" style="line-height: 40px; color:#393D49; background-color: #f2f2f2; padding-left: 15px; padding-right: 15px; width: 98%;">提示：各项指标满分均为5分，根据不同的情况评分会显示不同的颜色！</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div style="font-weight: 900; color: #009688; font-size: 16px; line-height: 40px;">● 单位安全管理</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">安全管理制度：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate1" style="display: inline-block;"></div>
+								<div id="ind1" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">安全技术档案：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate2" style="display: inline-block;"></div>
+								<div id="ind2" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">应急救援机制：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate3" style="display: inline-block;"></div>
+								<div id="ind3" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div style="font-weight: 900; color: #2F4056; font-size: 16px; line-height: 40px;">● 电梯安全状况</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">日常巡查情况：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate4" style="display: inline-block;"></div>
+								<div id="ind4" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">定期检查情况：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate5" style="display: inline-block;"></div>
+								<div id="ind5" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">维保情况：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate6" style="display: inline-block;"></div>
+								<div id="ind6" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">电梯使用状态：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate7" style="display: inline-block;"></div>
+								<div id="ind7" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">用户体验：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate8" style="display: inline-block;"></div>
+								<div id="ind8" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<div style="font-weight: 900; color: #1E9FFF; font-size: 16px; line-height: 40px;">● 人员管理</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">安全管理机构设置：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate9" style="display: inline-block;"></div>
+								<div id="ind9" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">作业人员持证状况：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate10" style="display: inline-block;"></div>
+								<div id="ind10" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">安全培训状况：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate11" style="display: inline-block;"></div>
+								<div id="ind11" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">任务完成度：</label>
+							<div class="layui-input-block " style="margin-left: 200px; width: 100%;">
+								<div id="rate12" style="display: inline-block;"></div>
+								<div id="ind12" style="display: inline-block;"></div>
+							</div>
+						</div>
+					</div>
+					
+					
+				</form>
+    			
+    		</div>
+    		
+    	</div>
+			
+		<fieldset class="layui-elem-field layui-field-title" style="margin: 25px;">
+		</fieldset>
+		
+		<script type="text/javascript" src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="elevator-score.js"></script>
+	</body>
+
+</html>

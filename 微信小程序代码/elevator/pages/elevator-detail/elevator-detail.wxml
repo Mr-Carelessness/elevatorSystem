@@ -1,0 +1,39 @@
+<!--pages/elevator-detail/elevator-detail.wxml-->
+<view class="block">
+  <i-panel title="基本信息">
+    <i-cell-group>
+      <i-cell title="电梯名称" value="{{elevator.elevatorName}}"></i-cell>
+      <i-cell title="所属公司" value="{{elevator.company.cname}}"></i-cell>
+      <i-cell title="地址" value="{{elevator.address}}"></i-cell>
+      <i-cell title="当前状态" value="{{ stateArr[elevator.state] }}"></i-cell>
+      <i-cell title="得分" value="{{elevator.score}}"></i-cell>
+      <i-cell title="运行日期" value="{{elevator.runningDate}}"></i-cell>
+    </i-cell-group>
+  </i-panel>
+</view>
+
+<view class="block">
+  <i-panel title="电梯参数">
+    <i-cell-group>
+      <i-cell title="设备名称" value="{{elevator.equipmentName}}"></i-cell>
+      <i-cell title="层数" value="{{elevator.floor}}"></i-cell>
+      <i-cell title="最大运行速度" value="{{(elevator.speed!=null&&elevator.speed!='')?(elevator.speed+'m/s'):''}}"></i-cell>
+      <i-cell title="最大承重" value="{{(elevator.weight!=null&&elevator.weight!='')?(elevator.weight+'kg'):''}}"></i-cell>
+      <i-cell title="提升高度" value="{{(elevator.liftHeight!=null&&elevator.liftHeight!='')?(elevator.liftHeight+'m'):''}}"></i-cell>
+    </i-cell-group>
+  </i-panel>
+</view>
+
+<view class="block">
+  <i-panel title="操作" style="background-color: #ffffffff"></i-panel>
+  <view>
+    <i-row><button class="btn" bindtap="detail" type="ghost" style="background-color:#fff;">查看得分详情</button></i-row>
+    <i-row><button class="btn" bindtap="userexpr" type="primary" style="background-color:#2d8cf0;">电梯评价</button></i-row>
+    <i-row>
+      <i-col span="12" i-class="col-class"><button class="btn" bindtap="construction" type="warning" style="margin-right:5px;background-color:#ff9900;color:#fff;">查看施工信息</button></i-col>
+      <i-col span="12" i-class="col-class"><button class="btn" bindtap="inspection" type="info" style="margin-left:5px;background-color:#5cadff;color:#fff;">查看近期巡查记录</button></i-col>
+      <i-col span="12" i-class="col-class"><button class="btn" bindtap="maintainence" type="success" style="margin-right:5px;background-color:#19be6b;color:#fff;">查看近期维护记录</button></i-col>
+      <i-col span="12" i-class="col-class"><button class="btn" bindtap="testing" type="error" style="margin-left:5px;background-color:#ed3f14;color:#fff;">查看近期检测记录</button></i-col>
+    </i-row>
+  </view>
+</view>

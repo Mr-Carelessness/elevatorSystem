@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.MaintainenceDao">
+	
+	<!-- Maintainence与数据库对应的映射关系  -->
+	<resultMap type="cn.edu.zucc.elevator.entity.Maintainence" id="BeanMaintainence">
+		<id column="mid" property="id" />
+		<result column="mcompanyId" property="companyId" />
+		<result column="questions" property="questions" />
+		<result column="answers" property="answers" />
+		<result column="record" property="record" />
+		<result column="startDate" property="startDate" />
+		<result column="finishDate" property="finishDate" />
+		<result column="realFinishDate" property="realFinishDate" />
+		<result column="state" property="state" />
+		<result column="mscore" property="score" />
+		<result column="mdelflag" property="delflag" />
+		<!-- 外键连接Company -->
+		<association property="company" javaType="cn.edu.zucc.elevator.entity.Company">
+			<id column="coid" property="id" />
+			<result column="cocname" property="cname" />
+			<result column="coaddress" property="address" />
+		</association>
+		<!-- 外键连接operator -->
+		<association property="operator" javaType="cn.edu.zucc.elevator.entity.Operator">
+			<id column="oid" property="id" />
+			<result column="username" property="username" />
+			<result column="realname" property="realname" />
+			<result column="type" property="type" />
+			<result column="telephone" property="telephone" />
+			<result column="avatarUrl" property="avatarUrl" />
+			<result column="licenseUrl" property="licenseUrl" />
+			<result column="createTime" property="createTime" />
+			<result column="odelflag" property="delflag" />
+		</association>
+		<!-- 外键连接elevator -->
+		<association property="elevator" javaType="cn.edu.zucc.elevator.entity.Elevator">
+			<id column="eid" property="id" />
+			<result column="ecompanyId" property="companyId" />
+			<result column="elevatorName" property="elevatorName" />
+			<result column="equipmentType" property="equipmentType" />
+			<result column="equipmentName" property="equipmentName" />
+			<result column="typeNumber" property="typeNumber" />
+			<result column="speed" property="speed" />
+			<result column="floor" property="floor" />
+			<result column="weight" property="weight" />
+			<result column="liftHeight" property="liftHeight" />
+			<result column="eaddress" property="address" />
+			<result column="longtitude" property="longtitude" />
+			<result column="latitude" property="latitude" />
+			<result column="estate" property="state" />
+			<result column="planDate" property="planDate" />
+			<result column="runningDate" property="runningDate" />
+			<result column="escore" property="score" />
+			<result column="edelflag" property="delflag" />
+			<!-- 外键连接company -->
+			<association property="company" javaType="cn.edu.zucc.elevator.entity.Company">
+				<id column="cid" property="id" />
+				<result column="cname" property="cname" />
+				<result column="caddress" property="address" />
+				<result column="authority" property="authority" />
+				<result column="safetyManagementInfo" property="safetyManagementInfo" />
+				<result column="securityTechnologyInfo" property="securityTechnologyInfo" />
+				<result column="emegyTechnologyInfo" property="emegyTechnologyInfo" />
+				<result column="safetyOrganizationInfo" property="safetyOrganizationInfo" />
+				<result column="sealUrl" property="sealUrl" />
+				<result column="avatarUrl" property="avatarUrl" />
+				<result column="cdelflag" property="delflag" />
+			</association>
+		</association>
+	</resultMap>
+	
+	<!-- 插入维护信息[实现] -->
+	<insert id="insertMaintainence" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Maintainence">
+		INSERT INTO 
+			maintainence(operatorId, elevatorId, companyId, questions, answers, record, startDate, finishDate, realFinishDate, state, score, delflag)
+		VALUES
+			(#{operatorId}, #{elevatorId}, #{companyId}, #{questions}, #{answers}, #{record}, #{startDate}, #{finishDate}, #{realFinishDate}, #{state}, #{score}, #{delflag})
+	</insert>
+	
+	<!-- 修改维护信息[实现] -->
+	<update id="updateMaintainence"
+		parameterType="cn.edu.zucc.elevator.entity.Maintainence">
+		UPDATE 
+			maintainence
+		<set>
+			<if test="operatorId!=null">operatorId=#{operatorId},</if>
+			<if test="elevatorId!=null">elevatorId=#{elevatorId},</if>
+			<if test="companyId!=null">companyId=#{companyId},</if>
+			<if test="questions!=null">questions=#{questions},</if>
+			<if test="answers!=null">answers=#{answers},</if>
+			<if test="record!=null">record=#{record},</if>
+			<if test="startDate!=null">startDate=#{startDate},</if>
+			<if test="finishDate!=null">finishDate=#{finishDate},</if>
+			<if test="realFinishDate!=null">realFinishDate=#{realFinishDate},</if>
+			<if test="state!=null">state=#{state},</if>
+			<if test="score!=null">score=#{score}</if>
+		</set>
+		WHERE 
+			id=#{id}
+	</update>
+	
+	<!-- 删除维护信息[实现] -->
+	<update id="deleteMaintainence">
+		UPDATE 
+			maintainence
+		SET
+			delflag = 1
+		WHERE 
+			id=#{maintainenceId}
+	</update>
+	
+	<!-- 根据维护id查询维护信息[实现] -->
+	<select id="selectMaintainenceById"
+		resultMap="BeanMaintainence">
+		SELECT 
+			m.id as mid,
+			m.companyId as mcompanyId,
+			m.questions as questions,
+			m.answers as answers,
+			m.record as record,
+			m.startDate as startDate,
+			m.finishDate as finishDate,
+			m.realFinishDate as realFinishDate,
+			m.state as state,
+			m.score as mscore,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			co.id as coid,
+			co.cname as cocname,
+			co.address as coaddress
+		FROM
+			maintainence m 
+			left outer join operator o on m.operatorId = o.id 
+		    left outer join elevator e on m.elevatorId = e.id 
+		    left outer join company c on e.companyId = c.id
+		    left outer join company co on m.companyId = co.id
+		WHERE 
+			m.delflag = 0 AND m.id=#{maintainenceId}
+	</select>
+	
+	<!-- 根据电梯id查询维护记录列表(获取分页数据)[实现] -->
+	<select id="selectMaintainencePageListByElevatorId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanMaintainence">
+		SELECT 
+			m.id as mid,
+			m.companyId as mcompanyId,
+			m.questions as questions,
+			m.answers as answers,
+			m.record as record,
+			m.startDate as startDate,
+			m.finishDate as finishDate,
+			m.realFinishDate as realFinishDate,
+			m.state as state,
+			m.score as mscore,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			co.id as coid,
+			co.cname as cocname,
+			co.address as coaddress
+		FROM
+			maintainence m 
+			left outer join operator o on m.operatorId = o.id 
+		    left outer join elevator e on m.elevatorId = e.id 
+		    left outer join company c on e.companyId = c.id
+		    left outer join company co on m.companyId = co.id
+		<where>
+			m.delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND m.elevatorId = #{userid}
+			</if> 
+		</where>
+		ORDER BY 
+			m.finishDate DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据电梯id获取维护记录列表(获取数据总数)[实现] -->
+	<select id="selectMaintainencePageCountByElevatorId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			maintainence
+		<where>
+			delflag = 0 
+			<if test="userid!='' and userid!=null ">
+				AND elevatorId = #{userid} 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据维护公司id与维护状态获取维护记录列表(获取分页数据)[实现] -->
+	<select id="selectMaintainencePageListByCompanyIdAndState"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanMaintainence">
+		SELECT 
+			m.id as mid,
+			m.companyId as mcompanyId,
+			m.questions as questions,
+			m.answers as answers,
+			m.record as record,
+			m.startDate as startDate,
+			m.finishDate as finishDate,
+			m.realFinishDate as realFinishDate,
+			m.state as state,
+			m.score as mscore,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			co.id as coid,
+			co.cname as cocname,
+			co.address as coaddress
+		FROM
+			maintainence m 
+			left outer join operator o on m.operatorId = o.id 
+		    left outer join elevator e on m.elevatorId = e.id 
+		    left outer join company c on e.companyId = c.id
+		    left outer join company co on m.companyId = co.id
+		<where>
+			m.delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND m.companyId = #{userid}
+			</if>
+			<if test="keyWord!='' and keyWord!=null ">
+				AND m.state = #{keyWord}
+			</if>
+		</where>
+		ORDER BY 
+			m.state ASC, m.id DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据维护公司id与维护状态获取维护记录列表(获取分页数据)[实现] -->
+	<select id="selectMaintainencePageListByCompanyIdAndState2"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanMaintainence">
+		SELECT 
+			m.id as mid,
+			m.companyId as mcompanyId,
+			m.questions as questions,
+			m.answers as answers,
+			m.record as record,
+			m.startDate as startDate,
+			m.finishDate as finishDate,
+			m.realFinishDate as realFinishDate,
+			m.state as state,
+			m.score as mscore,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			co.id as coid,
+			co.cname as cocname,
+			co.address as coaddress
+		FROM
+			maintainence m 
+			left outer join operator o on m.operatorId = o.id 
+		    left outer join elevator e on m.elevatorId = e.id 
+		    left outer join company c on e.companyId = c.id
+		    left outer join company co on m.companyId = co.id
+		<where>
+			m.delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND m.companyId = #{userid}
+			</if>
+			<if test="keyWord!='' and keyWord!=null ">
+				AND m.state = #{keyWord}
+			</if>
+		</where>
+		ORDER BY 
+			m.id DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据维护公司id与维护状态获取维护记录列表(获取数据总数)[实现] -->
+	<select id="selectMaintainencePageCountByCompanyIdAndState"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			maintainence 
+		<where>
+			delflag = 0 
+			<if test="userid!='' and userid!=null ">
+				AND companyId = #{userid}
+			</if>
+			<if test="keyWord!='' and keyWord!=null ">
+				AND state = #{keyWord}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据日期与操作者id获取维护记录列表[实现] -->
+	<select id="selectMaintainenceListByOperatorIdAndDate"
+		resultMap="BeanMaintainence">
+		SELECT 
+			m.id as mid,
+			m.companyId as mcompanyId,
+			m.questions as questions,
+			m.answers as answers,
+			m.record as record,
+			m.startDate as startDate,
+			m.finishDate as finishDate,
+			m.realFinishDate as realFinishDate,
+			m.state as state,
+			m.score as mscore,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			co.id as coid,
+			co.cname as cocname,
+			co.address as coaddress
+		FROM
+			maintainence m 
+			left outer join operator o on m.operatorId = o.id 
+		    left outer join elevator e on m.elevatorId = e.id 
+		    left outer join company c on e.companyId = c.id
+		    left outer join company co on m.companyId = co.id
+		<where>
+			m.delflag = 0
+			<if test="operatorId!='' and operatorId!=null "> 
+				AND m.operatorId = #{operatorId}
+			</if>
+			<if test="date!=null">
+				AND ( #{date} <![CDATA[ > ]]> m.startDate ) 
+				AND ( #{date} <![CDATA[ < ]]> (DATE_ADD(m.finishDate,INTERVAL 1 DAY)) ) 
+			</if>
+		</where>
+		ORDER BY 
+			m.id ASC
+	</select>
+	
+	<!-- 根据电梯id计算近三次维护状况的平局分[实现] -->
+	<select id="selectMaintainenceAvgScore"
+		resultType="java.lang.Float">
+		SELECT 
+			avg(score) as score
+		FROM
+			maintainence
+		WHERE 
+			elevatorId = #{elevatorId}
+		ORDER BY 
+			realFinishDate DESC
+		LIMIT 
+			0,3
+	</select>
+</mapper>
+  

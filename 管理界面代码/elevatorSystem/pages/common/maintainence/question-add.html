@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>添加维护问题</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				<div style="color: #393D49; margin-bottom: 10px; padding: 10px; background: #F0F0F0;">
+					<b>提示：</b>根据实际情况添加维护问题，一个必须至少拥有两个答案，并且答案A、B、C、D、E按照<b>从好到坏</b>降序排列！
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">问题</label>
+					<div class="layui-input-block ">
+						<input type="text" name="question" required lay-verify="required" autocomplete="off" placeholder="填写维护问题" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">答案A</label>
+					<div class="layui-input-block ">
+						<input type="text" name="answerA" required lay-verify="required" autocomplete="off" placeholder="填写维护答案" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">答案B</label>
+					<div class="layui-input-block ">
+						<input type="text" name="answerB" required lay-verify="required" autocomplete="off" placeholder="填写维护答案" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">答案C</label>
+					<div class="layui-input-block ">
+						<input type="text" name="answerC" autocomplete="off" placeholder="" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">答案D</label>
+					<div class="layui-input-block ">
+						<input type="text" name="answerD" autocomplete="off" placeholder="" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">答案E</label>
+					<div class="layui-input-block ">
+						<input type="text" name="answerE" autocomplete="off" placeholder="" class="layui-input">
+					</div>
+				</div>
+				
+				
+				
+				<div class="layui-form-item layui-field-title">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend style="font-weight: 700;"></legend>
+					</fieldset>
+				</div>
+				<div class="layui-form-item" style="margin-top: 30px;  text-align: center;">
+					<div>
+						<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="sub"><i class="layui-icon layui-icon-ok"></i> 立即提交</button>
+						<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="reset"><i class="layui-icon layui-icon-refresh"></i> 重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="question-add.js"></script>
+	</body>
+
+</html>

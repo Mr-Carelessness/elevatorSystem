@@ -1,0 +1,65 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/statistic/statistic",
+    "pages/message/message",
+    "pages/info/info",
+    "pages/task/task",
+    "pages/taskstatus/taskstatus",
+    "pages/info-mod/info-mod",
+    "pages/elevator/elevator",
+    "pages/elevator-detail/elevator-detail",
+    "pages/elevator-record/elevator-record",
+    "pages/elevator-score/elevator-score",
+    "pages/elevator-userexpr/elevator-userexpr",
+    "pages/task-detail/task-detail",
+    "pages/task-finish/task-finish",
+    "pages/task-slelevator/task-slelevator"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#2d8cf0",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/elevator/elevator",
+        "iconPath": "img/icon_elevator.png",
+        "selectedIconPath": "img/icon_elevator_fill.png",
+        "text": "电梯信息"
+      },
+      {
+        "pagePath": "pages/task/task",
+        "iconPath": "img/icon_study.png",
+        "selectedIconPath": "img/icon_study_fill.png",
+        "text": "我的任务"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "iconPath": "img/icon_message.png",
+        "selectedIconPath": "img/icon_message_fill.png",
+        "text": "历史消息"
+      },
+      {
+        "pagePath": "pages/info/info",
+        "iconPath": "img/icon_signal.png",
+        "selectedIconPath": "img/icon_signal_fill.png",
+        "text": "个人信息"
+      }
+    ],
+    "selectedColor": "#2d8cf0",
+    "color": "#80848f",
+    "backgroundColor": "#fefeff",
+    "borderStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序的展示，我们将不会记录你的位置信息"
+    }
+  }
+}

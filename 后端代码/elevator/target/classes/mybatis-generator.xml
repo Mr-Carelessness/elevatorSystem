@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		
+		<commentGenerator>
+        <!-- 是否去除自动生成的注释 -->
+          <property name="suppressAllComments" value="true"/>
+          <property name="suppressDate" value="true"/>
+        </commentGenerator>
+		
+		<!--数据库链接URL，用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/elevator?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC" userId="root" password="31601365">
+		</jdbcConnection>
+
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+
+		<!-- 设置Java类生成的位置 -->
+		<javaModelGenerator
+			targetPackage="cn.edu.zucc.elevator.entity"
+			targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 生成映射文件的包名和位置 -->
+		<!--<sqlMapGenerator targetPackage="mapper"
+			targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator> -->
+
+		<!-- 生成DAO的包名和位置 -->
+		<!--<javaClientGenerator type="XMLMAPPER"
+			targetPackage="cn.edu.zucc.elevator.dao" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>  -->
+
+
+		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名 -->
+		<!-- <table tableName="demo"></table> -->
+		<!-- <table tableName="example"></table> -->
+		<!-- <table tableName="manager"></table> -->
+		<!-- <table tableName="company"></table> -->
+		<!-- <table tableName="safetyTraining"></table> -->
+		<!-- <table tableName="message"></table> -->
+		<!-- <table tableName="operator"></table> -->
+		<!-- <table tableName="elevator"></table> -->
+		<!-- <table tableName="indices"></table> -->
+		<!-- <table tableName="elevatorIndices"></table> -->
+		<table tableName="construction"></table>
+		<table tableName="inspection"></table>
+		<table tableName="maintainence"></table>
+		<table tableName="questionlist"></table>
+		<table tableName="testing"></table>
+		<table tableName="userexpr"></table>
+	</context>
+</generatorConfiguration>

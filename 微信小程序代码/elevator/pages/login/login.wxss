@@ -1,0 +1,4 @@
+/* pages/login/login.wxss */
+.i-panel-title{
+  padding-top: 0
+}

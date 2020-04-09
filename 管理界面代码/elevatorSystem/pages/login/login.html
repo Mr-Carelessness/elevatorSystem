@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理-登陆</title>
+    <link rel="stylesheet" href="../../src/layui/css/layui.css">
+    <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+<div id="container">
+    <div class="admin-login-background">
+        <form class="layui-form" action="">
+        	<div>
+        		<h2 class="form-head">电梯后台管理系统</h2>
+        	</div>
+            <div>
+                <i class="layui-icon layui-icon-username admin-icon admin-icon-username"></i>
+                <input type="text" name="username" placeholder="请输入用户名"
+                       autocomplete="off"
+                       class="layui-input admin-input admin-input-username">
+            </div>
+            <div>
+                <i class="layui-icon layui-icon-password admin-icon admin-icon-password"></i>
+                <input type="password" name="password"
+                       placeholder="请输入密码"
+                       autocomplete="off"
+                       class="layui-input admin-input admin-input-password">
+            </div>
+            <button class="layui-btn admin-button" lay-submit lay-filter="formDemo">登录</button>
+
+
+        </form>
+    </div>
+</div>
+<script src="../../src/layui/layui.js"></script>
+<script src="../../src/js/jquery-1.11.3.min.js"></script>
+<script src="../conf/conf.js"></script>
+<script src="login.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "统计信息",
+  "disableSwipeBack": true,
+  "navigationStyle": "default",
+  "usingComponents": {
+    "i-row": "/dist/row/index",
+    "i-col": "/dist/col/index",
+    "ec-canvas": "/dist/ec-canvas/ec-canvas"
+  }
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>消息中心</title>
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<script src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<style>
+			.fl{
+				margin-left: 0px;
+			}
+			.fr{
+				margin-top: 5px;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="padding-left: 20px; padding-right: 20px;">
+		<div class="layui-tab  layui-tab-brief">
+		  	<ul class="layui-tab-title">
+		    	<li class="layui-this">我收到的消息</li>
+		    	<li>我发出的消息</li>
+		  	</ul>
+		  	<div class="layui-tab-content">
+		    	<div class="layui-tab-item layui-show">	
+					<div class="layui-row" style="margin-bottom: -15px;">
+					    <div style="width: 100%;">
+					    	<div style="width: 80%; display: inline-block;">	    
+						  		<span class="fl">
+							    	<a class="layui-btn btn-default layui-btn-primary" lay-event="refresh" id="btn-refresh"><i class="layui-icon layui-icon-refresh-3"></i></a>
+							    </span>
+						    </div>
+						    <div style="width: 19%; display: inline-block;">
+						    	<form class="layui-form" action="">
+						    		<div class="layui-form-item">
+									    <select name="status" lay-filter="status">
+									        <option value="0">只看未读</option>
+									        <option value="1">只看已读</option>
+									        <option value="2">查看所有</option>
+									    </select>
+								    </div>
+						    	</form>
+						    </div>
+					    </div>				
+					</div>
+					<div class="layui-row">
+						<table class="layui-hide" id="demo" lay-filter="test"></table>
+					</div>	    		
+		    		
+		    	</div>
+		    	<div class="layui-tab-item">
+		    		<div class="layui-row">
+					    <div style="width: 100%;">
+					    	<div style="width: 60%; display: inline-block;">	    
+						  		<span class="fl">
+							        <a class="layui-btn btn-default" lay-event="add" id="btn-add2"><i class="layui-icon layui-icon-add-circle-fine"></i> 发送消息</a>
+							        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh" id="btn-refresh2"><i class="layui-icon layui-icon-refresh-3"></i></a>
+							    </span>
+						   </div>
+						   <div style="width: 39%; display: inline-block;">
+						   		
+						   </div>
+					    </div>				
+					</div>
+					<div class="layui-row">
+						<table class="layui-hide" id="demo2" lay-filter="test2"></table>
+					</div>	  
+		    		
+		    		
+		    	</div>
+		  	</div>
+		</div>
+		
+		<script type="text/html" id="receiverName2">
+		     {{#  if(d.receiverType == '0'){ }}
+			    <span style="color: #01AAED;"> {{d.receiverName}} </span>
+			{{#  } else{ }}
+			    <span style="color: #FF5722;"> {{d.receiverName}} </span>
+			{{#  } }}
+		</script>
+		<script type="text/html" id="senderName">
+		    {{#  if(d.senderType == '0'){ }}
+			    <span style="color: #01AAED;"> {{d.senderName}} </span>
+			{{#  } else{ }}
+			    <span style="color: #FF5722;"> {{d.senderName}} </span>
+			{{#  } }}
+		</script>
+		
+		
+		
+		<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+			{{#  if(d.status == 0){ }}
+				<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="changeState">设为已读</a>
+			{{#  } }}
+		</script>
+		<script type="text/html" id="barDemo2">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+		<script src="../../conf/conf.js"></script>
+		<script src="message.js"></script>
+	</body>
+</html>

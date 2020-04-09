@@ -1,0 +1,113 @@
+{
+    "status":{"code":200,"message":"操作成功"},
+    "data": [
+    	{
+  			"id":"01", "title": "所有朝代", "parentId": "-1",
+		    "children":[
+			    {
+			      "id":"001", "title": "唐朝", "parentId": "01", "des": "朝代描述",
+			      "children":[
+			      	{
+			        	"id":"001001", "title": "前唐", "parentId": "001", "des": "朝代描述",
+				        "children":[
+				        	{"id":"001001001", "title": "子朝代1", "parentId": "001001", "des": "朝代描述"},
+				        	{"id":"001001002", "title": "子朝代2", "parentId": "001001", "des": "朝代描述"}
+				  	      ]
+			      	},
+			      	{
+			        	"id":"001002", "title": "中唐", "parentId": "001", "des": "朝代描述",
+				        "children":[
+				        	{"id":"001001003", "title": "子朝代3", "parentId": "001001", "des": "朝代描述"},
+				        	{"id":"001001004", "title": "子朝代4", "parentId": "001001", "des": "朝代描述"}
+				        ]
+			      	},
+			      	{
+			        	"id":"001003", "title": "晚唐", "parentId": "001", "des": "朝代描述", "children":[]
+			      	}
+			      ]
+			    },
+			    {
+			      "id":"5", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"10086", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"3", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    },
+			    {
+			      "id":"002", "title": "宋朝", "parentId": "01", "des": "朝代描述", "children":[]
+			    }
+			]
+		}
+    ]
+}

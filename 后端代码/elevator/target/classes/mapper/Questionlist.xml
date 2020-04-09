@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.QuestionlistDao">
+
+	<!-- 插入问题信息[实现] -->
+	<insert id="insertQuestion" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Questionlist">
+		INSERT INTO 
+			questionList(question, answerA, answerB, answerC, answerD, answerE, delflag, frequency, priority)
+		VALUES
+			(#{question}, #{answerA}, #{answerB}, #{answerC}, #{answerD}, #{answerE}, #{delflag}, #{frequency}, #{priority})
+	</insert>
+	
+	<!-- 修改问题信息[实现] -->
+	<update id="updateQuestion"
+		parameterType="cn.edu.zucc.elevator.entity.Questionlist">
+		UPDATE 
+			questionList
+		<set>
+			<if test="question!=null">question=#{question},</if>
+			<if test="answerA!=null">answerA=#{answerA},</if>
+			<if test="answerB!=null">answerB=#{answerB},</if>
+			<if test="answerC!=null">answerC=#{answerC},</if>
+			<if test="answerD!=null">answerD=#{answerD},</if>
+			<if test="answerE!=null">answerE=#{answerE},</if>
+			<if test="delflag!=null">delflag=#{delflag},</if>
+			<if test="frequency!=null">frequency=#{frequency},</if>
+			<if test="priority!=null">priority=#{priority}</if>
+		</set>
+		WHERE 
+			id=#{id}
+	</update>
+	
+	<!-- 修改管理员信息[实现] -->
+	<update id="updateQuestionFreq"
+		parameterType="Integer[]">
+		UPDATE 
+			questionList
+		SET
+			frequency = frequency + 1
+		WHERE 
+			id in 
+			<foreach collection="array" item="id" open="(" close=")" separator=",">
+				#{id} 
+			</foreach> 
+	</update>
+	
+	<!-- 删除管理员信息[实现] -->
+	<update id="deleteQuestion">
+		UPDATE 
+			questionList
+		SET
+			delflag = 1
+		WHERE 
+			id=#{questionId}
+	</update>
+	
+	<!-- 根据id查找对应问题[实现] -->
+	<select id="selectQuestionById"
+		resultType="cn.edu.zucc.elevator.entity.Questionlist">
+		SELECT 
+			id, question, answerA, answerB, answerC, answerD, answerE, frequency, priority
+		FROM 
+			questionList
+		WHERE 
+			delflag = 0 AND id=#{questionId}
+	</select>
+
+
+	<!-- 根据问题关键字获取问题列表(获取分页数据)[实现] -->
+	<select id="selectQuestionPageListByKeyword"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="cn.edu.zucc.elevator.entity.Questionlist">
+		SELECT 
+			id, question, answerA, answerB, answerC, answerD, answerE, frequency, priority
+		FROM 
+			questionList
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND question like '%' #{keyWord} '%'
+			</if>
+		</where>
+		ORDER BY 
+			frequency DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据问题关键字获取问题列表(获取数据总数)[实现] -->
+	<select id="selectQuestionPageCountByKeyword"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			questionList
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND question like '%' #{keyWord} '%'
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据id数组获取问题列表(获取分页数据)[实现] -->
+	<select id="selectQuestionListByIdArray"
+		parameterType="Integer[]" resultType="cn.edu.zucc.elevator.entity.Questionlist"> 
+		SELECT 
+			id, question, answerA, answerB, answerC, answerD, answerE, frequency, priority
+		FROM 
+			questionList
+		WHERE
+			delflag = 0 AND id in
+			<foreach collection="array" item="id" open="(" close=")" separator=",">
+				#{id} 
+			</foreach> 
+	</select>
+	
+</mapper>
+  

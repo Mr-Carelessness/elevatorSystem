@@ -1,0 +1,61 @@
+<head>
+	<meta charset="UTF-8">
+	<title>用户评价查看</title>
+	<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+	<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+	<style>
+		.fl {
+			margin-left: 0px;
+		}
+		
+		.fr {
+			margin-top: 5px;
+		}
+	</style>
+</head>
+
+<body class="layui-layout-body" style="padding-top: 15px; padding-left: 20px; padding-right: 20px;">
+	<div class="layui-row">
+		<div style="width: 100%;">
+			<div style="width: 60%; display: inline-block;">
+				<span class="fl">
+			        <!--<a class="layui-btn btn-default" lay-event="add" id="btn-add"><i class="layui-icon layui-icon-add-circle-fine"></i> 添加</a>-->
+			        <!--<a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-delete">删除</a>-->
+			        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh" id="btn-refresh"><i class="layui-icon layui-icon-refresh-3"></i></a>
+			    </span>
+			</div>
+			<div style="width: 39%; display: inline-block;">
+				<!--<input style="width: 30%; display: inline-block;" type="text" name="company" id="company" required autocomplete="off" class="layui-input" placeholder="请选择公司">-->
+				<!--<input style="width: 78%; display: inline-block;" class="layui-input" id="keyword" autocomplete="off" placeholder="请输入关键词">
+				<button style="width: 19%; display: inline-block;" class="layui-btn" id="btn-search" data-type="reload"><i class="layui-icon layui-icon-search"></i> 搜索</button>-->
+			</div>
+		</div>
+	</div>
+	<div class="layui-row">
+		<table class="layui-hide" id="demo" lay-filter="test"></table>
+	</div>
+	
+	<script type="text/html" id="score">
+		{{#  if(d.score >= 0 && d.score < 2){ }}
+		   	<span style="color: #FF5722;"> {{ d.score }} </span>
+		{{#  }else if(d.score >= 2 && d.score < 3){ }}
+			<span style="color: #FFB800;"> {{ d.score }} </span>
+		{{#  }else if(d.score >= 3 && d.score < 4){ }}
+			<span style="color: #5FB878;"> {{ d.score }} </span>
+		{{#  }else{ }}
+			<span style="color: #009688;"> {{ d.score }} </span>
+		{{#  } }}
+	</script>
+	
+	<script type="text/html" id="operator">
+		{{d.operator==null?'':d.operator.realname}}
+	</script>
+
+	
+	<script src="../../../src/layui/layui.js"></script>
+	<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+	<script src="elevator-userexpr.js"></script>
+	<script src="../../conf/conf.js"></script>
+</body>
+
+</html>

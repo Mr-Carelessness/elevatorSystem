@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>查看消息</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+			.layui-field-title{
+				margin-top: 40px;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				<div class="layui-form-item">
+					<label class="layui-form-label">电梯名称</label>
+					<div class="layui-input-block ">
+						<input type="text" name="elevator" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">所属公司</label>
+					<div class="layui-input-block ">
+						<input type="text" name="company" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">施工负责人</label>
+					<div class="layui-input-block ">
+						<input type="text" name="operator" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">当前状态</label>
+					<div class="layui-input-block ">
+						<input type="text" name="state" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				
+				<div id="construction-info">
+					<div class="layui-form-item layui-field-title">
+						<fieldset class="layui-elem-field layui-field-title">
+							<legend>施工信息：</legend>
+						</fieldset>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">许可证号</label>
+						<div class="layui-input-block ">
+							<input type="text" name="licenseNumber" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">工程类别</label>
+						<div class="layui-input-block ">
+							<input type="text" name="type" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">开始日期</label>
+						<div class="layui-input-block ">
+							<input type="text" name="startDate" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">结束日期</label>
+						<div class="layui-input-block ">
+							<input type="text" name="finishDate" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">施工记录</label>
+						<div class="layui-input-block ">
+							<textarea name="record" required lay-verify="required" disabled class="layui-textarea"></textarea>
+						</div>
+					</div>					
+				</div>
+
+				<div id="elevator-info">
+					<div class="layui-form-item layui-field-title">
+						<fieldset class="layui-elem-field layui-field-title">
+							<legend>电梯参数：</legend>
+						</fieldset>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">设备名称</label>
+							<div class="layui-input-block ">
+								<input type="text" name="equipmentName" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">设备类型</label>
+							<div class="layui-input-block ">
+								<input type="text" name="equipmentType" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">设备型号</label>
+							<div class="layui-input-block ">
+								<input type="text" name="typeNumber" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">电梯层级</label>
+							<div class="layui-input-block ">
+								<input type="text" name="floor" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">提升高度</label>
+							<div class="layui-input-block ">
+								<input type="text" name="liftHeight" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">最大速度</label>
+							<div class="layui-input-block ">
+								<input type="text" name="speed" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">最大承载</label>
+							<div class="layui-input-block ">
+								<input type="text" name="weight" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</div>					
+				</div>
+
+				
+			</form>
+		</div>
+		<script src="../../../src/layui/layui.js" charset="utf-8"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="construction-detail.js"></script>
+	</body>
+
+</html>
+
+

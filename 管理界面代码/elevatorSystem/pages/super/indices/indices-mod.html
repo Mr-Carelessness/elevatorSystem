@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>修改电梯指标权重</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+				margin: 0;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+			.center{
+				text-align: center;
+			}
+			.body{
+				padding-top: 20px;
+			}
+			td{
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<!--<fieldset class="layui-elem-field layui-field-title" style="margin: 25px;">
+			<legend style="font-weight: 700;">基本信息：</legend>
+		</fieldset>-->
+		<div class="layui-row" style="margin: 0; padding: 0;">
+    		<div class="layui-col-md6 layui-col-xs6 layui-col-sm6" style="padding-left: 30px; padding-right: 10px;">
+    			<div style="color: #393D49; margin-bottom: 10px; padding: 10px; background: #F0F0F0; line-height: 20px;">
+    				<b>提示：</b>该系统采用层次分析法确定各项指标所占的权重。若您对指标间的层次结构不太了解，请先到该按钮左边【指标与权重说明】中进行查看。
+    				<br/>接下来我们就正式通过以下方法确定指标间的权重：
+    				<br/><span style="font-weight: 700; color:#2F4056">① 首先，点击其中一个【确定重要性矩阵】按钮，右侧界面会实时地进行更新，您需要确定指标间两两的重要性</span>
+    				<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若<i> i </i>表示指标<i> i </i>，<i> j </i>表示指标<i> j </i>，
+    				<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第<i> i </i>行第<i> j </i>列<i> w(i,j) </i>表示指标<i> i </i>对指标<i> j </i>的重要性
+    				<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;● 若<i> i = j </i>，或者指标<i> i </i>和指标<i> j </i>同样重要，则<i> w(i,j)=w(j,i)=1 </i>
+    				<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;● 若指标<i> i </i>比指标<i> j </i>重要性稍微强一些，则<i> w(i,j)=3、w(j,i)=1/3 </i>
+    				<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;● 若指标<i> i </i>比指标<i> j </i>重要性强烈，则<i> w(i,j)=5、w(j,i)=1/5 </i>
+    				<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;● 若指标<i> i </i>比指标<i> j </i>重要性非常强烈，则<i> w(i,j)=7、w(j,i)=1/7 </i>
+    				<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;● 若指标<i> i </i>比指标<i> j </i>重要性极度强烈，则<i> w(i,j)=9、w(j,i)=1/9 </i>
+    				<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;● 若指标<i> i </i>比指标<i> j </i>重要性不好把控或者介于某两个程度之间，
+    				<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;则按同样方法填写2/4/6/8
+    				<br/><span style="font-weight: 700; color:#2F4056">② 指标间两两重要性确定好之后，点击右侧界面的【一致性检验】按钮，检验一致性，若检验未通过则继续进行第①步</span>
+    				<br/><span style="font-weight: 700; color:#2F4056">③ 按照①、②步对所有重要性矩阵进行确定，并且一致性检验得以通过</span>
+    				<br/><span style="font-weight: 700; color:#2F4056">④ 此时底部界面会弹出各个指标的权重，确认无误后，进行提交</span>
+    			</div>
+				
+				<div style="font-weight: 700; margin-bottom: 10px;" >
+					请依次对以下重要性矩阵进行确定：
+				</div>
+				
+    			<div class="layui-form-item">
+    				<div class="layui-inline" style="width: 210px;">准则层(第二层)</div>
+    				<div class="layui-inline layui-btn layui-btn-normal layui-btn-sm" id="btn-matrix1"><i class="layui-icon layui-icon-edit"></i>确定重要性矩阵</div>
+    				<div class="layui-inline" style="color: #5FB878;" id="hint1"></div>
+    			</div>
+    			<div class="layui-form-item">
+    				<div class="layui-inline" style="width: 210px;">方案层(第三层)——单位安全管理</div>
+    				<div class="layui-inline layui-btn layui-btn-normal layui-btn-sm" id="btn-matrix2"><i class="layui-icon layui-icon-edit"></i>确定重要性矩阵</div>
+    				<div class="layui-inline" style="color: #5FB878;" id="hint2"></div>
+    			</div>
+    			<div class="layui-form-item">
+    				<div class="layui-inline" style="width: 210px;">方案层(第三层)——电梯安全状况</div>
+    				<div class="layui-inline layui-btn layui-btn-normal layui-btn-sm" id="btn-matrix3"><i class="layui-icon layui-icon-edit"></i>确定重要性矩阵</div>
+    				<div class="layui-inline" style="color: #5FB878;" id="hint3"></div>
+    			</div>
+    			<div class="layui-form-item">
+    				<div class="layui-inline" style="width: 210px;">方案层(第三层)——人员管理</div>
+    				<div class="layui-inline layui-btn layui-btn-normal layui-btn-sm" id="btn-matrix4"><i class="layui-icon layui-icon-edit"></i>确定重要性矩阵</div>
+    				<div class="layui-inline" style="color: #5FB878;" id="hint4"></div>
+    			</div>
+    			
+    		</div>
+    		<div class="layui-col-md6 layui-col-xs6 layui-col-sm6" style="padding-left: 15px; padding-right: 30px; height: 550px; border-left: solid 1px #d2d2d2;">
+    			<div id="block1" style="height: 550px; display: none;">
+    				<div style="line-height: 25px;">
+    					<div style="font-weight: 700;">指标描述：</div>
+    					<div><i>b1</i>——单位安全管理</div>
+    					<div><i>b2</i>——电梯安全状况</div>
+    					<div><i>b3</i>——人员管理</div>
+    				</div>
+    				<div style="line-height: 25px; margin-top: 10px;">
+    					<div style="font-weight: 700;">请填写以下权重矩阵：</div>
+    					<div>
+    						<table class="layui-table">
+    							<tbody>
+								    <tr>
+								    	<td></td>
+								    	<td><i>b1</i></td>
+								    	<td><i>b2</i></td>
+								    	<td><i>b3</i></td>
+								    </tr>
+								    <tr>
+								     	<td><i>b1</i></td>
+								      	<td><input id="b1_00" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="b1_01" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="b1_02" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>b2</i></td>
+								      	<td><input id="b1_10" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="b1_11" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="b1_12" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>b3</i></td>
+								      	<td><input id="b1_20" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="b1_21" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="b1_22" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								</tbody>
+    						</table>
+    					</div>
+    				</div>
+    				<div>
+    					<div class="layui-inline layui-btn layui-btn-normal" id="btn-check1"><i class="layui-icon layui-icon-search"></i>一致性检验</div>
+    				</div>
+    				<div style="line-height: 25px; margin-top: 10px;">
+    					<div style="font-weight: 700;">检验结果：</div>
+    					<div id="qxl1"><!--权向量：--></div>
+    					<div id="yzxbl1"><!--一致性比例(CR)：--></div>
+    					<div id="jyjg1"><!--一致性检验通过--></div>
+    				</div>
+    			</div>
+    			
+    			<div id="block2" style="height: 550px; display: none;">
+    				<div style="line-height: 25px;">
+    					<div style="font-weight: 700;">指标描述：</div>
+    					<div><i>c1</i>——安全管理制度</div>
+    					<div><i>c2</i>——安全技术档案</div>
+    					<div><i>c3</i>——应急救援机制</div>
+    				</div>
+    				<div style="line-height: 25px; margin-top: 10px;">
+    					<div style="font-weight: 700;">请填写以下权重矩阵：</div>
+    					<div>
+    						<table class="layui-table">
+    							<tbody>
+								    <tr>
+								    	<td></td>
+								    	<td><i>c1</i></td>
+								    	<td><i>c2</i></td>
+								    	<td><i>c3</i></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c1</i></td>
+								      	<td><input id="c1_00" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c1_01" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c1_02" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c2</i></td>
+								      	<td><input id="c1_10" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c1_11" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c1_12" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c3</i></td>
+								      	<td><input id="c1_20" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c1_21" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c1_22" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								</tbody>
+    						</table>
+    					</div>
+    				</div>
+    				<div>
+    					<div class="layui-inline layui-btn layui-btn-normal" id="btn-check2"><i class="layui-icon layui-icon-search"></i>一致性检验</div>
+    				</div>
+    				<div style="line-height: 25px; margin-top: 10px;">
+    					<div style="font-weight: 700;">检验结果：</div>
+    					<div id="qxl2"><!--权向量：--></div>
+    					<div id="yzxbl2"><!--一致性比例(CR)：--></div>
+    					<div id="jyjg2"><!--一致性检验通过--></div>
+    				</div>
+    			</div>
+    			
+    			<div id="block3" style="height: 550px; display: none;">
+    				<div style="line-height: 25px;">
+    					<div style="font-weight: 700;">指标描述：</div>
+    					<div>
+    						<div class="layui-inline"><i>c4</i>——日常巡查情况</div>
+    						<div class="layui-inline" style="margin-left: 30px;"><i>c7</i>——电梯使用状态</div>
+    					</div>
+    					<div>
+    						<div class="layui-inline"><i>c5</i>——定期检测情况</div>
+    						<div class="layui-inline" style="margin-left: 30px;"><i>c8</i>——用户体验</div>
+    					</div>
+    					<div>
+    						<div class="layui-inline"><i>c6</i>——维保状况</div>
+    					</div>
+    				</div>
+    				<div style="line-height: 25px; margin-top: 10px;">
+    					<div style="font-weight: 700;">请填写以下权重矩阵：</div>
+    					<div>
+    						<table class="layui-table">
+    							<tbody>
+								    <tr>
+								    	<td></td>
+								    	<td><i>c4</i></td>
+								    	<td><i>c5</i></td>
+								    	<td><i>c6</i></td>
+								    	<td><i>c7</i></td>
+								    	<td><i>c8</i></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c4</i></td>
+								      	<td><input id="c2_00" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_01" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_02" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_03" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_04" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c5</i></td>
+								      	<td><input id="c2_10" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_11" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_12" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_13" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_14" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c6</i></td>
+								      	<td><input id="c2_20" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_21" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_22" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_23" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_24" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c7</i></td>
+								      	<td><input id="c2_30" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_31" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_32" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_33" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_34" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c8</i></td>
+								      	<td><input id="c2_40" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_41" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_42" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_43" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c2_44" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								</tbody>
+    						</table>
+    					</div>
+    				</div>
+    				<div>
+    					<div class="layui-inline layui-btn layui-btn-normal" id="btn-check3"><i class="layui-icon layui-icon-search"></i>一致性检验</div>
+    				</div>
+    				<div style="line-height: 25px; margin-top: 10px;">
+    					<div style="font-weight: 700;">检验结果：</div>
+    					<div id="qxl3"><!--权向量：--></div>
+    					<div id="yzxbl3"><!--一致性比例(CR)：--></div>
+    					<div id="jyjg3"><!--一致性检验通过--></div>
+    				</div>
+    			</div>
+    			
+    			<div id="block4" style="height: 550px; display: none;">
+    				<div style="line-height: 25px;">
+    					<div style="font-weight: 700;">指标描述：</div>
+    					<div><i>c9</i>——日常巡查情况</div>
+    					<div><i>c10</i>——定期检测情况</div>
+    					<div><i>c11</i>——维保状况</div>
+    					<div><i>c12</i>——电梯使用状态</div>
+    				</div>
+    				<div style="line-height: 25px; margin-top: 10px;">
+    					<div style="font-weight: 700;">请填写以下权重矩阵：</div>
+    					<div>
+    						<table class="layui-table">
+    							<tbody>
+								    <tr>
+								    	<td></td>
+								    	<td><i>c9</i></td>
+								    	<td><i>c10</i></td>
+								    	<td><i>c11</i></td>
+								    	<td><i>c12</i></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c9</i></td>
+								      	<td><input id="c3_00" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_01" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_02" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_03" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c10</i></td>
+								      	<td><input id="c3_10" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_11" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_12" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_13" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c11</i></td>
+								      	<td><input id="c3_20" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_21" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_22" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_23" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								    <tr>
+								     	<td><i>c12</i></td>
+								      	<td><input id="c3_30" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_31" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_32" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								      	<td><input id="c3_33" onblur="matchNumber(this)" style="width: 50px;"/></td>
+								    </tr>
+								</tbody>
+    						</table>
+    					</div>
+    				</div>
+    				<div>
+    					<div class="layui-inline layui-btn layui-btn-normal" id="btn-check4"><i class="layui-icon layui-icon-search"></i>一致性检验</div>
+    				</div>
+    				<div style="line-height: 25px; margin-top: 10px;">
+    					<div style="font-weight: 700;">检验结果：</div>
+    					<div id="qxl4"><!--权向量：--></div>
+    					<div id="yzxbl4"><!--一致性比例(CR)：--></div>
+    					<div id="jyjg4"><!--一致性检验通过--></div>
+    				</div>
+    			</div>
+    			
+    		</div>
+		</div>
+		<fieldset class="layui-elem-field layui-field-title">
+		</fieldset>
+		
+		<div class="layui-row" style="margin: 10px 30px;">
+			<div style="color: #393D49; margin-bottom: 0; padding: 10px; background: #F0F0F0;"><b>操作结果：</b><span id="hint-res">正在生成中...<!--根据层次分析法指标权重已成功生成，具体为--></span></div>
+				
+			<div id="weight-res" style="display:none">
+				<form class="layui-form layui-form-pane" lay-filter="show_form">
+					<div class="layui-col-md4 layui-col-xs4 layui-col-sm4">
+						<div class="layui-form-item">
+							<div style="font-weight: 900; color: #009688; font-size: 16px; line-height: 40px;">● 单位安全管理</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 180px;">安全管理制度(ind1)：</label>
+								<div class="layui-input-block " style="margin-left: 180px;">
+									<input style="width: 120px;" disabled type="number" name="ind1" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 180px;">安全技术档案(ind2)：</label>
+								<div class="layui-input-block " style="margin-left: 180px;">
+									<input style="width: 120px;" disabled type="number" name="ind2" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 180px;">应急救援机制(ind3)：</label>
+								<div class="layui-input-block " style="margin-left: 180px;">
+									<input style="width: 120px;" disabled type="number" name="ind3" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-col-md4 layui-col-xs4 layui-col-sm4">
+						<div class="layui-form-item">
+							<div style="font-weight: 900; color: #2F4056; font-size: 16px; line-height: 40px;">● 电梯安全状况</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 180px;">日常巡查情况(ind4)：</label>
+								<div class="layui-input-block " style="margin-left: 180px;">
+									<input style="width: 120px;" disabled type="number" name="ind4" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 180px;">定期检测情况(ind5)：</label>
+								<div class="layui-input-block " style="margin-left: 180px;">
+									<input style="width: 120px;" disabled type="number" name="ind5" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 180px;">维保情况(ind6)：</label>
+								<div class="layui-input-block " style="margin-left: 180px;">
+									<input style="width: 120px;" disabled type="number" name="ind6" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 180px;">电梯使用状态(ind7)：</label>
+								<div class="layui-input-block " style="margin-left: 180px;">
+									<input style="width: 120px;" disabled type="number" name="ind7" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 180px;">用户体验(ind8)：</label>
+								<div class="layui-input-block " style="margin-left: 180px;">
+									<input style="width: 120px;" disabled type="number" name="ind8" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-col-md4 layui-col-xs4 layui-col-sm4">
+						<div class="layui-form-item">
+							<div style="font-weight: 900; color: #1E9FFF; font-size: 16px; line-height: 40px;">● 人员管理</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 210px;">安全管理机构设置(ind9)：</label>
+								<div class="layui-input-block " style="margin-left: 210px;">
+									<input style="width: 120px;" disabled type="number" name="ind9" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 210px;">作业人员持证状况(ind10)：</label>
+								<div class="layui-input-block " style="margin-left: 210px;">
+									<input style="width: 120px;" disabled type="number" name="ind10"autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 210px;">安全培训状况(ind11)：</label>
+								<div class="layui-input-block " style="margin-left: 210px;">
+									<input style="width: 120px;" disabled type="number" name="ind11" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						<div class="layui-form-item">
+							<div>
+								<label class="layui-form-label" style="width: 210px;">任务完成度(ind12)：</label>
+								<div class="layui-input-block " style="margin-left: 210px;">
+									<input style="width: 120px;" disabled type="number" name="ind12" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+	
+					<div class="layui-form-item" style="padding-top: 30px; padding-bottom: 30px; text-align: center;">
+						<div>
+							<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="sub"><i class="layui-icon layui-icon-ok"></i> 提交修改</button>
+							<!--<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="reset"><i class="layui-icon layui-icon-refresh"></i> 重置</button>-->
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<fieldset class="layui-elem-field layui-field-title">
+		</fieldset>
+		
+		<script type="text/javascript" src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="indices-mod.js"></script>
+	</body>
+
+</html>

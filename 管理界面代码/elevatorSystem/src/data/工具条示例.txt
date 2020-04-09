@@ -1,0 +1,29 @@
+
+根据实际需要可以进行加减操作：
+
+<script type="text/html" id="toolbarDemo">
+    <div>
+    	<div class="demoTable layui-form">  
+	    	<span>搜索条件：</span>
+    		<div class="layui-inline" style="width: 130px;">
+	            <select name="condition" id="condition" lay-verify="" class="layui-select-group">
+					<option value="">选择搜索条件</option>
+					<option value="poet_id">编号</option>
+					<option value="poet_name">名字</option>
+				</select>  		
+			</div>
+	        <div class="layui-inline" style="width: 220px;">
+	        	<input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入关键词">
+	        </div>
+	        <button class="layui-btn" id="btn-search" data-type="reload">搜索</button>
+        </div>
+	    <div style="margin-top: 15px; margin-bottom: 5px;">
+	    	<span>操作：</span>			    
+	  		<span class="fl">
+		        <a class="layui-btn btn-add btn-default" id="btn-add">添加</a>
+		        <a class="layui-btn btn-add btn-default layui-btn-danger" id="btn-delete">删除</a>
+		        <a class="layui-btn btn-add btn-default layui-btn-primary" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
+		   </span>
+	    </div>
+    </div>
+</script>

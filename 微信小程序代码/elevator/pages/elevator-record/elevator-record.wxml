@@ -1,0 +1,79 @@
+<!--pages/elevator-record/elevator-record.wxml-->
+<wxs module="info" src="elevator-record.wxs"></wxs>
+<view style="padding:15px; color:#80848f; font-weight:900">{{hint}}</view>
+
+<view wx:if="{{type == 1}}">
+  <view style="background:#fff;border:solid #dddee1 1px;padding:10px 3px; padding-left:15px; font-size:15px;">
+    <i-row>
+      <i-col span="18" i-class="col-class">
+       <view><text style="color:#1c2438;font-weight:900;">责任方：</text><text style="color:#495060">{{(construction.company!=null&&construction.company.cname!=null&&construction.company.cname!='')?construction.company.cname:'无'}}</text></view>
+        <view><text style="color:#1c2438;font-weight:900;">施工日期：</text><text style="color:#495060">{{construction.startDate}}至{{construction.finishDate}}</text></view>
+        <view><text style="color:#1c2438;font-weight:900;">当前状态：</text><text style="color:#495060">{{info.getConstructionState(construction.state)}}</text></view>
+        <view><text style="color:#1c2438;font-weight:900;">评价记录：</text><text style="color:#495060">{{(construction.record==null)?'':construction.record}}</text></view>
+      </i-col>
+      <i-col span="6" i-class="col-class" style="text-align:center;">
+        <image src="../../img/task-construction.png" style="width:130rpx; height:130rpx; border-radius:65rpx;"></image>
+      </i-col>
+    </i-row> 
+  </view>
+</view>
+<view wx:elif="{{type == 2}}">
+  <view wx:if="{{inspection.length > 0}}">
+    <view wx:for="{{inspection}}" style="background:#fff;border:solid #dddee1 1px;padding:10px 3px; padding-left:15px; font-size:15px;">
+        <i-row>
+          <i-col span="18" i-class="col-class">
+            <view><text style="color:#1c2438;font-weight:900;">责任人：</text><text style="color:#495060">{{(item.operator!=null&&item.operator.realname!=null&&item.operator.realname!='')?item.operator.realname:'无'}}</text></view>
+            <view><text style="color:#1c2438;font-weight:900;">巡查时间：</text><text style="color:#495060">{{item.inspectionDate}}</text></view>
+            <view><text style="color:#1c2438;font-weight:900;">评价记录：</text><text style="color:#495060">{{(item.record==null)?'':item.record}}</text></view>
+          </i-col>
+          <i-col span="6" i-class="col-class" style="text-align:center;">
+            <image src="../../img/task-inspection.png" style="width:130rpx; height:130rpx; border-radius:65rpx;"></image>
+          </i-col>
+        </i-row> 
+      </view>
+  </view>
+  <view wx:else>
+    <view style="padding:0px 15px; color:#495060;">该电梯目前缺少相应的巡查记录，请耐心等待···</view>
+  </view>
+</view>
+<view wx:elif="{{type == 3}}">
+  <view wx:if="{{maintainence.length > 0}}">
+    <view wx:for="{{maintainence}}" style="background:#fff;border:solid #dddee1 1px;padding:10px 3px; padding-left:15px; font-size:15px;">
+      <i-row>
+        <i-col span="18" i-class="col-class">
+          <view><text style="color:#1c2438;font-weight:900;">责任方：</text><text style="color:#495060">{{(item.company!=null&&item.company.cname!=null&&item.company.cname!='')?item.company.cname:'无'}}</text></view>
+          <view><text style="color:#1c2438;font-weight:900;">维护日期：</text><text style="color:#495060">{{item.startDate}}至{{item.finishDate}}</text></view>
+          <view><text style="color:#1c2438;font-weight:900;">当前状态：</text><text style="color:#495060">{{info.getMaintainenceState(item.state)}}</text></view>
+          <view><text style="color:#1c2438;font-weight:900;">评价记录：</text><text style="color:#495060">{{(item.record==null)?'':item.record}}</text></view>
+        </i-col>
+        <i-col span="6" i-class="col-class" style="text-align:center;">
+          <image src="../../img/task-maintainence.png" style="width:130rpx; height:130rpx; border-radius:65rpx;"></image>
+        </i-col>
+      </i-row> 
+    </view>
+  </view>
+  <view wx:else>
+    <view style="padding:0px 15px; color:#495060;">该电梯目前缺少相应的维护记录，请耐心等待···</view>
+  </view>
+</view>
+<view wx:else>
+  <view wx:if="{{testing.length > 0}}">
+    <view wx:for="{{testing}}" style="background:#fff;border:solid #dddee1 1px;padding:10px 3px; padding-left:15px; font-size:15px;">
+      <i-row>
+        <i-col span="18" i-class="col-class">
+          <view><text style="color:#1c2438;font-weight:900;">责任方：</text><text style="color:#495060">{{(item.company!=null&&item.company.cname!=null&&item.company.cname!='')?item.company.cname:'无'}}</text></view>
+          <view><text style="color:#1c2438;font-weight:900;">检测日期：</text><text style="color:#495060">{{item.startDate}}至{{item.finishDate}}</text></view>
+          <view><text style="color:#1c2438;font-weight:900;">当前状态：</text><text style="color:#495060">{{info.getTestingState(item.state)}}</text></view>
+          <view><text style="color:#1c2438;font-weight:900;">评价记录：</text><text style="color:#495060">{{(item.record==null)?'':item.record}}</text></view>
+        </i-col>
+        <i-col span="6" i-class="col-class" style="text-align:center;">
+          <image src="../../img/task-testing.png" style="width:130rpx; height:130rpx; border-radius:65rpx;"></image>
+        </i-col>
+      </i-row> 
+    </view>
+  </view>
+  <view wx:else>
+    <view style="padding:0px 15px; color:#495060;">该电梯目前缺少相应的检测记录，请耐心等待···</view>
+  </view>
+  
+</view>

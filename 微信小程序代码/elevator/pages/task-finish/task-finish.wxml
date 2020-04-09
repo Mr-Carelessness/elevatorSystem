@@ -1,0 +1,77 @@
+<!--pages/task-finish/task-finish.wxml-->
+<view style="padding:15px 15px 0 15px; color:#80848f; font-weight:900;">
+  <text wx:if="{{type==1}}">请填写以下施工任务完成信息：</text>
+  <text wx:elif="{{type==2}}">请填写以下巡查任务信息：</text>
+  <text wx:elif="{{type==3}}">请填写以下维护任务完成信息：</text>
+  <text wx:else>请填写以下检测完成信息：</text>
+</view> 
+
+<view wx:if="{{type == 2}}">
+  <!-- 选择单位电梯 -->
+  <i-panel title="巡查电梯">
+    <i-input value="{{ rawData.elevatorName }}" title="巡查电梯" placeholder="点击选择巡查对应的电梯" bindtap="searchElevator" />
+  </i-panel>
+</view>
+<i-panel title="任务完成评价">
+    <view wx:if="{{type > 1}}" style="padding: 7px 15px;">
+      <text style="color: #495060;min-width: 65px;padding-right: 10px; display:inline-block; font-size:14px; color:#495060;">电梯得分</text>
+      <view style="display:inline-block;" >
+        <i-input-number style="display:inline;" value="{{ rawData.score }}" min="0" max="5" bindchange="handleNumberChange" />
+      </view>
+      <view style="padding-left:75px;"><text style="color: #80848f; font-size:14px;">请给完成任务后的当前电梯安全状况进行打分(0-5分)</text></view>
+    </view>
+  <i-input value="{{ rawData.record }}" bindchange="getInputValue" data-title="record" type="textarea" title="评价记录" placeholder="对任务完成情况/巡查情况，或电梯安全状况进行补充说明" />
+</i-panel>
+
+<view wx:if="{{type == 1}}">
+  <i-panel title="使用设备情况">
+    <i-input value="{{ rawData.equipmentName }}" bindchange="getInputValue" data-title="equipmentname" title="设备名称" placeholder="请填写电梯所对应的设备名称" />
+    <i-input value="{{ rawData.equipmentType }}" bindchange="getInputValue" data-title="equipmenttype" title="设备类别" placeholder="请填写所用设备所属类别" />
+    <i-input value="{{ rawData.typeNumber }}" bindchange="getInputValue" data-title="typenumber" title="设备型号" placeholder="请填写所用设备所对应的型号" />
+  </i-panel>
+  <i-panel title="电梯参数">
+    <i-input value="{{ rawData.floor }}" bindchange="getInputValue" data-title="floor" type="number" title="电梯层数" placeholder="请填写电梯的层数" />
+    <i-input value="{{ rawData.liftHeight }}" bindchange="getInputValue" data-title="liftheight" type="number"  title="提升高度" placeholder="请填写电梯所能提升的高度(m/s):[数字]" />
+    <i-input value="{{ rawData.speed }}" bindchange="getInputValue" data-title="speed" type="number"  title="最大速度" placeholder="请填写电梯运行时的最大速度(m/s):[数字]" />
+    <i-input value="{{ rawData.weight }}" bindchange="getInputValue" data-title="weight" type="number"  title="最大承重" placeholder="请填写电梯运行时的最大承受重量(kg):[数字]" />
+  </i-panel>
+</view>
+<view wx:if="{{type == 3}}">
+  <i-panel title="请回答下列维护问题：">
+    <view wx:for="{{questionList}}">
+      <i-panel title="{{index+1}}. {{item.question}}">
+        <i-radio-group current="{{curList[index]}}" bindchange="handleAnswerChange" data-index="{{index}}">
+          <i-radio position="left" wx:key="A" value="{{item.answerA}}"></i-radio>
+          <i-radio position="left" wx:key="B" value="{{item.answerB}}"></i-radio>
+          <i-radio wx:if="{{item.answerC!=null && item.answerC!=''}}" position="left" wx:key="C" value="{{item.answerC}}"></i-radio>
+          <i-radio wx:if="{{item.answerD!=null && item.answerD!=''}}" position="left" wx:key="D" value="{{item.answerD}}"></i-radio>
+          <i-radio wx:if="{{item.answerE!=null && item.answerE!=''}}" position="left" wx:key="E" value="{{item.answerE}}"></i-radio>
+        </i-radio-group>
+      </i-panel>
+    </view>
+  </i-panel>
+</view>
+<view wx:if="{{type == 4}}">
+  <i-panel title="上传检测证书">
+    <view style="background:#fff;">
+      <view style="padding-left:10px; padding-bottom:5px;">
+        <view>
+          <image style="width:100px; height:100px; border: solid #dddee1 1px; margin-left:5px;" src='{{ rawData.resultUrl }}' bindtap='updateResult'></image>
+        </view>
+      </view>
+    </view>
+  </i-panel>
+</view>
+
+<view>
+  <view wx:if="{{event == 1}}">
+    <i-button bind:click="submitData" type="primary">提交</i-button>
+  </view>
+  <view wx:if="{{event == 3}}">
+    <i-button bind:click="submitData" data-isFinished="0">保存记录</i-button>
+    <i-button bind:click="submitData" type="primary" data-isFinished="1">提交</i-button>
+  </view>
+</view>
+
+
+

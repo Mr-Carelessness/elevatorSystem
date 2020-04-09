@@ -1,0 +1,75 @@
+<!--pages/elevator/elevator.wxml--><!--controls="{{controls}}" bindcontroltap="controlTap"-->
+<!-- 搜索区域 -->
+<view class="section">
+  <input style="background-color:#fff; font-size:14px;" bindinput="bindInput" placeholder="输入关键字搜索某一具体地点附近电梯" value='{{AddressName}}'/>
+  <button class='btn-Wc' size='mini'>搜索</button>
+  <!-- <view class='View_Bk'></view> -->
+</view>
+<view id="text_box_outer" style="display:{{searchBoxDisplay}};">
+  <view bindtap="bindSearch" data-index="{{index}}" class="text_box" wx:for="{{tips}}">
+    <view class="text_box_title">{{item.name}}</view>
+    <view class="text_box_address">{{item.district}}{{item.address}}</view>
+  </view>
+  <!-- <view wx:if="{{AddressName==''}}"></view>
+  <view wx:if="{{AddressName!=''}}">
+  <text>位置：{{AddressName}}\n经纬度坐标:{{AddressLocation}}</text></view> -->
+</view>
+
+
+<!-- 地图区域 -->
+<view class="map_container">
+  <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" show-location="true" markers="{{markers}}" circles="{{circles}}" bindmarkertap="makertap" controls="{{controls}}" bindcontroltap="controlTap" bindregionchange="regionChange" >
+    <cover-view style=" position:relative; left:650rpx; top:{{cvtop}};">
+      <cover-image src="../../img/backtoinit.png" style="width:45px; height:45px;" bindtap="backToRawPosition"></cover-image>
+    </cover-view>
+  </map>
+</view>
+
+<!-- 通告栏 -->
+<view class="notice-bar" wx:if="{{noticeBarDisplay}}" bindtap="closeNoticeBar">
+  <i-notice-bar background-color="#99cc6600" color="#99aa66" icon="systemprompt" closable loop speed="3000">提示：移动地图进行定位，即刻该位置附近的电梯信息，点击地图内的蓝色标点可查看具体电梯信息哦！</i-notice-bar>
+</view>
+
+<!-- 遮罩层 -->
+<view class="shadow" wx:if="{{chooseSize}}" bindtap='hideModal'></view>
+<!-- 上滑高度 -->
+<view class='choosen' wx:if="{{chooseSize}}" animation='{{animationData}}'>
+<!-- 内容 -->
+  <view class="container-box">
+    <i-row>
+      <!--左侧电梯信息栏-->
+      <i-col span="16" i-class="col-class">
+        <view style="margin:20rpx; padding-left:5px;">
+          <view style="font-size:15px; color:#1c2438; margin-bottom:10rpx;">{{textData.name}}</view>
+          <view style="font-size:13px; color:#495060; margin-bottom:20rpx; height: 45px;">{{textData.desc}}</view>
+          <view>
+            <view style="display:inline-block; color:#2b85e4; font-size:14px;" bindtap="lookElevatorDetail" data-id="{{textData.elevatorId}}">> 点击查看详情</view>
+            <view style="display:inline-block; color:#19be6b; font-size:14px; margin-left:15px;" bindtap="userexprElevator" data-id="{{textData.elevatorId}}">> 电梯评价</view>
+          </view>
+        </view>
+      </i-col>
+      <!--右侧电梯得分栏-->
+      <i-col span="8" i-class="col-class">
+        <view style="margin:20rpx; border-left: solid #dddee1 1px; padding-left:10px; padding-bottom:10px;">
+          <view style="font-size:14px; color:#80848f;">得分：</view>
+          <view style="font-weight:900; text-align:center;">
+            <text wx:if="{{textData.score>=4}}" style="color:#2b85e4;font-size:36px; ">{{textData.score}}</text>
+            <text wx:elif="{{textData.score>=3 && textData.score<4}}" style="color:#5cadff;font-size:36px;">{{textData.score*20}}</text>
+            <text wx:elif="{{textData.score>=2 && textData.score<3}}" style="color:#ff9900;font-size:36px;">{{textData.score*20}}</text>
+            <text wx:else style="color:#ed3f14;font-size:36px; ">{{textData.score*20}}</text>
+          </view>
+          <view style="text-align:center; margin-top:5px;">
+            <!-- <text style="">运行中</text> -->
+            <view style="text-align:center;">
+              <text wx:if="{{textData.state<2}}" style="padding:2px 10px;text-align:center;font-weight:900;color:#fff;background:#ff9900;border-radius:3px;font-size:12px;">待投入运行</text>
+              <text wx:elif="{{textData.state==2}}" style="padding:2px 10px;text-align:center;font-weight:900;color:#fff;background:#19be6b;border-radius:3px;font-size:12px;">运行中</text>
+              <text wx:else style="padding:2px 10px;text-align:center;font-weight:900;color:#fff;background:#ed3f14;border-radius:3px;font-size:12px;">维护中</text>
+            </view>
+          </view>
+        </view>
+      </i-col>
+    </i-row>
+    
+  </view>
+</view>
+

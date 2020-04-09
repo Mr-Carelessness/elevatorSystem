@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.SafetytrainingDao"> 
+
+	<!-- 插入安排培训信息[实现] --> 
+	<insert id="insertSafetyTraining" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Safetytraining">
+		INSERT INTO 
+			safetytraining(companyid, record, participantnumber, trainingdate, imgUrl, delflag)
+		VALUES 
+			(#{companyId}, #{record}, #{participantNumber}, #{trainingDate}, #{imgUrl}, #{delflag})
+	</insert>
+	
+	<!-- 修改安全培训信息[实现] -->
+	<update id="updateSafetyTraining"
+		parameterType="cn.edu.zucc.elevator.entity.Safetytraining">
+		UPDATE 
+			safetytraining
+		<set>
+			<if test="companyId!=null">companyid=#{companyId},</if>
+			<if test="record!=null">record=#{record},</if>
+			<if test="participantNumber!=null">participantnumber=#{participantNumber},</if>
+			<if test="imgUrl!=null">imgUrl=#{imgUrl},</if>
+			<if test="trainingDate!=null">trainingdate=#{trainingDate}</if> 
+		</set>
+		WHERE 
+			id=#{id}
+	</update>
+	
+	<!-- 删除安全培训信息[实现] -->
+	<update id="deleteSafetyTraining">
+		UPDATE 
+			safetytraining
+		SET
+			delflag = 1
+		WHERE 
+			id=#{safetytrainingId}
+	</update>
+	
+	<!-- 根据id查找对应维护记录[实现] -->
+	<select id="selectSafetytrainingById"
+		resultType="cn.edu.zucc.elevator.entity.Safetytraining">
+		SELECT 
+			id, companyId, record, participantNumber, trainingDate, imgUrl
+		FROM 
+			safetytraining
+		WHERE 
+			delflag = 0 AND id=#{safetytrainingId}
+	</select>
+	
+	
+	<!-- 根据公司id获取管理员列表(获取分页数据)[实现] -->
+	<select id="selectSafetyTrainingPageListByCompanyId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="cn.edu.zucc.elevator.entity.Safetytraining">
+		SELECT 
+			id, companyId, record, participantNumber, trainingDate, imgUrl
+		FROM 
+			safetytraining
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND companyId = #{keyWord}
+			</if>
+		</where>
+		ORDER BY 
+			trainingdate DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据管理员类型获取管理员列表(获取数据总数)[实现] -->
+	<select id="selectSafetyTrainingPageCountByCompanyId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			safetytraining
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND companyId = #{keyWord}
+			</if>
+		</where>
+	</select>
+	
+</mapper>
+  

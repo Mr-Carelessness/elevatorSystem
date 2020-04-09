@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.MessageDao">
+	
+	
+	
+	
+	<!-- 插入消息信息[实现] -->
+	<insert id="insertMessage" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Message">
+		INSERT INTO 
+			message(senderId, senderType, senderName, receiverId, receiverType, receiverName, content, sendTime, status, imgUrl, delflag)	
+		VALUES
+			(#{senderId}, #{senderType}, #{senderName}, #{receiverId}, #{receiverType}, #{receiverName}, #{content}, #{sendTime}, #{status}, #{imgUrl}, #{delflag})
+	</insert>
+	
+	<!-- 修改消息信息[实现] -->
+	<update id="updateMessage"
+		parameterType="cn.edu.zucc.elevator.entity.Message">
+		UPDATE 
+			message
+		<set>
+			<if test="status!=null">status=#{status},</if>
+		</set>
+		WHERE 
+			id=#{id}
+	</update>
+	
+	<!-- 删除消息信息[实现] -->
+	<update id="deleteMessage">
+		UPDATE 
+			message
+		SET
+			delflag = 1
+		WHERE 
+			id=#{messageId}
+	</update>
+	
+	<!-- 根据消息id查找对应消息[实现] -->
+	<select id="selectMessageById"
+		resultType="cn.edu.zucc.elevator.entity.Message">
+		SELECT 
+			id, senderId, senderType, senderName, receiverId, receiverType, receiverName, content, sendTime, status, imgUrl
+		FROM 
+			message
+		WHERE 
+			delflag = 0 AND id=#{messageId}
+	</select>
+
+
+	<!-- 根据消息发送者id和发送者类型获取消息列表(获取分页数据)[实现] -->
+	<select id="selectMessagePageListBySender" 
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="cn.edu.zucc.elevator.entity.Message">
+		SELECT 
+			id, senderId, senderType, senderName, receiverId, receiverType, receiverName, content, sendTime, status, imgUrl
+		FROM 
+			message
+		<where>
+			delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND senderId = #{userid}
+			</if>
+			<if test="keyWord!='' and keyWord!=null ">
+				AND senderType = #{keyWord}
+			</if>
+		</where>
+		ORDER BY 
+			sendTime DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据消息发送者id和发送者类型获取消息列表(获取数据总数)[实现] -->
+	<select id="selectMessagePageCountBySender"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			message
+		<where>
+			delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND senderId = #{userid}
+			</if>
+			<if test="keyWord!='' and keyWord!=null ">
+				AND senderType = #{keyWord}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据消息接收者以及接收状态获取消息列表(获取分页数据)[实现] -->
+	<select id="selectMessagePageListByReceiverAndState"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="cn.edu.zucc.elevator.entity.Message">
+		SELECT 
+			id, senderId, senderType, senderName, receiverId, receiverType, receiverName, content, sendTime, status, imgUrl
+		FROM 
+			message
+		<where>
+			delflag = 0
+			<if test="userid!='' and userid!=null "> 
+				AND receiverId = #{userid}
+			</if>
+			<if test="keyWord!='' and keyWord!=null ">
+				AND receiverType = #{keyWord}
+			</if>
+			<if test="subkeyWord!='' and subkeyWord!=null ">
+				AND status = #{subkeyWord}
+			</if>
+		</where>
+		ORDER BY 
+			sendTime DESC
+		LIMIT 
+			#{start},#{rows} 
+	</select>
+
+	<!-- 根据消息接收者以及接收状态获取消息列表(获取数据总数)[实现] -->
+	<select id="selectMessagePageCountByReceiverAndState"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			message
+		<where>
+			delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND receiverId = #{userid}
+			</if>
+			<if test="keyWord!='' and keyWord!=null ">
+				AND receiverType = #{keyWord}
+			</if>
+			<if test="subkeyWord!='' and subkeyWord!=null ">
+				AND status = #{subkeyWord}
+			</if>
+		</where>
+	</select>
+	
+	
+	<!-- 根据消息接收者以及接收状态获取消息列表(获取分页数据)[实现] -->
+	<select id="selectMessagePageListBySenderAndReceiver"
+		resultType="cn.edu.zucc.elevator.entity.Message">
+		SELECT 
+			id, senderId, senderType, senderName, receiverId, receiverType, receiverName, content, sendTime, status, imgUrl
+		FROM 
+			message
+		<where>
+			delflag = 0
+			AND
+			((senderId = #{id1} AND senderType = #{type1}) OR (senderId = #{id2} AND senderType = #{type2})) 
+			AND 
+		    ((receiverId = #{id2} AND receiverType = #{type2}) OR (receiverId = #{id1} AND receiverType = #{type1}))
+		</where>
+		ORDER BY 
+			sendTime DESC 
+		LIMIT 
+			#{page.start},#{page.rows} 
+	</select>
+
+	<!-- 根据消息接收者以及接收状态获取消息列表(获取数据总数)[实现] -->
+	<select id="selectMessagePageCountBySenderAndReceiver"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			message
+		<where>
+			delflag = 0
+			AND
+			((senderId = #{id1} AND senderType = #{type1}) OR (senderId = #{id2} AND senderType = #{type2})) 
+			AND 
+		    ((receiverId = #{id2} AND receiverType = #{type2}) OR (receiverId = #{id1} AND receiverType = #{type1}))
+		</where>
+	</select>
+	
+</mapper>
+  

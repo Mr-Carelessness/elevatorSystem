@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>电梯详细信息</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+				
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+			.body{
+				
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				<div class="layui-form-item layui-field-title">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend style="font-weight: 700;">基本信息：</legend>
+					</fieldset>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">电梯名称</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="elevatorName" disabled  class="layui-input elevatorlabel">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">所属公司</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="company" disabled  class="layui-input elevatorlabel">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">地址</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="address"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">当前状态</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="state"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				<div class="layui-form-item" id="runningDate">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">运行日期</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="runningDate"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				
+				<div class="layui-form-item layui-field-title">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend style="font-weight: 700;">电梯参数：</legend>
+					</fieldset>
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">设备类别</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="equipmentType"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">设备名称</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="equipmentName"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">设备型号</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="typeNumber"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				
+				
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">层数</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="floor"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">最大运行速度</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="speed"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">最大承重</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="weight"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 120px; margin-left: 15px;">提升高度</label>
+					<div class="layui-input-block " style="margin-left: 135px">
+						<input type="text" name="liftHeight"  disabled class="layui-input elevatorlabel">
+					</div>
+				</div>
+				
+				
+			</form>
+		</div>
+		<script type="text/javascript" src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="elevator-detail.js"></script>
+	</body>
+
+</html>

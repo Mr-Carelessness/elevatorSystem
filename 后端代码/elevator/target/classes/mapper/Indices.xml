@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.IndicesDao">
+	
+	<resultMap type="cn.edu.zucc.elevator.entity.ElevatorIndices" id="BeanElevatorIndices">
+		<id column="iid" property="id" />
+		<result column="ind1" property="ind1" />
+		<result column="ind2" property="ind2" />
+		<result column="ind3" property="ind3" />
+		<result column="ind4" property="ind4" />
+		<result column="ind5" property="ind5" />
+		<result column="ind6" property="ind6" />
+		<result column="ind7" property="ind7" />
+		<result column="ind8" property="ind8" />
+		<result column="ind9" property="ind9" />
+		<result column="ind10" property="ind10" />
+		<result column="ind11" property="ind11" />
+		<result column="ind12" property="ind12" />
+		<result column="icompanyId" property="companyId" />
+		<result column="ielevatorId" property="elevatorId" />
+		<result column="state" property="state" />
+		<association property="company" javaType="cn.edu.zucc.elevator.entity.Company">
+			<id column="cid" property="id" />
+			<result column="cname" property="cname" />
+			<result column="caddress" property="address" />
+			<result column="cdelflag" property="delflag" />
+		</association>
+		<association property="elevator" javaType="cn.edu.zucc.elevator.entity.Elevator">
+			<id column="eid" property="id" />
+			<result column="elevatorName" property="elevatorName" />
+			<result column="score" property="score" />
+			<result column="estate" property="state" />
+			<result column="edelflag" property="delflag" />
+		</association>
+	</resultMap>
+	
+	
+	<!-- 新增电梯指标信息[实现] -->
+	<insert id="insertElevatorIndices" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.ElevatorIndices">
+		INSERT INTO 
+			elevatorIndices(ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, ind9, ind10, ind11, ind12, elevatorId, companyId, state)
+		VALUES
+			(#{ind1}, #{ind2}, #{ind3}, #{ind4}, #{ind5}, #{ind6}, #{ind7}, #{ind8}, #{ind9}, #{ind10}, #{ind11}, #{ind12}, #{elevatorId}, #{companyId}, #{state})
+	</insert>
+	
+	<!-- 修改电梯指标信息[实现] -->
+	<update id="updateElevatorIndices"
+		parameterType="cn.edu.zucc.elevator.entity.ElevatorIndices">
+		UPDATE 
+			elevatorIndices
+		<set>
+			<if test="ind1!=null">ind1=#{ind1},</if>
+			<if test="ind2!=null">ind2=#{ind2},</if>
+			<if test="ind3!=null">ind3=#{ind3},</if>
+			<if test="ind4!=null">ind4=#{ind4},</if>
+			<if test="ind5!=null">ind5=#{ind5},</if>
+			<if test="ind6!=null">ind6=#{ind6},</if>
+			<if test="ind7!=null">ind7=#{ind7},</if>
+			<if test="ind8!=null">ind8=#{ind8},</if>
+			<if test="ind9!=null">ind9=#{ind9},</if>
+			<if test="ind10!=null">ind10=#{ind10},</if>
+			<if test="ind11!=null">ind11=#{ind11},</if>
+			<if test="ind12!=null">ind12=#{ind12},</if>
+			<if test="companyId!=null">companyId=#{companyId},</if>
+			<if test="state!=null">state=#{state}</if>
+		</set>
+		WHERE 
+			elevatorId=#{elevatorId}
+	</update>
+	
+	<!-- 根据电梯id查询电梯指标[实现] -->
+	<select id="selectElevatorIndicesByElevatorId"
+		resultType="cn.edu.zucc.elevator.entity.ElevatorIndices">
+		SELECT 
+			id, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, ind9, ind10, ind11, ind12, elevatorId, companyId, state
+		FROM 
+			elevatorIndices
+		WHERE 
+			elevatorId=#{elevatorId}
+	</select>
+
+	<!-- 修改指标权重[实现] -->
+	<update id="updateWeightOfIndices"
+		parameterType="cn.edu.zucc.elevator.entity.Indices">
+		UPDATE 
+			indices
+		<set>
+			<if test="ind1!=null">ind1=#{ind1},</if>
+			<if test="ind2!=null">ind2=#{ind2},</if>
+			<if test="ind3!=null">ind3=#{ind3},</if>
+			<if test="ind4!=null">ind4=#{ind4},</if>
+			<if test="ind5!=null">ind5=#{ind5},</if>
+			<if test="ind6!=null">ind6=#{ind6},</if>
+			<if test="ind7!=null">ind7=#{ind7},</if>
+			<if test="ind8!=null">ind8=#{ind8},</if>
+			<if test="ind9!=null">ind9=#{ind9},</if>
+			<if test="ind10!=null">ind10=#{ind10},</if>
+			<if test="ind11!=null">ind11=#{ind11},</if>
+			<if test="ind12!=null">ind12=#{ind12}</if>
+		</set>
+		WHERE 
+			id = 4
+	</update>
+	
+	<!-- 获取指标权重[实现] -->
+	<select id="selectWeightOfIndices"
+		resultType="cn.edu.zucc.elevator.entity.Indices">
+		SELECT 
+			statement, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, ind9, ind10, ind11, ind12
+		FROM 
+			indices
+		WHERE 
+			id = 4
+	</select>
+	
+	<!-- 获取电梯指标平均值[实现] -->
+	<select id="selectAverageElevatorIndices"
+		resultType="cn.edu.zucc.elevator.entity.Indices">
+		SELECT 
+			avg(ind1) as ind1, 
+			avg(ind2) as ind2, 
+			avg(ind3) as ind3, 
+			avg(ind4) as ind4, 
+			avg(ind5) as ind5, 
+			avg(ind6) as ind6, 
+			avg(ind7) as ind7, 
+			avg(ind8) as ind8, 
+			avg(ind9) as ind9, 
+			avg(ind10) as ind10, 
+			avg(ind11) as ind11, 
+			avg(ind12) as ind12
+		FROM 
+			elevatorIndices
+	</select>
+	
+	<!-- 将电梯指标平均值写入到数据库中[实现] -->
+	<update id="updateAverageElevatorIndices"
+		parameterType="cn.edu.zucc.elevator.entity.Indices">
+		UPDATE 
+			indices
+		<set>
+			<if test="ind1!=null">ind1=#{ind1},</if>
+			<if test="ind2!=null">ind2=#{ind2},</if>
+			<if test="ind3!=null">ind3=#{ind3},</if>
+			<if test="ind4!=null">ind4=#{ind4},</if>
+			<if test="ind5!=null">ind5=#{ind5},</if>
+			<if test="ind6!=null">ind6=#{ind6},</if>
+			<if test="ind7!=null">ind7=#{ind7},</if>
+			<if test="ind8!=null">ind8=#{ind8},</if>
+			<if test="ind9!=null">ind9=#{ind9},</if>
+			<if test="ind10!=null">ind10=#{ind10},</if>
+			<if test="ind11!=null">ind11=#{ind11},</if>
+			<if test="ind12!=null">ind12=#{ind12}</if>
+		</set>
+		WHERE 
+			id = 3
+	</update>
+	
+	<!-- 根据电梯名字以及所属公司获取所有电梯指标信息(获取分页数据)[实现] -->
+	<select id="selectElevatorPageListByNameAndCompanyId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanElevatorIndices">
+		SELECT 
+			i.id as iid,
+			i.ind1 as ind1,
+			i.ind2 as ind2,
+			i.ind3 as ind3,
+			i.ind4 as ind4,
+			i.ind5 as ind5,
+			i.ind6 as ind6,
+			i.ind7 as ind7,
+			i.ind8 as ind8, 
+			i.ind9 as ind9,
+			i.ind10 as ind10,
+			i.ind11 as ind11,
+			i.ind12 as ind12,
+			i.state as state,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			e.id as eid,
+			e.elevatorName as elevatorName, 
+			e.score as score,
+			e.state as estate,
+			e.delflag as edelflag
+		FROM 
+			elevatorindices i LEFT OUTER JOIN elevator e on e.id = i.elevatorId LEFT OUTER JOIN company c on c.id = i.companyId
+		<where>
+			e.delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND e.elevatorName like '%' #{keyWord} '%'
+			</if>
+			<if test="userid!='' and userid!=null ">
+				AND e.companyId = #{userid}
+			</if>
+		</where>
+		ORDER BY 
+			i.state ASC, e.runningDate DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+	
+	
+	<!-- 根据电梯名字以及所属公司获取所有电梯指标信息(获取数据总数)[实现] -->
+	<select id="selectElevatorPageCountByNameAndCompanyId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			elevatorindices i LEFT OUTER JOIN elevator e on e.id = i.elevatorId LEFT OUTER JOIN company c on c.id = i.companyId
+		<where>
+			e.delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND e.elevatorName like '%' #{keyWord} '%'
+			</if>
+			<if test="userid!='' and userid!=null ">
+				AND e.companyId = #{userid}
+			</if>
+		</where>
+	</select>
+	
+	
+	<!-- 修改公司电梯指标为统一指标[实现] -->
+	<update id="updateElevatorIndicesByCompanyId">
+		UPDATE 
+			elevatorIndices
+		<set>
+			<if test="elevatorIndices.ind1!=null">ind1=#{elevatorIndices.ind1},</if>
+			<if test="elevatorIndices.ind2!=null">ind2=#{elevatorIndices.ind2},</if>
+			<if test="elevatorIndices.ind3!=null">ind3=#{elevatorIndices.ind3},</if>
+			<if test="elevatorIndices.ind4!=null">ind4=#{elevatorIndices.ind4},</if>
+			<if test="elevatorIndices.ind5!=null">ind5=#{elevatorIndices.ind5},</if>
+			<if test="elevatorIndices.ind6!=null">ind6=#{elevatorIndices.ind6},</if>
+			<if test="elevatorIndices.ind7!=null">ind7=#{elevatorIndices.ind7},</if>
+			<if test="elevatorIndices.ind8!=null">ind8=#{elevatorIndices.ind8},</if>
+			<if test="elevatorIndices.ind9!=null">ind9=#{elevatorIndices.ind9},</if>
+			<if test="elevatorIndices.ind10!=null">ind10=#{elevatorIndices.ind10},</if>
+			<if test="elevatorIndices.ind11!=null">ind11=#{elevatorIndices.ind11},</if>
+			<if test="elevatorIndices.ind12!=null">ind12=#{elevatorIndices.ind12}</if>
+		</set>
+		WHERE 
+			companyId = #{companyId} 
+	</update>
+	
+	<!-- 将电梯指标平均值写入到数据库中[实现] -->
+	<update id="updateElevatorScoreByCompanyId">
+		UPDATE 
+			elevatorindices i LEFT OUTER JOIN elevator e on e.id = i.elevatorId
+		<set>
+			e.score = #{indices.ind1}*i.ind1 + #{indices.ind2}*i.ind2 + #{indices.ind3}*i.ind3 + #{indices.ind4}*i.ind4 + 
+					  #{indices.ind5}*i.ind5 + #{indices.ind6}*i.ind6 + #{indices.ind7}*i.ind7 + #{indices.ind8}*i.ind8 + 
+					  #{indices.ind9}*i.ind9 + #{indices.ind10}*i.ind10 + #{indices.ind11}*i.ind11 + #{indices.ind12}*i.ind12,
+			i.state = 1  
+		</set>
+		WHERE  
+			e.companyId = #{companyId}  
+	</update> 
+	
+	
+</mapper>
+  

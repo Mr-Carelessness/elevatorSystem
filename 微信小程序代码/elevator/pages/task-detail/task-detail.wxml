@@ -1,0 +1,124 @@
+<!--pages/task-detail/task-detail.wxml-->
+<!-- 日历 -->
+<view class="canlendarBgView">
+  <view class="canlendarView">
+    <view class="canlendarTopView">
+      <view class="leftBgView" bindtap="handleCalendar" data-handle="prev">
+        <view class="leftView">《</view>
+      </view>
+      <view class="centerView">{{cur_year || "--"}} 年 {{cur_month || "--"}} 月</view>
+      <view class="rightBgView" bindtap="handleCalendar" data-handle="next">
+        <view class="rightView">》</view>
+      </view>
+    </view>
+    <view class="weekBgView" style="background:#e9eaec;">
+      <view class="weekView" wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+    </view>
+    <view class="dateBgView" style="background:#fff;">
+      <view wx:if="{{hasEmptyGrid}}" class="dateEmptyView" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}">
+      </view>
+      <view class="dateView" wx:for="{{days}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="dateSelectAction">
+        <view class="datesView {{index == todayIndex ? 'dateSelectView' : ''}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="taskPanel">
+  <view style='color:#1c2438;font-weight:700; margin:10rpx auto 10rpx; font-size: 14px;'>● 当前任务</view>
+  <scroll-view scroll-y="true" style="height:620rpx;">
+    <!-- 一条记录 -->
+    <!-- <view class="i-card" wx:for="{{tasklist}}">
+      <view class="taskLeft">
+        <view><text style="font-weight:900">记录编号：</text>{{item.recordId}}</view>
+        <view><text style="font-weight:900">电梯编号：</text>{{item.elevatorId}}</view>
+        <view><text style="font-weight:900">电梯层站：</text>{{item.floor}}层</view>
+        <view><text style="font-weight:900">电梯地点：</text>{{item.elevatorAdd}}</view> 
+      </view>
+      <view style='margin:20rpx 20rpx 0 0rpx;height:160rpx;width:160rpx;float:right;padding-top:25rpx;;'>
+        <view wx:if="{{item.recordStatus == '已完成'}}" style="width:150rpx; height:150rpx; border-radius:75rpx; background:#19be6b;"><text style="font-size:30rpx;color:#f8f8f9;font-weight:900;margin-left:32rpx;line-height:150rpx;">已完成</text></view>
+        <view wx:else style="width:150rpx; height:150rpx; border-radius:75rpx; background:#ff9900;"><text style="font-size:30rpx;color:#f8f8f9;font-weight:900;margin-left:32rpx;line-height:150rpx;" bindtap="finishtask" data-recordId="{{item.recordId}}">待完成</text></view>
+      </view>
+    </view> -->
+    <view wx:if="{{type == 1}}">
+      <view class="i-card" wx:for="{{constructionList}}"  bindtap="finishtask" data-type="1" data-event="3" data-state="{{item.state}}" data-id="{{item.id}}" data-elevatorId="{{item.elevator.id}}">
+        <i-row>
+          <i-col span="18" i-class="col-class">
+            <view class="taskLeft" style="height:auto; padding-bottom:5px;">
+              <view><text style="font-weight:900">施工电梯：</text>{{item.elevator==null?'anonymous':item.elevator.elevatorName}}</view>
+              <view><text style="font-weight:900">所在地点：</text>{{item.elevator==null?'anonymous':item.elevator.address}}</view>
+              <view><text style="font-weight:900">施工类别：</text>{{item.type==null?'未知':item.type}}</view>
+              <view><text style="font-weight:900">截止日期：</text>{{item.finishDate}}</view>
+            </view>
+          </i-col>
+          <i-col span="8" i-class="col-class">
+            <view style='margin:0 20rpx 0 0rpx;height:160rpx;width:160rpx;float:right;padding-top:25rpx;;'>
+              <view wx:if="{{item.state == 2}}" style="width:150rpx; height:150rpx; border-radius:75rpx; background:#19be6b; text-align:center;"><text style="font-size:30rpx;color:#f8f8f9;font-weight:900;line-height:150rpx;">已完成</text></view>
+              <view wx:else style="width:150rpx; height:150rpx; border-radius:75rpx; background:#ff9900; text-align:center;"><text style="font-size:30rpx;color:#f8f8f9;font-weight:900;line-height:150rpx; " data-recordId="{{item.recordId}}">待完成</text></view>
+            </view>
+          </i-col>
+        </i-row>
+      </view>
+    </view>
+    <view wx:elif="{{type == 2}}">
+      <i-button bindtap="finishtask" data-type="2" data-event="1" data-state="0">新增巡查记录</i-button>
+      <view class="i-card" wx:for="{{inspectionList}}"  bindtap="finishtask" data-type="2" data-event="2" data-state="{{item.state}}" data-id="{{item.id}}">
+        <i-row>
+          <i-col span="18" i-class="col-class">
+            <view class="taskLeft" style="height:auto; padding-bottom:5px;">
+              <view><text style="font-weight:900">巡查电梯：</text>{{item.elevator==null?'anonymous':item.elevator.elevatorName}}</view>
+              <view><text style="font-weight:900">所在地点：</text>{{item.elevator==null?'anonymous':item.elevator.address}}</view>
+              <view><text style="font-weight:900">巡查时间：</text>{{item.inspectionDate}}</view>
+            </view>
+          </i-col>
+          <i-col span="8" i-class="col-class">
+            <view style='margin:0 20rpx 0 0rpx;height:160rpx;width:160rpx;float:right;padding-top:25rpx;;'>
+              <view style="width:150rpx; height:150rpx; border-radius:75rpx; background:#19be6b; text-align:center;"><text style="font-size:30rpx;color:#f8f8f9;font-weight:900;line-height:150rpx;">已完成</text></view>
+            </view>
+          </i-col>
+        </i-row>
+      </view>
+      <!--新增巡查记录-->
+    </view>
+    <view wx:elif="{{type == 3}}">
+      <view class="i-card" wx:for="{{maintainenceList}}" bindtap="finishtask" data-type="3" data-event="3" data-state="{{item.state}}" data-id="{{item.id}}" data-questions="{{item.questions}}">
+        <i-row>
+          <i-col span="18" i-class="col-class">
+            <view class="taskLeft" style="height:auto; padding-bottom:5px;">
+              <view><text style="font-weight:900">维护电梯：</text>{{item.elevator==null?'anonymous':item.elevator.elevatorName}}</view>
+              <view><text style="font-weight:900">所在地点：</text>{{item.elevator==null?'anonymous':item.elevator.address}}</view>
+              <view><text style="font-weight:900">截止日期：</text>{{item.finishDate}}</view>
+            </view>
+          </i-col>
+          <i-col span="8" i-class="col-class">
+            <view style='margin:0 20rpx 0 0rpx;height:160rpx;width:160rpx;float:right;padding-top:25rpx;;'>
+              <view wx:if="{{item.state == 2}}" style="width:150rpx; height:150rpx; border-radius:75rpx; background:#19be6b; text-align:center;"><text style="font-size:30rpx;color:#f8f8f9;font-weight:900;line-height:150rpx;">已完成</text></view>
+              <view wx:else style="width:150rpx; height:150rpx; border-radius:75rpx; background:#ff9900; text-align:center;"><text style="font-size:30rpx;color:#f8f8f9;font-weight:900;line-height:150rpx; " data-recordId="{{item.recordId}}">待完成</text></view>
+            </view>
+          </i-col>
+        </i-row>
+      </view>
+    </view>
+    <view wx:else>
+      <view class="i-card" wx:for="{{testingList}}" bindtap="finishtask" data-type="4" data-event="3" data-state="{{item.state}}" data-id="{{item.id}}">
+        <i-row>
+          <i-col span="18" i-class="col-class">
+            <view class="taskLeft" style="height:auto; padding-bottom:5px;">
+              <view><text style="font-weight:900">检测电梯：</text>{{item.elevator==null?'anonymous':item.elevator.elevatorName}}</view>
+              <view><text style="font-weight:900">所在地点：</text>{{item.elevator==null?'anonymous':item.elevator.address}}</view>
+              <view><text style="font-weight:900">截止日期：</text>{{item.finishDate}}</view>
+            </view>
+          </i-col>
+          <i-col span="8" i-class="col-class">
+           <view style='margin:0rpx 20rpx 0 0rpx;height:160rpx;width:160rpx;float:right;padding-top:25rpx;;'>
+              <view wx:if="{{item.state == 2}}" style="width:150rpx; height:150rpx; border-radius:75rpx; background:#19be6b; text-align:center;"><text style="font-size:30rpx;color:#f8f8f9;font-weight:900;line-height:150rpx;">已完成</text></view>
+              <view wx:else style="width:150rpx; height:150rpx; border-radius:75rpx; background:#ff9900; text-align:center;"><text style="font-size:30rpx;color:#f8f8f9;font-weight:900;line-height:150rpx; " data-recordId="{{item.recordId}}">待完成</text></view>
+            </view>
+          </i-col>
+        </i-row>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+

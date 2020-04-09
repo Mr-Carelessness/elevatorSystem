@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.InspectionDao">
+	
+	<!-- Inspection与数据库对应的映射关系  -->
+	<resultMap type="cn.edu.zucc.elevator.entity.Inspection" id="BeanInspection">
+		<id column="iid" property="id" />
+		<result column="inspectionDate" property="inspectionDate" />
+		<result column="score" property="score" />
+		<result column="record" property="record" />
+		<result column="idelflag" property="delflag" />
+		<!-- 外键连接operator -->
+		<association property="operator" javaType="cn.edu.zucc.elevator.entity.Operator">
+			<id column="oid" property="id" />
+			<result column="username" property="username" />
+			<result column="realname" property="realname" />
+			<result column="type" property="type" />
+			<result column="telephone" property="telephone" />
+			<result column="avatarUrl" property="avatarUrl" />
+			<result column="licenseUrl" property="licenseUrl" />
+			<result column="createTime" property="createTime" />
+			<result column="odelflag" property="delflag" />
+			<!-- 外键连接company -->
+			<association property="company" javaType="cn.edu.zucc.elevator.entity.Company">
+				<id column="cid" property="id" />
+				<result column="cname" property="cname" />
+				<result column="caddress" property="address" />
+				<result column="authority" property="authority" />
+				<result column="safetyManagementInfo" property="safetyManagementInfo" />
+				<result column="securityTechnologyInfo" property="securityTechnologyInfo" />
+				<result column="emegyTechnologyInfo" property="emegyTechnologyInfo" />
+				<result column="safetyOrganizationInfo" property="safetyOrganizationInfo" />
+				<result column="sealUrl" property="sealUrl" />
+				<result column="avatarUrl" property="avatarUrl" />
+				<result column="cdelflag" property="delflag" />
+			</association>
+		</association>
+		<!-- 外键连接elevator -->
+		<association property="elevator" javaType="cn.edu.zucc.elevator.entity.Elevator">
+			<id column="eid" property="id" />
+			<result column="ecompanyId" property="companyId" />
+			<result column="elevatorName" property="elevatorName" />
+			<result column="equipmentType" property="equipmentType" />
+			<result column="equipmentName" property="equipmentName" />
+			<result column="typeNumber" property="typeNumber" />
+			<result column="speed" property="speed" />
+			<result column="floor" property="floor" />
+			<result column="weight" property="weight" />
+			<result column="liftHeight" property="liftHeight" />
+			<result column="eaddress" property="address" />
+			<result column="longtitude" property="longtitude" />
+			<result column="latitude" property="latitude" />
+			<result column="estate" property="state" />
+			<result column="planDate" property="planDate" />
+			<result column="runningDate" property="runningDate" />
+			<result column="escore" property="score" />
+			<result column="edelflag" property="delflag" />
+		</association>
+	</resultMap>
+	
+	
+	<!-- 插入巡查信息[实现] -->
+	<insert id="insertInspection" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Inspection">
+		INSERT INTO 
+			inspection(operatorId, elevatorId, inspectionDate, record, score, delflag)
+		VALUES
+			(#{operatorId}, #{elevatorId}, #{inspectionDate}, #{record}, #{score}, #{delflag})
+	</insert>
+	
+	<!-- 删除巡查信息[实现] -->
+	<update id="deleteInspection">
+		UPDATE 
+			inspection
+		SET
+			delflag = 1
+		WHERE 
+			id=#{inspectionId}
+	</update>
+	
+	<!-- 根据巡查记录id对应巡查记录[实现] -->
+	<select id="selectInspectionById"
+		resultMap="BeanInspection">
+		SELECT 
+			i.id as iid,
+			i.inspectionDate as inspectionDate,
+			i.score as score,
+			i.record as record,
+			i.delflag as idelflag,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl 
+		FROM
+			inspection i
+			left outer join operator o on i.operatorId = o.id 
+		    left outer join elevator e on i.elevatorId = e.id 
+		    left outer join company c on o.companyId = c.id
+		<where>
+			i.delflag = 0 AND i.id = #{id} 
+		</where>
+	</select>
+	
+	<!-- 根据操作者id、巡查日期查找对应巡查记录[实现] -->
+	<select id="selectInspectionListByOperatorIdAndDate"
+		resultMap="BeanInspection">
+		SELECT 
+			i.id as iid,
+			i.inspectionDate as inspectionDate,
+			i.score as score,
+			i.record as record,
+			i.delflag as idelflag,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl 
+		FROM
+			inspection i
+			left outer join operator o on i.operatorId = o.id 
+		    left outer join elevator e on i.elevatorId = e.id 
+		    left outer join company c on o.companyId = c.id
+		<where>
+			i.delflag = 0
+			<if test="operatorId!='' and operatorId!=null ">
+				AND i.operatorId = #{operatorId}
+			</if>
+			<if test="date!=null ">
+				AND DATEDIFF(#{date},i.inspectionDate) = 0 
+			</if>
+		</where>
+		ORDER BY 
+			i.inspectionDate DESC
+	</select>
+
+
+	<!-- 根据电梯id获取巡查记录列表(获取分页数据)[实现] -->
+	<select id="selectInspectionPageListByElevatorId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanInspection">
+		SELECT 
+			i.id as iid,
+			i.inspectionDate as inspectionDate,
+			i.score as score,
+			i.record as record,
+			i.delflag as idelflag,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl 
+		FROM
+			inspection i
+			left outer join operator o on i.operatorId = o.id 
+		    left outer join elevator e on i.elevatorId = e.id 
+		    left outer join company c on o.companyId = c.id
+		<where>
+			i.delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND i.elevatorId = #{userid}
+			</if>
+		</where>
+		ORDER BY 
+			i.inspectionDate DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据电梯id获取巡查记录列表(获取数据总数)[实现] -->
+	<select id="selectInspectionPageCountByElevatorId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			inspection 
+		<where>
+			delflag = 0 
+			<if test="userid!='' and userid!=null ">
+				AND elevatorId = #{userid}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据操作者id获取巡查记录列表(获取分页数据)[实现] -->
+	<select id="selectInspectionPageListByOperatorId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanInspection">
+		SELECT 
+			i.id as iid,
+			i.inspectionDate as inspectionDate,
+			i.score as score,
+			i.record as record,
+			i.delflag as idelflag,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl 
+		FROM
+			inspection i
+			left outer join operator o on i.operatorId = o.id 
+		    left outer join elevator e on i.elevatorId = e.id 
+		    left outer join company c on o.companyId = c.id
+		<where>
+			i.delflag = 0 
+			<if test="userid!='' and userid!=null ">
+				AND i.operatorId = #{userid}
+			</if>
+		</where>
+		ORDER BY 
+			i.inspectionDate DESC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据操作者id获取巡查记录列表(获取数据总数)[实现] -->
+	<select id="selectInspectionPageCountByOperatorId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			inspection 
+		<where>
+			delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND operatorId = #{userid}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据日期、公司id获取巡查记录列表(获取分页数据)[实现] -->
+	<select id="selectInspectionPageListByCompanyIdAndDate"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanInspection">
+		SELECT 
+			i.id as iid,
+			i.inspectionDate as inspectionDate,
+			i.score as score,
+			i.record as record,
+			i.delflag as idelflag,
+			o.id as oid,
+			o.username as username,
+			o.realname as realname,		
+			o.type as type,
+			o.telephone as telephone,
+			o.avatarUrl as avatarUrl,        
+			o.licenseUrl as licenseUrl,
+			o.createTime as createTime,
+			e.id as eid,
+			e.companyId as ecompanyId,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,        
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as escore,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl 
+		FROM
+			inspection i
+			left outer join operator o on i.operatorId = o.id 
+		    left outer join elevator e on i.elevatorId = e.id 
+		    left outer join company c on o.companyId = c.id
+		<where>
+			i.delflag = 0 
+			<if test="companyId!='' and companyId!=null ">
+				AND o.companyId = #{companyId}
+			</if>
+			<if test="date!=null"> 
+				AND DateDiff(i.inspectionDate,#{date})=0
+			</if>
+		</where>
+		ORDER BY 
+			i.inspectionDate DESC
+		LIMIT 
+			#{page.start},#{page.rows}
+	</select>
+
+	<!-- 根据日期、公司id类型获取巡查记录列表(获取数据总数)[实现] -->
+	<select id="selectInspectionPageCountByCompanyIdAndDate"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			inspection i left outer join operator o on i.operatorId = o.id
+		<where>
+			i.delflag = 0
+			<if test="companyId!='' and companyId!=null ">
+				AND o.companyId = #{companyId}
+			</if>
+			<if test="date!=null"> 
+				AND DateDiff(i.inspectionDate,#{date})=0
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据电梯id计算近三次巡查状况的平局分[实现] -->
+	<select id="selectInspectionAvgScore"
+		resultType="java.lang.Float">
+		SELECT 
+			avg(score) as score 
+		FROM
+			inspection
+		WHERE 
+			elevatorId = #{elevatorId}
+		ORDER BY 
+			inspectionDate DESC
+		LIMIT 
+			0,3
+	</select>
+</mapper>
+  

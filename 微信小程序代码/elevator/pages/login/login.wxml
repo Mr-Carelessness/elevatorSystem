@@ -1,0 +1,20 @@
+<!--pages/login/login.wxml-->
+<view style="padding:15px; color:#80848f; font-weight:900"><text>欢迎来到智慧电梯监管系统——微信小程序端，你可以操作员或普通用户身份使用该微信小程序，在使用前，我们需要对您的身份进行验证：</text></view>
+
+<view>
+  <view style="padding: 0px 15px 10px; font-size:14px; color:#1c2438">请选择用户身份：</view>
+  <view>
+    <i-radio-group current="{{tpCurrent}}" bindchange="handleTypeChange">
+        <i-radio wx:for="{{tpArray}}" position="left" wx:key="{{item.id}}" value="{{item.name}}">
+        </i-radio>
+    </i-radio-group>
+  </view>
+</view>
+
+<view id="userId" style="display: {{idDisplay}}; margin-top: 20px;">
+  <view style="padding: 0px 15px 10px; font-size:14px; color:#1c2438">用户名</view>
+  <i-input placeholder='请输入由管理员给您提供的用户名' value="{{username}}" bindchange="getInputValue" bindblur="getUserInfo"></i-input>
+  <view style="padding: 5px 15px; font-size:14px; color:{{hintColor}}">{{hint}}</view>
+</view>
+
+<i-button style="margin-topp:10px" type="primary" bindtap='elogin'>进入小程序</i-button>

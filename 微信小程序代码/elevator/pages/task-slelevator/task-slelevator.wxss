@@ -1,0 +1,64 @@
+/* pages/task-slelevator/task-slelevator.wxss */
+/* 搜索部分 */
+.section{
+  height: 40px;
+  width: 100%;
+  background-color: #EFEFF4;
+  border-top: 1rpx solid #D7D6DC;
+  border-bottom: 1rpx solid #D7D6DC;
+}
+.section input{
+  width:70%;
+  position: absolute;
+  left: 20rpx;
+  top: 10rpx;
+  border:1px solid #c3c3c3;
+  height:30px;
+  border-radius: 3px;
+  padding: 0 5px;
+
+}
+.btn-Wc{
+  margin-right: 10rpx;
+  margin-left: 10rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 5rpx;
+  width: 20%;
+  background-color: #2b85e4;
+  color: #fff;
+  font-weight: 900;
+  border-radius: 5px;
+  height:30px;
+  /*background-color: #2b85e4;*/
+}
+.text_box{
+  margin: 5px 15px;
+  border-bottom:1px solid #dddee1;
+  padding-bottom:5px;
+  z-index: 110;
+}
+#text_box_outer{
+  position: absolute;
+  top: 42px;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  background-color: white;
+  z-index: 100;
+}
+.text_box_title{
+  font-size: 14px;
+  color: #495060;
+}
+.text_box_address{
+  font-size: 12px;
+  color: #80848f;
+}
+.img_Ss{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 10rpx;
+}

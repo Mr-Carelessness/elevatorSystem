@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>查看公司安全信息</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			
+		</style>
+	</head>
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				<div class="layui-form-item layui-form-text">
+				    <label class="layui-form-label">安全管理制度：</label>
+				    <div class="layui-input-block">
+				    	<textarea id="safetyManagementInfo" name="safetyManagementInfo" class="layui-textarea"></textarea>
+				    </div>
+				</div>
+				<div class="layui-form-item layui-form-text">
+				    <label class="layui-form-label">安全技术档案：</label>
+				    <div class="layui-input-block">
+				    	<textarea id="securityTechnologyInfo" name="securityTechnologyInfo" class="layui-textarea"></textarea>
+				    </div>
+				</div>
+				<div class="layui-form-item layui-form-text">
+				    <label class="layui-form-label">应急救援机制：</label>
+				    <div class="layui-input-block">
+				    	<textarea id="emegyTechnologyInfo" name="emegyTechnologyInfo" class="layui-textarea"></textarea>
+				    </div>
+				</div>
+				<div class="layui-form-item layui-form-text">
+				    <label class="layui-form-label">安全管理机构概况：</label>
+				    <div class="layui-input-block">
+				    	<textarea id="safetyOrganizationInfo" name="safetyOrganizationInfo" class="layui-textarea"></textarea>
+				    </div>
+				</div>
+			</form>
+		</div>
+		<script src="../../../src/layui/layui.js" charset="utf-8"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="company-detailSafety.js"></script>
+	</body>
+</html>

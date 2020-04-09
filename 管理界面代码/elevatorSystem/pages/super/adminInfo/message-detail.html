@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>查看消息</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				<div class="layui-form-item">
+					<label class="layui-form-label">发送者</label>
+					<div class="layui-input-block ">
+						<input type="text" name="sender" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">接收者</label>
+					<div class="layui-input-block ">
+						<input type="text" name="receiver" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">发送时间</label>
+					<div class="layui-input-block ">
+						<input type="text" name="sendTime" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div> 
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label">消息内容</label>
+					<div class="layui-input-block ">
+						<textarea name="content" required lay-verify="required" class="layui-textarea"></textarea>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+		<script src="../../../src/layui/layui.js" charset="utf-8"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="message-detail.js"></script>
+	</body>
+
+</html>
+
+<!-- 发送者、接收者、发送时间、消息内容 -->
+

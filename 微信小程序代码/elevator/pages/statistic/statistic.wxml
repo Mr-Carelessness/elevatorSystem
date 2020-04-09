@@ -1,0 +1,34 @@
+<!--pages/statistic/statistic.wxml-->
+<i-row>
+  <i-col span="12" i-class="col-class">
+    <view style='text-align: center; margin:20px 5px 10px 10px; border: solid #dddee1 2px'>
+      <view style='padding-top:10px;'>指派任务总数：</view>
+      <view style='font-size:22px; color:#2d8cf0; padding:15px; margin-bottom:10px; font-weight:900;'>300</view>
+    </view> 
+  </i-col>
+  <i-col span="12" i-class="col-class">
+    <view style='text-align: center; margin:20px 10px 10px 5px; border: solid #dddee1 2px'>
+      <view style='padding-top:10px;'>完成任务总数：</view>
+      <view style='font-size:22px; color:#19be6b; padding:15px; margin-bottom:10px; font-weight:900;'>256</view>
+    </view> 
+  </i-col>
+  <i-col span="12" i-class="col-class">
+    <view style='text-align: center; margin:0px 5px 10px 10px; border: solid #dddee1 2px'>
+      <view style='padding-top:10px;'>接收消息总数：</view>
+      <view style='font-size:22px; color:#ff9900; padding:15px; margin-bottom:10px; font-weight:900;'>20</view>
+    </view> 
+  </i-col>
+  <i-col span="12" i-class="col-class">
+    <view style='text-align: center; margin:0px 10px 10px 5px; border: solid #dddee1 2px'>
+      <view style='padding-top:10px;'>已读消息总数：</view>
+      <view style='font-size:22px; color:#ed3f14; padding:15px; margin-bottom:10px; font-weight:900;'>20</view>
+    </view> 
+  </i-col>
+</i-row>
+
+<view>
+  <view style="text-align:center; margin-top: 20px; font-weight:900">近一年各月完成任务情况折线图</view>
+  <view class="box">
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+  </view>
+</view>

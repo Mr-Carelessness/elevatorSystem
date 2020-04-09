@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>单位管理</title>
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<script src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<style>
+			.fl{
+				margin-left: 0px;
+			}
+			.fr{
+				margin-top: 5px;
+			}
+		</style>
+	</head>
+
+	<body class="layui-layout-body" style="padding-top: 15px; padding-left: 20px; padding-right: 20px;">
+		<div class="layui-row">
+		    <div style="width: 100%;">
+		    	<div style="width: 60%; display: inline-block;">	    
+			  		<span class="fl">
+				        <a class="layui-btn btn-default layui-btn-normal" lay-event="add" id="btn-info"><i class="layui-icon layui-icon-about"></i> 指标与权重说明</a>
+				        <a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-mod"><i class="layui-icon layui-icon-edit"></i> 修改指标权重</a>
+				        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh" id="btn-refresh"><i class="layui-icon layui-icon-refresh-3"></i></a>
+				    </span>
+			   </div>
+			   <div style="width: 39%; display: inline-block;">
+			   		<input style="width: 30%; display: inline-block;" type="text" name="company" id="company" required autocomplete="off" class="layui-input" placeholder="请选择公司">
+			   		<input style="width: 48%; display: inline-block;" class="layui-input" id="keyword" autocomplete="off" placeholder="请输入关键词">
+			   		<button style="width: 19%; display: inline-block;" class="layui-btn" id="btn-search" data-type="reload"><i class="layui-icon layui-icon-search"></i> 搜索</button>
+			   </div>
+		    </div>				
+		</div>
+		<div class="layui-row">
+			<div class="layui-bg-gray" style="margin: 10px auto; line-height: 40px; font-weight: 900;">　请给以下未评分的电梯进行指标评分，或者修改(已评分)电梯指标评分</div>
+			<table class="layui-hide" id="demo" lay-filter="test"></table>
+		</div>
+		
+		
+		<script type="text/html" id="elevatorName">
+		    {{d.elevator==null||d.elevator.elevatorName==null?'':d.elevator.elevatorName}}
+		</script>
+		<script type="text/html" id="cname">
+		    {{d.company==null||d.company.cname==null?'':d.company.cname}}
+		</script>
+		<script type="text/html" id="address">
+		    {{d.company==null||d.company.address==null?'':d.company.address}}
+		</script>
+		<script type="text/html" id="state">
+		    {{#  if(d.state == 1){ }}
+			    <span style="color: #5FB878;"> 已评分 </span>
+			{{#  } else { }}
+			    <span style="color: #FF5722;"> 未评分 </span>
+			{{#  } }}
+		</script>
+		
+		<script type="text/html" id="barDemo">
+			{{#  if(d.state == 0){ }}
+			    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">指标评分</a>
+			{{#  } else { }}
+				<a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="detail">查看指标评分</a>
+			    <a class="layui-btn layui-btn-xs" lay-event="edit">修改指标评分</a>
+			{{#  } }}
+		</script>
+		<script src="../../conf/conf.js"></script>
+		<script src="indices.js"></script>
+	</body>
+
+</html>

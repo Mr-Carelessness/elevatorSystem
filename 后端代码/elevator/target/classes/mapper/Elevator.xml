@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.ElevatorDao">
+
+	<!-- Manager与数据库对应的映射关系  -->
+	<resultMap type="cn.edu.zucc.elevator.entity.Elevator" id="BeanElevator">
+		<id column="eid" property="id" />
+		<result column="ecompanyId" property="companyId" />
+		<result column="elevatorName" property="elevatorName" />
+		<result column="equipmentType" property="equipmentType" />
+		<result column="equipmentName" property="equipmentName" />
+		<result column="typeNumber" property="typeNumber" />
+		<result column="speed" property="speed" />
+		<result column="floor" property="floor" />
+		<result column="weight" property="weight" />
+		<result column="liftHeight" property="liftHeight" />
+		<result column="eaddress" property="address" />
+		<result column="longtitude" property="longtitude" />
+		<result column="latitude" property="latitude" />
+		<result column="estate" property="state" />
+		<result column="planDate" property="planDate" />
+		<result column="runningDate" property="runningDate" />
+		<result column="score" property="score" />
+		<result column="edelflag" property="delflag" />
+		<!-- 外键连接company -->
+		<association property="company" javaType="cn.edu.zucc.elevator.entity.Company">
+			<id column="cid" property="id" />
+			<result column="cname" property="cname" />
+			<result column="caddress" property="address" />
+			<result column="authority" property="authority" />
+			<result column="safetyManagementInfo" property="safetyManagementInfo" />
+			<result column="securityTechnologyInfo" property="securityTechnologyInfo" />
+			<result column="emegyTechnologyInfo" property="emegyTechnologyInfo" />
+			<result column="safetyOrganizationInfo" property="safetyOrganizationInfo" />
+			<result column="sealUrl" property="sealUrl" />
+			<result column="avatarUrl" property="avatarUrl" />
+			<result column="cdelflag" property="delflag" />
+		</association>
+		<!-- 外键连接ElevatorIndices -->
+		<association property="elevatorIndices" javaType="cn.edu.zucc.elevator.entity.ElevatorIndices">
+			<id column="eiid" property="id" />
+			<result column="ind1" property="ind1" />
+			<result column="ind2" property="ind2" />
+			<result column="ind3" property="ind3" />
+			<result column="ind4" property="ind4" />
+			<result column="ind5" property="ind5" />
+			<result column="ind6" property="ind6" />
+			<result column="ind7" property="ind7" />
+			<result column="ind8" property="ind8" />
+			<result column="ind9" property="ind9" />
+			<result column="ind10" property="ind10" />
+			<result column="ind11" property="ind11" />
+			<result column="ind12" property="ind12" />
+			<result column="elevatorId" property="elevatorId" />
+			<result column="eicompanyId" property="companyId" />
+			<result column="eistate" property="state" />
+		</association>
+	</resultMap>
+	
+	<!-- 插入电梯信息[实现] -->
+	<insert id="insertElevator" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Elevator">
+		INSERT INTO 
+			elevator(companyId, elevatorName, equipmentType, equipmentName, typeNumber, speed, floor, weight, liftHeight, address, longtitude, latitude, state, planDate, runningDate, score, delflag)
+		VALUES
+			(#{companyId}, #{elevatorName}, #{equipmentType}, #{equipmentName}, #{typeNumber}, #{speed}, #{floor}, #{weight}, #{liftHeight}, #{address}, #{longtitude}, #{latitude}, #{state}, #{planDate}, #{runningDate}, #{score}, #{delflag})	
+	</insert>
+	
+	<!-- 修改电梯信息[实现] -->
+	<update id="updateElevator"
+		parameterType="cn.edu.zucc.elevator.entity.Elevator">
+		UPDATE 
+			elevator
+		<set>
+			<if test="companyId!=null">companyId=#{companyId},</if>
+			<if test="elevatorName!=null">elevatorName=#{elevatorName},</if>
+			<if test="equipmentType!=null">equipmentType=#{equipmentType},</if>
+			<if test="equipmentName!=null">equipmentName=#{equipmentName},</if>
+			<if test="typeNumber!=null">typeNumber=#{typeNumber},</if>
+			<if test="speed!=null">speed=#{speed},</if>
+			<if test="floor!=null">floor=#{floor},</if>
+			<if test="weight!=null">weight=#{weight},</if>
+			<if test="liftHeight!=null">liftHeight=#{liftHeight},</if>
+			<if test="address!=null">address=#{address},</if>
+			<if test="longtitude!=null">longtitude=#{longtitude},</if>
+			<if test="latitude!=null">latitude=#{latitude},</if>
+			<if test="state!=null">state=#{state},</if>
+			<if test="planDate!=null">planDate=#{planDate},</if>
+			<if test="runningDate!=null">runningDate=#{runningDate},</if>
+			<if test="score!=null">score=#{score}</if>
+		</set>
+		WHERE 
+			id=#{id}
+	</update>
+	
+	<!-- 删除电梯信息[实现] -->
+	<update id="deleteElevator">
+		UPDATE 
+			elevator
+		SET
+			delflag = 1
+		WHERE 
+			id = #{elevatorId} and state = 0
+	</update>
+	
+	<!-- 根据根据电梯id查询电梯信息[实现] -->
+	<select id="selectElevatorById"
+		resultMap="BeanElevator">
+		SELECT 
+			e.id as eid,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as score,
+			e.delflag as edelflag,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag,
+			ei.id as eiid,
+			ei.ind1 as ind1,
+			ei.ind2 as ind2,
+			ei.ind3 as ind3,
+			ei.ind4 as ind4,
+			ei.ind5 as ind5,
+			ei.ind6 as ind6,
+			ei.ind7 as ind7,
+			ei.ind8 as ind8,
+			ei.ind9 as ind9,
+			ei.ind10 as ind10,
+			ei.ind11 as ind11,
+			ei.ind12 as ind12,
+			ei.elevatorId as elevatorId,
+			ei.companyId as eicompanyId,
+			ei.state as eistate
+		FROM 
+			elevator e left outer join company c on e.companyId = c.id left outer join elevatorIndices ei on ei.elevatorId = e.id
+		WHERE 
+			e.delflag = 0 AND e.id=#{id}
+	</select>
+
+
+	<!-- 根据电梯名称、公司id获取电梯列表(获取分页数据)[实现] -->
+	<select id="selectElevatorPageListByNameAndCompanyId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanElevator">
+		SELECT 
+			e.id as eid,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as score,
+			e.delflag as edelflag,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag,
+			ei.id as eiid,
+			ei.ind1 as ind1,
+			ei.ind2 as ind2,
+			ei.ind3 as ind3,
+			ei.ind4 as ind4,
+			ei.ind5 as ind5,
+			ei.ind6 as ind6,
+			ei.ind7 as ind7,
+			ei.ind8 as ind8,
+			ei.ind9 as ind9,
+			ei.ind10 as ind10,
+			ei.ind11 as ind11,
+			ei.ind12 as ind12,
+			ei.elevatorId as elevatorId,
+			ei.companyId as eicompanyId,
+			ei.state as eistate
+		FROM 
+			elevator e left outer join company c on e.companyId = c.id left outer join elevatorIndices ei on ei.elevatorId = e.id
+		<where>
+			e.delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND e.elevatorName like '%' #{keyWord} '%'
+			</if>
+			<if test="userid!='' and userid!=null ">
+				AND e.companyId = #{userid}
+			</if>
+		</where>
+		ORDER BY 
+			e.id ASC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据电梯名称、公司id获取电梯列表(获取数据总数)[实现] -->
+	<select id="selectElevatorPageCountByNameAndCompanyId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			elevator
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND elevatorName like '%' #{keyWord} '%'
+			</if>
+			<if test="userid!='' and userid!=null ">
+				AND companyId = #{userid}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据根据公司id查询所有电梯信息[实现] -->
+	<select id="selectElevatorListByCompanyId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanElevator">
+		SELECT 
+			e.id as eid,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as score,
+			e.delflag as edelflag,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag,
+			ei.id as eiid,
+			ei.ind1 as ind1,
+			ei.ind2 as ind2,
+			ei.ind3 as ind3,
+			ei.ind4 as ind4,
+			ei.ind5 as ind5,
+			ei.ind6 as ind6,
+			ei.ind7 as ind7,
+			ei.ind8 as ind8,
+			ei.ind9 as ind9,
+			ei.ind10 as ind10, 
+			ei.ind11 as ind11,
+			ei.ind12 as ind12,
+			ei.elevatorId as elevatorId,
+			ei.companyId as eicompanyId, 
+			ei.state as eistate
+		FROM 
+			elevator e left outer join company c on e.companyId = c.id left outer join elevatorIndices ei on ei.elevatorId = e.id
+		<where>
+			e.delflag = 0
+			<if test="userid!='' and userid!=null ">
+				AND e.companyId = #{userid}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据经纬度信息查询附近的电梯信息[实现] -->
+	<select id="selectElevatorListByGeoPosition"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanElevator">
+		SELECT 
+			e.id as eid,
+			e.elevatorName as elevatorName,
+			e.equipmentType as equipmentType,
+			e.equipmentName as equipmentName,
+			e.typeNumber as typeNumber,
+			e.speed as speed,
+			e.floor as floor,
+			e.weight as weight,
+			e.liftHeight as liftHeight,
+			e.address as eaddress,
+			e.longtitude as longtitude,
+			e.latitude as latitude,
+			e.state as estate,
+			e.planDate as planDate,
+			e.runningDate as runningDate,
+			e.score as score,
+			e.delflag as edelflag,
+			c.id as cid,
+			c.cname as cname,
+			c.address as caddress,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag,
+			ei.id as eiid,
+			ei.ind1 as ind1,
+			ei.ind2 as ind2,
+			ei.ind3 as ind3,
+			ei.ind4 as ind4,
+			ei.ind5 as ind5,
+			ei.ind6 as ind6,
+			ei.ind7 as ind7,
+			ei.ind8 as ind8,
+			ei.ind9 as ind9,
+			ei.ind10 as ind10,
+			ei.ind11 as ind11,
+			ei.ind12 as ind12,
+			ei.elevatorId as elevatorId,
+			ei.companyId as eicompanyId,
+			ei.state as eistate
+		FROM 
+			elevator e left outer join company c on e.companyId = c.id left outer join elevatorIndices ei on ei.elevatorId = e.id
+		<where>
+			e.delflag = 0 
+			AND #{keyWord} <![CDATA[ > ]]> e.longtitude-0.01  AND #{keyWord} <![CDATA[ < ]]> e.longtitude+0.01
+			AND #{subkeyWord} <![CDATA[ > ]]> e.latitude-0.01  AND #{subkeyWord} <![CDATA[ < ]]> e.latitude+0.01
+			AND e.state > 0
+		</where>
+	</select>
+	
+	<!-- 根据公司id获取指定分数段电梯数量 -->
+	<select id="selectElevatorCountByCompanyIdAndScore" resultType="java.lang.Integer">
+		SELECT 
+		    count(*)
+		FROM
+			elevator e left outer join company c on e.companyId = c.id
+		<where>
+			e.delflag = 0
+			<if test="companyId > 0">
+				AND c.id = #{companyId}
+			</if>
+			<if test="type == 4">
+				AND e.score <![CDATA[ >= ]]> 4 AND e.score <![CDATA[ <= ]]>5 
+			</if>
+			<if test="type == 3">
+				AND e.score <![CDATA[ >= ]]> 3 AND e.score <![CDATA[ < ]]>4 
+			</if>
+			<if test="type == 2">
+				AND e.score <![CDATA[ >= ]]> 2 AND e.score <![CDATA[ < ]]>3
+			</if>
+			<if test="type == 1">
+				AND e.score <![CDATA[ >= ]]> 0 AND e.score <![CDATA[ < ]]>2
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据公司id获取指定状态电梯数量 -->
+	<select id="selectElevatorCountByCompanyIdAndState" resultType="java.lang.Integer">
+		SELECT 
+		    count(*)
+		FROM
+			elevator e left outer join company c on e.companyId = c.id  
+		<where>
+			e.delflag = 0
+			<if test="companyId > 0">
+				AND c.id = #{companyId}
+			</if>
+			<if test="state != null and state >= 0">
+				AND e.state = #{state}
+			</if>
+		</where>
+	</select>
+	
+</mapper>
+  

@@ -1,0 +1,22 @@
+{
+  "navigationBarTitleText": "电梯得分详情",
+  "usingComponents": {
+    "i-tabs": "/dist/tabs/index",
+    "i-tab": "/dist/tab/index",
+    "i-button": "/dist/button/index",
+    "i-input": "/dist/input/index",
+    "i-cell-group": "/dist/cell-group/index",
+    "i-cell": "/dist/cell/index",
+    "i-panel": "/dist/panel/index",
+    "i-tab-bar": "/dist/tab-bar/index",
+    "i-tab-bar-item": "/dist/tab-bar-item/index",
+    "i-radio-group": "/dist/radio-group/index",
+    "i-radio": "/dist/radio/index",
+    "i-row": "../../dist/row/index",
+    "i-col": "../../dist/col/index",
+    "i-notice-bar": "../../dist/notice-bar/index",
+    "wux-rater": "../../dist/rater/index",
+    "i-card": "../../dist/card/index",
+    "i-input-number": "../../dist/input-number/index"
+  }
+}

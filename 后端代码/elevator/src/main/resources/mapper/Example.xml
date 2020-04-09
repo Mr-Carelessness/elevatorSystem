@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.ExampleDao">
+	
+	<!-- 定义数据库字段与实体对象的映射关系  -->
+	<resultMap type="cn.edu.zucc.elevator.entity.Example" id="BeanExample">
+		<id column="eid" property="id" />
+		<result column="eprop" property="prop" />
+		<!-- 一对一的关系 -->
+		<!-- property: 指的是属性的值, javaType：指的是元素的类型 -->
+		<association property="demo" javaType="cn.edu.zucc.elevator.entity.Demo">
+			<id column="did" property="id" />
+			<result column="dname" property="name" />
+			<result column="dlevel" property="level" />
+		</association>
+	</resultMap>
+	
+	
+	<select id="queryExampleById"
+		resultMap="BeanExample">
+		SELECT 
+			e.id as eid, e.prop as eprop, d.id as did, d.name as dname, d.level as dlevel
+		FROM 
+			example e, demo d
+		WHERE 
+			e.id=#{exampleId} and d.id = e.demoId
+	</select>
+
+
+	<!-- 通过条件分页查询，返回数据集 -->
+	<select id="selectPageList"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanExample">
+		select
+			e.id as eid, e.prop as eprop, d.id as did, d.name as dname, d.level as dlevel
+		from 
+			example e, demo d
+		<where>
+			<if test="keyWord!='' and keyWord!=null ">
+				prop like '%' #{keyWord} '%'
+			</if>
+		</where>
+		order by level DESC
+		limit #{start},#{rows}
+	</select>
+
+	<!-- 通过条件分页查询，返回总记录数 -->
+	<select id="selectPageCount"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		select 
+			count(1) 
+		from 
+			example
+		<where>
+			<if test="keyWord!='' and keyWord!=null ">
+				prop like '%' #{keyWord} '%'
+			</if>
+		</where>
+	</select>
+	
+</mapper>
+  

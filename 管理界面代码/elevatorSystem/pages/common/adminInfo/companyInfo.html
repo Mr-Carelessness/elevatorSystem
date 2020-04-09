@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>消息中心</title>
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<script src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<style>
+			.fl {
+				margin-left: 0px;
+			}
+			
+			.fr {
+				margin-top: 5px;
+			}
+		</style>
+	</head>
+
+	<body style="padding-left: 20px; padding-right: 20px; padding-bottom: 50px;">
+		<div class="layui-tab  layui-tab-brief">
+			<ul class="layui-tab-title">
+				<li class="layui-this">基本信息</li>
+				<li>单位安全信息</li>
+				<li>单位成员</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<div>
+						<form class="layui-form layui-form-pane" lay-filter="show_form">
+							<div class="layui-form-item">
+								<label class="layui-form-label">单位名称</label>
+								<div class="layui-input-block ">
+									<input type="text" name="cname" required lay-verify="required" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">单位地址</label>
+								<div class="layui-input-block ">
+									<input type="text" name="address" required lay-verify="required" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">单位权限</label>
+								<div class="layui-input-block" style="line-height: 35px; padding-left: 10px;">
+							    	<!--<input type="checkbox" class="auth" title="建造[电梯]">
+							    	<input type="checkbox" class="auth" title="使用[电梯]">
+							    	<input type="checkbox" class="auth" title="[电梯]维护">
+							    	<input type="checkbox" class="auth" title="[电梯]检测">-->
+							    	<button class="auth layui-btn layui-btn-sm layui-btn-radius layui-btn-warm" disabled> (电梯)施工 </button>
+							    	<button class="auth layui-btn layui-btn-sm layui-btn-radius" disabled> (电梯)使用 </button>
+							    	<button class="auth layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" disabled> (电梯)维护 </button>
+							    	<button class="auth layui-btn layui-btn-sm layui-btn-radius layui-btn-danger" disabled> (电梯)检测 </button>
+							    </div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">单位图标</label>
+								<div class="layui-input-block ">
+									<div class="layui-upload ">
+								        <div class="layui-upload-list">
+								            <img style="height: 120px;width: 120px;" class="layui-upload-img"  id="img-avatar" >
+								        </div>
+								        <button type="button" class="layui-btn" id="btn-avatar" ><i class="layui-icon layui-icon-upload-drag"></i> 上传图片</button>
+								    </div>
+								</div>
+							</div>
+
+							<div class="layui-form-item">
+								<label class="layui-form-label">单位公章</label>
+								<div class="layui-input-block ">
+									<div class="layui-upload ">
+								        <div class="layui-upload-list">
+								            <img style="height: 120px;width: 120px;" class="layui-upload-img"  id="img-seal" >
+								        </div>
+								        <button type="button" class="layui-btn" id="btn-seal" ><i class="layui-icon layui-icon-upload-drag"></i> 上传图片</button>
+								    </div>
+								</div>
+							</div>
+							
+							
+							
+							<div class="layui-form-item layui-field-title">
+								<fieldset class="layui-elem-field layui-field-title">
+									<legend style="font-weight: 700;"></legend>
+								</fieldset>
+							</div>
+							<div class="layui-form-item" style="margin: 25px auto; text-align: center;">
+								<div>
+									<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="sub"><i class="layui-icon layui-icon-ok"></i> 提交修改</button>
+									<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="reset"><i class="layui-icon layui-icon-refresh"></i> 重置</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<div style="width: 100%; ">
+						<div style="color: #393D49; margin-bottom: 10px; padding: 10px; background: #F0F0F0;">
+							<b>提示：</b>单位安全信息默认为空，请及时完善或更改相关安全信息，内容尽可能地详细！
+						</div>
+						
+						<div style="padding: 10px auto;">
+							<form class="layui-form layui-form-pane" lay-filter="show_form2">
+								<div class="layui-form-item layui-form-text">
+									<label class="layui-form-label">安全管理制度：</label>
+									<div class="layui-input-block">
+										<textarea id="safetyManagementInfo" name="safetyManagementInfo" class="layui-textarea"></textarea>
+									</div>
+								</div>
+								<div class="layui-form-item layui-form-text">
+									<label class="layui-form-label">安全技术档案：</label>
+									<div class="layui-input-block">
+										<textarea id="securityTechnologyInfo" name="securityTechnologyInfo" class="layui-textarea"></textarea>
+									</div>
+								</div>
+								<div class="layui-form-item layui-form-text">
+									<label class="layui-form-label">应急救援机制：</label>
+									<div class="layui-input-block">
+										<textarea id="emegyTechnologyInfo" name="emegyTechnologyInfo" class="layui-textarea"></textarea>
+									</div>
+								</div>
+								<div class="layui-form-item layui-form-text">
+									<label class="layui-form-label">安全管理机构概况：</label>
+									<div class="layui-input-block">
+										<textarea id="safetyOrganizationInfo" name="safetyOrganizationInfo" class="layui-textarea"></textarea>
+									</div>
+								</div>
+								<div class="layui-form-item" style="margin: 25px auto; text-align: center;">
+
+									<button class="layui-btn  layui-btn-submit" lay-submit="" lay-filter="sub2"><i class="layui-icon layui-icon-ok"></i> 提交修改</button>
+									<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="reset2"><i class="layui-icon layui-icon-refresh"></i> 重置</button>
+
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<div>
+						<h2 style="line-height: 40px;">单位成员基本概况：</h2>
+						<p style="line-height: 30px;">目前本单位拥有</p>
+						<p style="line-height: 25px;">● 管理员：<span id="managerNumber"></span>人</p>
+						<p style="line-height: 25px;">● 操作者：<span id="operatorNumber"></span>人</p>
+						<p style="line-height: 25px;">● 用户：<span id="userNumber"></span>人</p>
+						<p style="line-height: 30px;">具体人员情况请到标签页中查看！</p>
+					</div>
+					
+					<div class="layui-tab layui-tab-card">
+						<ul class="layui-tab-title">
+							<li class="layui-this">管理员列表</li>
+							<li>操作者列表</li>
+							<li>用户列表</li>
+						</ul>
+						<div class="layui-tab-content">
+							<div class="layui-tab-item layui-show">
+								<div class="layui-row" style="width: 100%;">
+									<div style="width: 100%;">
+										<div style="width: 60%; display: inline-block;">
+											<span class="fl">
+									        <!--<a class="layui-btn btn-default" lay-event="add" id="btn-add">添加管理员</a>-->
+									        <!--<a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-delete">删除</a>-->
+									        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh" id="btn-refresh"><i class="layui-icon layui-icon-refresh-3"></i></a>
+									    </span>
+										</div>
+										<div style="width: 39%; display: inline-block;">
+											<input style="width: 67%; display: inline-block;" class="layui-input" id="keyword" autocomplete="off" placeholder="请输入关键词">
+								   			<button style="width: 29%; display: inline-block;" class="layui-btn" id="btn-search" data-type="reload"><i class="layui-icon layui-icon-search"></i> 搜索</button>
+										</div>
+									</div>
+								</div>
+								<div class="layui-row">
+									<table class="layui-hide" id="demo" lay-filter="test"></table>
+								</div>
+							</div>
+							<div class="layui-tab-item">
+								<div class="layui-row">
+									<div style="width: 100%;">
+										<div style="width: 60%; display: inline-block;">
+											<span class="fl">
+									        <!--<a class="layui-btn btn-default" lay-event="add" id="btn-add">添加</a>-->
+									        <!--<a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-delete">删除</a>-->
+									        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh" id="btn-refresh2"><i class="layui-icon layui-icon-refresh-3"></i></a>
+									    </span>
+										</div>
+										<div style="width: 39%; display: inline-block;">
+											<input style="width: 67%; display: inline-block;" class="layui-input" id="keyword2" autocomplete="off" placeholder="请输入关键词">
+								   			<button style="width: 29%; display: inline-block;" class="layui-btn" id="btn-search2" data-type="reload"><i class="layui-icon layui-icon-search"></i> 搜索</button>
+										</div>
+									</div>
+								</div>
+								<div class="layui-row">
+									<table class="layui-hide" id="demo2" lay-filter="test2"></table>
+								</div>
+							</div>
+							<div class="layui-tab-item">
+								<div class="layui-row">
+									<div style="width: 100%;">
+										<div style="width: 60%; display: inline-block;">
+											<span class="fl">
+									        <!--<a class="layui-btn btn-default" lay-event="add" id="btn-add">添加</a>-->
+									        <!--<a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-delete">删除</a>-->
+									        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh" id="btn-refresh2"><i class="layui-icon layui-icon-refresh-3"></i></a>
+									    </span>
+										</div>
+										<div style="width: 39%; display: inline-block;">
+											<input style="width: 67%; display: inline-block;" class="layui-input" id="keyword3" autocomplete="off" placeholder="请输入关键词">
+								   			<button style="width: 29%; display: inline-block;" class="layui-btn" id="btn-search3" data-type="reload"><i class="layui-icon layui-icon-search"></i> 搜索</button>
+										</div>
+									</div>
+								</div>
+								<div class="layui-row">
+									<table class="layui-hide" id="demo3" lay-filter="test3"></table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<script type="text/html" id="type">
+			{{# if(d.type == 0){ }}
+				<span> 普通用户 </span>
+			{{# }else if(d.type == 1){ }}
+				<span style="color: #FFB800;"> 施工负责人 </span>
+			{{# }else if(d.type == 2){ }}
+				<span style="color: #5FB878;"> 巡查员 </span>
+			{{# }else if(d.type == 3){ }}
+				<span style="color: #009688;"> 维护人员 </span>
+			{{# }else if(d.type == 4){ }}
+				<span style="color: #FF5722;"> 检测人员 </span>
+			{{# }else{ }}
+				<span style="font-weight: 900;"> 超级人员 </span>
+			{{# } }}
+		</script>
+		<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+			{{# if(d.status == 0){ }}
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="changeState">设为已读</a>
+			{{# } }}
+		</script>
+		<script type="text/html" id="barDemo2">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+		<script src="../../conf/conf.js"></script>
+		<script src="companyInfo.js"></script>
+	</body>
+
+</html>

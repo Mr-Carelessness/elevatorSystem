@@ -1,0 +1,50 @@
+<!--pages/info/info.wxml-->
+<wxs module="info" src="info.wxs"></wxs>
+<view>
+  <view>
+    <view style="background: -webkit-linear-gradient(top, #2d8cf0, #5cadff, #f8f8f9, #fefeff);">
+      <view class="head" style="width:100%; height:180px; background-image:url('https://zuccsecondary.cn/resource/img/city.png'); background-size:100% 100%; -moz-background-size:100% 100%;">
+        <view style="padding-top:45px;"></view>
+        <view style="text-align:center;">
+          <i-row>
+              <i-col span="12" i-class="col-class" style="text-align:right;">
+                <image src="{{(userInfo.avatarUrl==null||userInfo.avatarUrl=='')?(userInfo.type==0?'/img/user.svg':'/img/operator.svg'):userInfo.avatarUrl}}" style='width:70px;height:70px;border-radius:35px; margin-right:10px; background-color:#fff; border:solid #dddee1 1px;'></image>
+              </i-col>
+              <i-col span="12" i-class="col-class" style="text-align:left;">
+                <view style="margin-left:10px;">
+                  <view style='font-weight:900;color:#495060;margin-top:20px;'><text>{{userInfo.realname}}</text></view>
+                  <view style='color:#1c2438; line-height:20px; margin:8px auto;'><text style=" background-color:#fff; padding:1px 5px;">{{info.getType(userInfo.type)}}</text></view>
+                </view>
+              </i-col>
+          </i-row>
+        </view>
+      </view>
+    </view>
+    <view style="line-height:35px;">
+      <i-row>
+          <i-col span="10" i-class="col-class">
+            <view>　</view>
+          </i-col>
+          <i-col span="8" i-class="col-class">
+            <view style="font-size:12.5px; text-align:right; padding-right:10px; color:#2d8cf0; font-weight:900;" bindtap="userInfoMod">
+              <i-icon type="brush" size="16" color="#2d8cf0"/> 修改个人信息
+            </view>
+          </i-col>
+          <i-col span="6" i-class="col-class">
+            <view style="font-size:12.5px; text-align:right; padding-right:10px; color:#ed3f14; font-weight:900;" bindtap="exitSystem">
+              <i-icon type="enter" size="16" color="#ed3f14"/> 退出登录
+            </view>
+          </i-col>
+      </i-row>
+    </view>
+    <i-panel title="个人信息">
+      <i-cell-group>
+        <i-cell title="{{nameTitle}}：" value="{{userInfo.realname}}"></i-cell>
+        <i-cell title="所属单位：" value="{{userInfo.company==null?'无':userInfo.company.cname}}"></i-cell>
+        <i-cell title="联系电话：" value="{{userInfo.telephone==null?'无':userInfo.telephone}}"></i-cell>
+        <i-cell title="创建时间：" value="{{userInfo.createTime}}"></i-cell>
+        <i-cell wx:if="{{userInfo.type > 0}}" title="许可证：" value="{{userInfo.licenseUrl==null?'未上传':'已上传'}}"></i-cell>
+      </i-cell-group>
+    </i-panel>
+  </view>
+</view>

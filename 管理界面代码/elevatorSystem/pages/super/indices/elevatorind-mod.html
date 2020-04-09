@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>修改电梯指标</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+			.center{
+				text-align: center;
+			}
+			.body{
+				padding-top: 20px;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<!--<fieldset class="layui-elem-field layui-field-title" style="margin: 25px;">
+			<legend style="font-weight: 700;">基本信息：</legend>
+		</fieldset>-->
+		<div class="layui-row" style="padding-left: 5px; padding-right: 30px;">
+    		<div class="layui-col-md7">
+    			<form class="layui-form layui-form-pane" lay-filter="show_form" style="padding-left:30px">
+					<div style="color: #393D49; margin-bottom: 10px; margin-right: 20px; padding: 10px; background: #F0F0F0;"><b>提示：</b>以下指标均需要人工进行打分，请点击“详细内容”按钮查看对应描述，并给这些指标进行评分。如果该指标跟公司有关联，则公司对应的指标一致进行修改！</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">安全管理制度：</label>
+							<div class="layui-input-block " style="margin-left: 180px;">
+								<input style="width: 240px;" type="number" name="ind1" placeholder="请给该项指标进行打分(0-5分)" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button class="layui-btn layui-btn-normal" id="ind1" lay-filter="ind1">详细内容</button>
+						</div>
+						
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">安全技术档案：</label>
+							<div class="layui-input-block " style="margin-left: 180px;">
+								<input style="width: 240px;" type="number" name="ind2" placeholder="请给该项指标进行打分(0-5分)" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button class="layui-btn layui-btn-normal" id="ind2" lay-filter="ind2">详细内容</button>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">应急救援机制：</label>
+							<div class="layui-input-block " style="margin-left: 180px;">
+								<input style="width: 240px;" type="number" name="ind3" placeholder="请给该项指标进行打分(0-5分)" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button class="layui-btn layui-btn-normal" id="ind3" lay-filter="ind3">详细内容</button>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label" style="width: 180px;">安全管理机构设置：</label>
+							<div class="layui-input-block " style="margin-left: 180px;">
+								<input style="width: 240px;" type="number" name="ind9" placeholder="请给该项指标进行打分(0-5分)" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button class="layui-btn layui-btn-normal" id="ind9" lay-filter="ind9">详细内容</button>
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item" style="margin: 25px auto; text-align: center;">
+						<div>
+							<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="sub"><i class="layui-icon layui-icon-ok"></i> 提交评分</button>
+							<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="reset"><i class="layui-icon layui-icon-refresh"></i> 重置</button>
+						</div>
+					</div>
+				</form>
+    			
+    		</div>
+    		
+    		<div class="layui-col-md5">
+    			<div style="font-weight: 900; font-size: 16px; margin-bottom: 10px; color: #2F4056;">详细内容</div>
+				<textarea id="content" style="width: 100%; height: 320px; background: #FCFCFC;"></textarea>
+    		</div>
+    	</div>
+		<fieldset class="layui-elem-field layui-field-title" style="margin: 25px;">
+			<legend style="font-weight: 700;"></legend>
+		</fieldset>
+		
+		<script type="text/javascript" src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="elevatorind-mod.js"></script>
+	</body>
+
+</html>

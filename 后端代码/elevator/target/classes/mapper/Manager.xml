@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zucc.elevator.dao.ManagerDao">
+
+	<!-- Manager与数据库对应的映射关系  -->
+	<resultMap type="cn.edu.zucc.elevator.entity.Manager" id="BeanManager">
+		<id column="mid" property="id" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="mname" property="mname" />
+		<result column="type" property="type" />
+		<result column="creatorId" property="creatorId" />
+		<result column="mdelflag" property="delflag" />
+		<!-- 外键连接company -->
+		<association property="company" javaType="cn.edu.zucc.elevator.entity.Company">
+			<id column="cid" property="id" />
+			<result column="cname" property="cname" />
+			<result column="address" property="address" />
+			<result column="authority" property="authority" />
+			<result column="safetyManagementInfo" property="safetyManagementInfo" />
+			<result column="securityTechnologyInfo" property="securityTechnologyInfo" />
+			<result column="emegyTechnologyInfo" property="emegyTechnologyInfo" />
+			<result column="safetyOrganizationInfo" property="safetyOrganizationInfo" />
+			<result column="sealUrl" property="sealUrl" />
+			<result column="avatarUrl" property="avatarUrl" />
+			<result column="cdelflag" property="delflag" />
+		</association>
+	</resultMap>
+	
+	<!-- 插入管理员信息[实现] -->
+	<insert id="insertManager" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="cn.edu.zucc.elevator.entity.Manager">
+		INSERT INTO 
+			manager(username, password, mname, type, companyId, creatorId, delflag)
+		VALUES
+			(#{username}, #{password}, #{mname}, #{type}, #{companyId}, #{creatorId}, #{delflag})
+	</insert>
+	
+	<!-- 修改管理员信息[实现] -->
+	<update id="updateManager"
+		parameterType="cn.edu.zucc.elevator.entity.Manager">
+		UPDATE 
+			manager
+		<set>
+			<if test="password!=null">password=#{password},</if>
+			<if test="mname!=null">mname=#{mname},</if>
+			<if test="companyId!=null">companyId=#{companyId},</if>
+			<if test="type!=null">type=#{type}</if>
+		</set>
+		WHERE 
+			id=#{id}
+	</update>
+	
+	<!-- 删除管理员信息[实现] -->
+	<update id="deleteManager">
+		UPDATE 
+			manager
+		SET
+			delflag = 1
+		WHERE 
+			id=#{managerId}
+	</update>
+	
+	<!-- 根据id获取管理员信息[实现] -->
+	<select id="selectManagerById"
+		resultMap="BeanManager"> 
+		SELECT 
+			m.id as mid, 
+			m.username as username,
+			m.password as password, 
+			m.mname as mname, 
+			m.type as type, 
+			m.creatorId as creatorId, 
+			m.delflag as mdelflag,
+			c.id as cid, 
+			c.cname as cname,
+			c.address as address,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag
+		FROM 
+			manager m left outer join company c on m.companyId = c.id
+		WHERE 
+			m.delflag = 0 AND m.id = #{id} 
+	</select>
+	
+	
+	<!-- 根据账号与密码查找对应用户[实现] -->
+	<select id="selectManagerPageListByUsername"
+		resultMap="BeanManager">
+		SELECT 
+			m.id as mid, 
+			m.username as username,
+			m.password as password, 
+			m.mname as mname, 
+			m.type as type, 
+			m.creatorId as creatorId, 
+			m.delflag as mdelflag,
+			c.id as cid, 
+			c.cname as cname,
+			c.address as address,
+			c.authority as authority,
+			c.delflag as cdelflag
+		FROM 
+			manager m left outer join company c on m.companyId = c.id 
+		WHERE 
+			m.delflag = 0 AND m.username=#{username} AND m.password=#{password}
+	</select>
+
+
+	<!-- 根据管理员类型获取管理员列表(获取分页数据)[实现] -->
+	<select id="selectManagerPageListByType"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanManager">
+		SELECT 
+			m.id as mid, 
+			m.username as username,
+			m.password as password, 
+			m.mname as mname, 
+			m.type as type, 
+			m.creatorId as creatorId, 
+			m.delflag as mdelflag,
+			c.id as cid, 
+			c.cname as cname,
+			c.address as address,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag
+		FROM 
+			manager m left outer join company c on m.companyId = c.id
+		<where>
+			m.delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND m.type = #{keyWord}
+			</if>
+		</where>
+		ORDER BY 
+			m.id ASC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据管理员类型获取管理员列表(获取数据总数)[实现] -->
+	<select id="selectManagerPageCountByType"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			manager
+		<where>
+			delflag = 0 
+			<if test="keyWord!='' and keyWord!=null ">
+				AND type = #{keyWord}
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 根据管理员类型获取管理员列表(获取分页数据)[实现] -->
+	<select id="selectManagerPageListByTypeAndCompanyId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanManager">
+		SELECT 
+			m.id as mid, 
+			m.username as username,
+			m.password as password, 
+			m.mname as mname, 
+			m.type as type, 
+			m.creatorId as creatorId, 
+			m.delflag as mdelflag,
+			c.id as cid, 
+			c.cname as cname,
+			c.address as address,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag
+		FROM 
+			manager m left outer join company c on m.companyId = c.id
+		<where>
+			m.delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND m.type = #{keyWord}
+			</if>
+			<if test="userid!='' and userid!=null ">
+				AND m.companyId = #{userid}
+			</if>
+		</where>
+		ORDER BY 
+			m.id ASC
+		LIMIT 
+			#{start},#{rows}
+	</select>
+
+	<!-- 根据管理员类型获取管理员列表(获取数据总数)[实现] -->
+	<select id="selectManagerPageCountByTypeAndCompanyId"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			manager
+		<where>
+			delflag = 0 
+			<if test="keyWord!='' and keyWord!=null ">
+				AND type = #{keyWord}
+			</if>
+			<if test="userid!='' and userid!=null ">
+				AND companyId = #{userid}
+			</if>
+		</where>
+	</select>
+
+
+
+	<!-- 根据公司id获取管理员列表(获取分页数据)[实现] -->
+	<select id="selectManagerPageListByCompanyIdAndName"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultMap="BeanManager">
+		SELECT 
+			m.id as mid, 
+			m.username as username,
+			m.password as password, 
+			m.mname as mname, 
+			m.type as type, 
+			m.creatorId as creatorId, 
+			m.delflag as mdelflag,
+			c.id as cid, 
+			c.cname as cname,
+			c.address as address,
+			c.authority as authority,
+			c.safetyManagementInfo as safetyManagementInfo,
+			c.securityTechnologyInfo as securityTechnologyInfo,
+			c.emegyTechnologyInfo as emegyTechnologyInfo,
+			c.safetyOrganizationInfo as safetyOrganizationInfo,
+			c.sealUrl as sealUrl,
+			c.avatarUrl as avatarUrl,
+			c.delflag as cdelflag
+		FROM 
+			manager m left outer join company c on m.companyId = c.id 
+		<where>
+			m.delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND m.companyId = #{keyWord}
+			</if>
+			<if test="subkeyWord!='' and subkeyWord!=null ">
+				AND mname like '%' #{subkeyWord} '%'
+			</if>
+		</where>
+		ORDER BY 
+			m.id ASC
+		LIMIT 
+			#{start},#{rows} 
+	</select>
+
+	<!-- 根据管理员类型获取管理员列表(获取数据总数)[实现] -->
+	<select id="selectManagerPageCountByCompanyIdAndName"
+		parameterType="cn.edu.zucc.elevator.entity.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			manager
+		<where>
+			delflag = 0
+			<if test="keyWord!='' and keyWord!=null ">
+				AND companyId = #{keyWord}
+			</if>
+			<if test="subkeyWord!='' and subkeyWord!=null ">
+				AND mname like '%' #{subkeyWord} '%'
+			</if>
+		</where>
+	</select>
+	
+</mapper>
+  
