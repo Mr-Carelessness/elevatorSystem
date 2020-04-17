@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>检测记录详情</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+			.layui-field-title{
+				margin-top: 40px;
+			}
+			.layui-rate{
+				padding: 0;
+				line-height: 35px;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				<div class="layui-form-item">
+					<label class="layui-form-label">电梯名称</label>
+					<div class="layui-input-block ">
+						<input type="text" name="elevator" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">所属公司</label>
+					<div class="layui-input-block ">
+						<input type="text" name="company" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">检测负责人</label>
+					<div class="layui-input-block ">
+						<input type="text" name="operator" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">当前状态</label>
+					<div class="layui-input-block ">
+						<input type="text" name="state" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				
+				<div id="testing-info">
+					<div class="layui-form-item layui-field-title">
+						<fieldset class="layui-elem-field layui-field-title">
+							<legend>检测信息：</legend>
+						</fieldset>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">检测得分</label>
+						<div class="layui-input-block ">
+							<div id="rate" style="display: inline-block;margin-left: 15px;"></div>
+							<div id="score" style="display: inline-block;"></div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">开始日期</label>
+						<div class="layui-input-block ">
+							<input type="text" name="startDate" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">结束日期</label>
+						<div class="layui-input-block ">
+							<input type="text" name="finishDate" required lay-verify="required" disabled autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">检测记录</label>
+						<div class="layui-input-block ">
+							<textarea name="record" required lay-verify="required" disabled class="layui-textarea"></textarea>
+						</div>
+					</div>					
+				</div>
+
+			</form>
+		</div>
+		<script src="../../../src/layui/layui.js" charset="utf-8"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="testing-detail.js"></script>
+	</body>
+
+</html>
+
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>添加培训记录</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">培训日期</label>
+						<div class="layui-input-block ">
+							<input type="text" class="layui-input" id="trainingDate" name="trainingDate" placeholder="yyyy-MM-dd">
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">参与人数</label>
+					<div class="layui-input-block ">
+						<input type="number" name="participantNumber" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item layui-form-text">
+			    	<label class="layui-form-label">培训记录</label>
+				    <div class="layui-input-block">
+				    	<textarea type="text" name="record" id="record" class="layui-textarea"></textarea>
+				    </div>
+			  	</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">培训照片</label>
+					<div class="layui-input-block ">
+						<div class="layui-upload ">
+					        <div class="layui-upload-list">
+					            <img style="height: 200px; width: 320px;" class="layui-upload-img"  id="img-img" >
+					        </div>
+					        <button type="button" class="layui-btn" id="btn-img" ><i class="layui-icon layui-icon-upload-drag"></i> 上传图片</button>
+					    </div>
+					</div>
+				</div>
+
+				
+				<div class="layui-form-item layui-field-title">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend style="font-weight: 700;"></legend>
+					</fieldset>
+				</div>
+				<div class="layui-form-item" style="margin-top: 30px;  text-align: center;">
+					<div>
+						<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="sub"><i class="layui-icon layui-icon-ok"></i> 立即提交</button>
+						<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="reset"><i class="layui-icon layui-icon-refresh"></i> 重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="safetytraining-mod.js"></script>
+	</body>
+
+</html>

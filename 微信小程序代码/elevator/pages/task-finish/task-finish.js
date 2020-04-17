@@ -10,7 +10,9 @@ Page({
     questionList: [],
     curList: [],  //当前选择的答案(文字答案列表)
     answerList: [],  //已选择的答案(A、B、C数组)
-    
+    inspectionErr: 'false', //电梯巡查时没有出现异常
+    resultUrlList: [],
+
   },
 
   // 生命周期函数--监听页面加载
@@ -35,7 +37,11 @@ Page({
       questions: options.questions,
       answers: [],
       //检测额外信息
-      resultUrl: ""
+      resultUrl: "",
+      //巡查额外信息
+      result: "正常",
+      method: "维修",
+      mtdstate: ""
     };
     this.setData({type: options.type, event:options.event, id:options.id, rawData:rawData});
 
@@ -45,11 +51,31 @@ Page({
 
   },
 
+  // 巡查电梯状况情况修改
+  bindInsStatusRadioChange: function(e) {
+    var rawData = this.data.rawData;
+    if(e.detail.value == 'true'){
+      rawData.result = '异常';
+    }else{
+      rawData.result = '正常';
+    }
+    this.setData({inspectionErr: e.detail.value, rawData: rawData});
+  },
+
+  // 巡查建议处理方法修改
+  bindInsMethodRadioChange: function(e) {
+    var rawData = this.data.rawData;
+    rawData.method = e.detail.value;
+    this.setData({rawData: rawData});
+  },
+
   // 搜索电梯
   searchElevator: function(e) {
-    wx.navigateTo({
-      url: '../task-slelevator/task-slelevator',
-    })
+    if(this.data.event == 1){
+      wx.navigateTo({
+        url: '../task-slelevator/task-slelevator',
+      })
+    }
   },
 
   // 获取输入框的值
@@ -74,6 +100,8 @@ Page({
       rawData.speed = e.detail.detail.value;
     }else if(title == "weight"){
       rawData.weight = e.detail.detail.value;
+    }else if(title == "mtdstate"){
+      rawData.mtdstate = e.detail.detail.value;
     }
     if(title != null && title != ""){
       //console.log(rawData);
@@ -194,11 +222,23 @@ Page({
             rawData.record = data.data.record;
             rawData.resultUrl = data.data.resultUrl;
             that.setData({rawData: rawData});
-          }else{
+          }else if(type == 2){
             var rawData = that.data.rawData;
+            var inspectionErr = that.data.inspectionErr;
             rawData.score = data.data.score;
             rawData.record = data.data.record;
-            that.setData({rawData: rawData});
+            rawData.elevatorName = data.data.elevator.elevatorName;
+            if(data.data.result == "正常"){
+              inspectionErr = 'false';
+              rawData.result = data.data.result;
+            }else{
+              inspectionErr = 'true';
+              rawData.result = data.data.result;
+            }
+            rawData.method = data.data.method;
+            rawData.mtdstate = data.data.mtdstate;
+            rawData.resultUrl = data.data.resultUrl;
+            that.setData({rawData: rawData, inspectionErr: inspectionErr, resultUrlList: (data.data.resultUrl==null)?"":data.data.resultUrl.split(" ")});
           }
         }
       }
@@ -229,13 +269,40 @@ Page({
       elevatorformData.weight = this.data.rawData.weight;
       elevatorformData.liftHeight = this.data.rawData.liftHeight;
       elevatorformData.state = 1;
+
+      if(elevatorformData.id == null || elevatorformData.id == "" 
+      || elevatorformData.equipmentType == null || elevatorformData.equipmentType == ""
+      || elevatorformData.equipmentName == null || elevatorformData.equipmentName == ""
+      || elevatorformData.typeNumber == null || elevatorformData.typeNumber == ""
+      || elevatorformData.speed == null || elevatorformData.speed == ""
+      || elevatorformData.floor == null || elevatorformData.floor == ""
+      || elevatorformData.weight == null || elevatorformData.weight == ""
+      || elevatorformData.liftHeight == null || elevatorformData.liftHeight == ""){
+        wx.showModal({
+          content: "提示：请填写完全设备使用情况及电梯参数信息！",
+          showCancel: false
+        })
+      }
     }else if(type == 2){
       url = getApp().globalData.elevatorBackUrl+'inspection/addInspection';
+
+      if(formData.elevatorId == null){
+        wx.showModal({
+          content: "提示：请选择巡查电梯",
+          showCancel: false
+        })
+      }
+
       formData.score = this.data.rawData.score;
       formData.record = this.data.rawData.record;
       formData.elevatorId = this.data.rawData.elevatorId;
       formData.operatorId = JSON.parse(wx.getStorageSync("userInfo")).id;
+      formData.result = this.data.rawData.result;
+      formData.method = this.data.rawData.method;
+      formData.mtdstate = this.data.rawData.mtdstate;
+      formData.resultUrl = this.data.rawData.resultUrl;
 
+      
     }else if(type == 3){
       url = getApp().globalData.elevatorBackUrl+'maintainence/finishMaintainenceTask?type='+isFinished;
       formData.id = this.data.id;
@@ -365,4 +432,55 @@ Page({
     })
   },
 
+  // 上传巡查电梯图片
+  updateResult: function () {
+    var that = this
+    var resultUrl = [];
+    // 上传图片获取路径
+    wx.chooseImage({
+      count: 9, //最多可以选择的图片总数
+      success: function (res) {
+        var path = res.tempFilePaths[0];
+
+        if(res.tempFilePaths.length > 3){
+          wx.showModal({
+            content: '最多能上传' + 3 + '张图片',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                console.log('确定');
+              }
+            }
+          })
+        }else{
+          // 一张一张图片进行上传
+          for(var i=0; i<res.tempFilePaths.length; i++){
+            wx.uploadFile({
+              url: getApp().globalData.elevatorBackUrl + 'other/upload/img',
+              filePath: res.tempFilePaths[i],
+              name: 'file',
+              success: function (result) {
+                console.log(result)
+                var data = JSON.parse(result.data);
+                if(data.code == 0){
+                  resultUrl.push(data.data);
+                }else{
+                  wx.showToast({title: '上传失败',icon: 'none'});
+                }
+
+                // 上传图片
+                var rawData = that.data.rawData;
+                rawData.resultUrl = resultUrl.join(" ");
+                that.setData({rawData: rawData, resultUrlList: res.tempFilePaths})
+                //console.log('临时路径：' + res.tempFilePaths[0])
+              },
+              fail: function(result){
+                wx.showToast({title: '上传失败',icon: 'none'});
+              }
+            })
+          }
+        }
+      },
+    })
+  },
 })

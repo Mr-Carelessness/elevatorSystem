@@ -185,10 +185,10 @@
 			{{#  } }}
 		</script>
 		<script type="text/html" id="record2">
-			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record2">查看记录</a>
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record2">查看详细记录</a>
 		</script>
 		<script type="text/html" id="record3">
-			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record3">查看反馈</a>
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record3">查看详细记录</a>
 		</script>
 		<script type="text/html" id="state3">
 			{{#  if(d.state == 0){ }}
@@ -212,9 +212,13 @@
 			{{#  } }}
 		</script>
 		<script type="text/html" id="record4">
-			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record4">查看反馈</a>
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="record4">查看详细记录</a>
 		</script>
-		
+		<script type="text/html" id="result">
+			{{# if(d.result == '异常'){ }}
+			<span style="color: #FF5722;"> {{ d.result }} </span> {{# }else{ }}
+			<span style="color: #009688;"> {{ d.result }} </span> {{# } }}
+		</script>
 		
 		
 		

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>修改检测安排</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				
+				<div class="layui-form-item">
+			    	<label class="layui-form-label">检测负责人</label>
+				    <div class="layui-input-block">
+				    	<input type="text" name="operator" id="operator" required autocomplete="off" class="layui-input" placeholder="请选择施工负责人，将由他负责填写施工完成信息">
+				    </div>
+			  	</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">开始日期</label>
+						<div class="layui-input-block ">
+							<input type="text" class="layui-input" id="startDate" name="startDate" placeholder="yyyy-MM-dd">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">结束日期</label>
+						<div class="layui-input-block ">
+							<input type="text" class="layui-input" id="finishDate" name="finishDate" placeholder="yyyy-MM-dd">
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				<div class="layui-form-item layui-field-title">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend style="font-weight: 700;"></legend>
+					</fieldset>
+				</div>
+				<div class="layui-form-item" style="margin-top: 30px;  text-align: center;">
+					<div>
+						<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="sub"><i class="layui-icon layui-icon-ok"></i> 立即提交</button>
+						<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="reset"><i class="layui-icon layui-icon-refresh"></i> 重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="testing-modtask.js"></script>
+	</body>
+
+</html>

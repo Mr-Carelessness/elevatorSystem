@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>修改管理员</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+			.center{
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-from-pane" lay-filter="show_form">
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">原密码</label>
+					<div class="layui-input-block ">
+						<input type="password" name="oldPwd" required lay-verify="required" autocomplete="off" placeholder="请输入旧密码" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">新密码</label>
+					<div class="layui-input-block ">
+						<input type="password" name="newPwd" required lay-verify="required" autocomplete="off" placeholder="请输入新密码" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">确认密码</label>
+					<div class="layui-input-block ">
+						<input type="password" name="newPwd2" required lay-verify="required" autocomplete="off" placeholder="请再次输入新密码" class="layui-input">
+					</div>
+				</div>
+				
+				
+				<div class="layui-form-item" style="margin: 25px auto; text-align: center;">
+					<div>
+						<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="sub"><i class="layui-icon layui-icon-ok"></i> 修改密码</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<script type="text/javascript" src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="updatePwd.js"></script>
+	</body>
+
+</html>

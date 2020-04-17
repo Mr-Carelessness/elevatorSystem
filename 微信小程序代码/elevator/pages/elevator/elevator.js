@@ -363,9 +363,10 @@ Page({
     // console.log(text);
     // console.log(this.data.tips[index])
     var location;
-    if(index > 0)
+    if(index >= 0)
       location = this.data.tips[index].location.split(",");
 
+    //console.log(location)
     try{
       if(location != null){
         //修改marker和circie
@@ -392,10 +393,13 @@ Page({
   },
   
   getSubArr(arr, len){
-    if(arr.length < len)  return arr;
+    //if(arr.length < len)  return arr;
+    //console.log(arr)
     var ans = [];
-    for(var i=0; i<len; i++){
-      ans.push(arr[i]);
+    for(var i=0; i<Math.min(arr.length, len); i++){
+      //console.log(arr[i])
+      if(arr[i]["location"] != undefined && arr[i]["location"] != "")
+        ans.push(arr[i]);
     }
     return ans;
   },

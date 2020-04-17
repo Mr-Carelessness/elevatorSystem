@@ -4,10 +4,7 @@ Page({
   // 页面的初始数据
   data: {
     userInfo: {},
-    msg_list: [
-      { assignId: "1", content: "你所维护的理工科4号楼电梯今日发现故障不能运行，请及时过来维护！", sendTime: "2019-07-08 08:00:02", assignStatus: "已查看" },
-      { assignId: "2", content: "会议通知：今天下午四点半在理四108紧急召开电梯维护工会议，请务必到场！", sendTime: "2019-07-08 09:00:02", assignStatus: "未查看" },
-    ]
+    msg_list: []
   },
 
   // 生命周期函数--监听页面显示

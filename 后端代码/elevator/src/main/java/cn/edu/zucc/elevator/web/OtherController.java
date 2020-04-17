@@ -178,7 +178,7 @@ public class OtherController {
 		pg5.setStart(pg5.getStart());
 		ud.setOperatorCount(operatorService.getOperatorPageCountByCompanyAndTypeGT0AndName(pg5));
 		pg5.setKeyWord("0");
-		ud.setUserCount(operatorService.getOperatorPageCountByCompanyAndTypeGT0AndName(pg5));
+		ud.setUserCount(operatorService.getOperatorPageCountByCompanyAndTypeAndName(pg5));
 		pg5.setKeyWord("1");
 		ud.setConstructorCount(operatorService.getOperatorPageCountByCompanyAndTypeAndName(pg5));
 		pg5.setKeyWord("2");
@@ -193,7 +193,7 @@ public class OtherController {
 		return new ResultMap<SuperManagerIndexData>("操作成功！",sm,0,1);
 	}
 	
-	// 获取超级管理员首页数据
+	// 获取单位管理员首页数据
 	@CrossOrigin
 	@RequestMapping(value = "/index/getManagerIndexData", method = { RequestMethod.POST })
 	@ResponseBody
@@ -246,7 +246,7 @@ public class OtherController {
 		pg5.setUserid(companyId);
 		ud.setOperatorCount(operatorService.getOperatorPageCountByCompanyAndTypeGT0AndName(pg5));
 		pg5.setKeyWord("0");
-		ud.setUserCount(operatorService.getOperatorPageCountByCompanyAndTypeGT0AndName(pg5));
+		ud.setUserCount(operatorService.getOperatorPageCountByCompanyAndTypeAndName(pg5));
 		pg5.setKeyWord("1");
 		ud.setConstructorCount(operatorService.getOperatorPageCountByCompanyAndTypeAndName(pg5));
 		pg5.setKeyWord("2");

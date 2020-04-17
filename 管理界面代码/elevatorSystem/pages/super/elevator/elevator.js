@@ -22,7 +22,7 @@ function load(){
 		{field: 'cname', title: '所属公司', templet:'#cname'},
 		{field: 'state', title: '当前状态', templet:'#state', width:100},
 		{field: 'score', title: '电梯得分', templet:'#score', width:90},
-		{fixed: 'right', title: '操作', width: 320, align: 'center', toolbar: '#barDemo'}
+		{fixed: 'right', title: '操作', width: 360, align: 'center', toolbar: '#barDemo'}
 	]];
 	var company_col = [[
 		{ type: 'radio' },
@@ -106,7 +106,9 @@ function load(){
 				record(obj.data);
 			} else if(layEvent === 'score') {
 				score(obj.data);
-			} 
+			} else if(layEvent === 'expr'){
+				expr(obj.data);
+			}
 		});
         
         
@@ -138,7 +140,7 @@ function load(){
             type: 2,
             title: data.elevatorName+'——电梯记录',
             maxmin: true,
-            area: [1020 + 'px', 570 + 'px'],
+            area: [1120 + 'px', 620 + 'px'],
             shadeClose: false, //点击遮罩关闭
             content: 'elevator-record.html?id=' + data.id + '&state=' + data.state,
         });
@@ -156,5 +158,15 @@ function load(){
         });
 	}
 	
-	
+	// 【用户评价】
+	function expr(data){
+		layer.open({
+            type: 2,
+            title: data.elevatorName+'——电梯评价',
+            maxmin: true,
+            area: [780 + 'px', 500 + 'px'],
+            shadeClose: false, //点击遮罩关闭
+            content: 'elevator-userexpr.html?id=' + data.id,
+        });
+	}
 }

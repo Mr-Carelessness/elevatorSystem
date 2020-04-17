@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta companyName="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta companyName="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>添加操作者</title>
+		<link rel="stylesheet" href="../../../src/layui/css/layui.css">
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<style>
+			.layui-form-item{
+				padding-right: 30px;
+			}
+			.text-padding-left{
+				margin-left: 38px;
+			}
+			.lblk{
+				color: #2F4056;
+			}
+		</style>
+	</head>
+
+	<body class="body">
+		<div style="padding: 10px 20px;">
+			<form class="layui-form layui-form-pane" lay-filter="show_form">
+				<div class="layui-form-item">
+					<label class="layui-form-label">用户名/账号</label>
+					<div class="layui-input-block ">
+						<input type="text" name="username" required lay-verify="required" autocomplete="off" placeholder="格式：公司名(首字母缩写)_姓名(拼音)，长度不超过30，便于微信端操作者认证登录操作" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">姓名</label>
+					<div class="layui-input-block ">
+						<input type="text" name="realname" required lay-verify="required" autocomplete="off" placeholder="格式：填写操作者的真实姓名" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">类别</label>
+					<div class="layui-input-block " style="line-height: 40px; padding-left: 10px;">
+						<span style="color: #FF5722; font-weight: 900;">检测人员</span>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">电话</label>
+					<div class="layui-input-block ">
+						<input type="text" name="telephone" required lay-verify="required" autocomplete="off" placeholder="格式：填写操作者的真实姓名" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">用户头像</label>
+					<div class="layui-input-block ">
+						<div class="layui-upload ">
+					        <div class="layui-upload-list">
+					            <img style="height: 120px;width: 120px;" class="layui-upload-img"  id="img-avatar" >
+					        </div>
+					        <button type="button" class="layui-btn" id="btn-avatar" ><i class="layui-icon layui-icon-upload-drag"></i> 上传图片</button>
+					    </div>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">工作证件</label>
+					<div class="layui-input-block ">
+						<div class="layui-upload ">
+					        <div class="layui-upload-list">
+					            <img style="height: 120px;width: 240px;" class="layui-upload-img"  id="img-license" >
+					        </div>
+					        <button type="button" class="layui-btn" id="btn-license" ><i class="layui-icon layui-icon-upload-drag"></i> 上传图片</button>
+					    </div>
+					</div>
+				</div>
+				
+				
+				
+				<div class="layui-form-item layui-field-title">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend style="font-weight: 700;"></legend>
+					</fieldset>
+				</div>
+				<div class="layui-form-item" style="margin-top: 30px;  text-align: center;">
+					<div>
+						<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="sub"><i class="layui-icon layui-icon-ok"></i> 立即提交</button>
+						<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="reset"><i class="layui-icon layui-icon-refresh"></i> 重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<script src="../../conf/conf.js"></script>
+		<script src="testor-add.js"></script>
+	</body>
+
+</html>

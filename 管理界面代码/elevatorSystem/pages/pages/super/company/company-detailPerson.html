@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>公司人员</title>
+		<script src="../../../src/js/jquery-1.11.3.min.js"></script>
+		<script src="../../../src/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../src/myplugs/js/plugs.js"></script>
+		<link rel="stylesheet" href="../../../src/css/layui.css">
+	</head>
+
+	<body class="layui-layout-body" style="padding-left: 20px; padding-right: 20px;">
+		<div class="layui-tab">
+			<ul class="layui-tab-title">
+				<li class="layui-this">基本概况</li>
+				<li>管理员列表</li>
+				<li>操作者列表</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<p>管理员人数：<span id="managerNumber"></span>人</p>
+					<p>操作者人数：<span id="operatorNumber"></span>人</p>
+					<p>具体情况请到标签页中查看！</p>
+				</div>
+				<div class="layui-tab-item">
+					<div class="layui-row" style="width: 100%;">
+						<div style="width: 100%;">
+							<div style="width: 60%; display: inline-block;">
+								<span class="fl">
+						        <a class="layui-btn btn-default" lay-event="add" id="btn-add">添加管理员</a>
+						        <!--<a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-delete">删除</a>-->
+						        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
+						    </span>
+							</div>
+							<div style="width: 39%; display: inline-block;">
+								<input style="width: 67%; display: inline-block;" class="layui-input" id="keyword" autocomplete="off" placeholder="请输入关键词">
+					   			<button style="width: 29%; display: inline-block;" class="layui-btn" id="btn-search" data-type="reload">搜索</button>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<table class="layui-hide" id="demo" lay-filter="test"></table>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<div class="layui-row">
+						<div style="width: 100%;">
+							<div style="width: 60%; display: inline-block;">
+								<span class="fl">
+						        <!--<a class="layui-btn btn-default" lay-event="add" id="btn-add">添加</a>-->
+						        <!--<a class="layui-btn btn-add btn-default layui-btn-danger" lay-event="delete" id="btn-delete">删除</a>-->
+						        <a class="layui-btn btn-default layui-btn-primary" lay-event="refresh" id="btn-refresh2"><i class="layui-icon">&#x1002;</i></a>
+						    </span>
+							</div>
+							<div style="width: 39%; display: inline-block;">
+								<input style="width: 67%; display: inline-block;" class="layui-input" id="keyword2" autocomplete="off" placeholder="请输入关键词">
+					   			<button style="width: 29%; display: inline-block;" class="layui-btn" id="btn-search2" data-type="reload">搜索</button>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<table class="layui-hide" id="demo2" lay-filter="test2"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/html" id="autoIncrease">
+			{{d.LAY_TABLE_INDEX+1}}
+		</script>
+		<script type="text/html" id="autoIncrease2">
+			{{d.LAY_TABLE_INDEX+1}}
+		</script>
+
+		<script src="../../conf/conf.js"></script>
+		<script src="company-detailPerson.js"></script>
+	</body>
+
+</html>

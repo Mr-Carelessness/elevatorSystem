@@ -24,8 +24,9 @@ function load(){
 		{field: 'company', title: '所在公司', templet:'#company2', width:240},
 		{field: 'telephone', title: '电话', templet:'#telephone', width:150},
 		{field: 'inspectionDate', title: '巡查日期', width:180},
+		{field: 'result', title: '巡查结果', templet:'#result', width:100},
 		{field: 'score', title: '得分', width: 60, toolbar: '#score'},
-		{field: 'record', title: '巡查记录', width: 90, toolbar: '#record2'}
+		{field: 'record', title: '操作', width: 120, toolbar: '#record2', fixed: 'right'}
 	]];
 	// 维护记录表格对应列
 	var col3 = [[
@@ -37,9 +38,8 @@ function load(){
 		{field: 'realFinishDate', title: '结束日期', width:180},
 		{field: 'state', title: '维护状态', templet:'#state3', width:120},
 		{field: 'score', title: '得分', width: 60, toolbar: '#score'},
-		{field: 'qa', title: '维护问题与答案', width: 130, toolbar: '#qa3'},
-		{field: 'record', title: '维护反馈', width: 90, toolbar: '#record3'}
-		//{fixed: 'right', title: '操作', width: 320, align: 'center', toolbar: '#barDemo'}
+		//{field: 'qa', title: '维护问题与答案', width: 130, toolbar: '#qa3'},
+		{field: 'record', title: '操作', width: 120, toolbar: '#record3', fixed: 'right'}
 	]];
 	// 检测记录表格对应列
 	var col4 = [[
@@ -51,8 +51,7 @@ function load(){
 		{field: 'realFinishDate', title: '结束日期', width:180},
 		{field: 'state', title: '维护状态', templet:'#state4', width:120},
 		{field: 'score', title: '得分', width: 60, toolbar: '#score'},
-		{field: 'record', title: '检测反馈', width: 90, toolbar: '#record4'}
-		//{fixed: 'right', title: '操作', width: 320, align: 'center', toolbar: '#barDemo'}
+		{field: 'record', title: '操作', width: 120, toolbar: '#record4', fixed: 'right'}
 	]];
 	
 	//JavaScript代码区域
@@ -112,8 +111,12 @@ function load(){
 			console.log(data);
 			if(layEvent === 'record2') {
 				layer.open({
-					title: '巡查记录',
-					content: obj.data.record
+					type: 2,
+					title: '巡查记录信息',
+					maxmin: true,
+           			area: [780 + 'px', 500 + 'px'],
+           			shadeClose: false, //点击遮罩关闭
+            		content: 'inspection-detail.html?id=' + data.id,
 				});    
 			}
 		});
@@ -125,8 +128,12 @@ function load(){
 			console.log(data);
 			if(layEvent === 'record3') {
 				layer.open({
-					title: '维护反馈',
-					content: obj.data.record
+					type: 2,
+					title: '维护记录信息',
+					maxmin: true,
+           			area: [780 + 'px', 500 + 'px'],
+           			shadeClose: false, //点击遮罩关闭
+            		content: 'maintainence-detail.html?id=' + data.id,
 				});    
 			}
 		});
@@ -138,8 +145,12 @@ function load(){
 			console.log(data);
 			if(layEvent === 'record4') {
 				layer.open({
-					title: '检测反馈',
-					content: obj.data.record
+					type: 2,
+					title: '检测记录信息',
+					maxmin: true,
+           			area: [780 + 'px', 500 + 'px'],
+           			shadeClose: false, //点击遮罩关闭
+            		content: 'testing-detail.html?id=' + data.id,
 				});    
 			}
 		});

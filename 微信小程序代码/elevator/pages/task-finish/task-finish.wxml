@@ -13,15 +13,63 @@
   </i-panel>
 </view>
 <i-panel title="任务完成评价">
-    <view wx:if="{{type > 1}}" style="padding: 7px 15px;">
-      <text style="color: #495060;min-width: 65px;padding-right: 10px; display:inline-block; font-size:14px; color:#495060;">电梯得分</text>
-      <view style="display:inline-block;" >
-        <i-input-number style="display:inline;" value="{{ rawData.score }}" min="0" max="5" bindchange="handleNumberChange" />
+  <view wx:if="{{type == 2}}" style="padding: 7px 15px; padding-top:10px;">
+    <text style="color: #495060;min-width: 65px;padding-right: 10px; display:inline-block; font-size:14px; color:#495060;">电梯状况</text>
+    <view style="display:inline-block;" >
+      <view wx:if="{{ event == 1 }}">
+        <radio-group bindchange="bindInsStatusRadioChange" style="font-size:14px; color:#495060;">
+          <radio id="inspection-state-false" color="#2b85e4" value='false' checked disabled="{{event != 1}}">正常</radio>
+          <radio id="inspection-state-true" style="margin-left:40rpx" color="#2b85e4" value='true' disabled="{{event != 1}}">异常</radio>
+        </radio-group>
       </view>
-      <view style="padding-left:75px;"><text style="color: #80848f; font-size:14px;">请给完成任务后的当前电梯安全状况进行打分(0-5分)</text></view>
+      <view wx:else>
+        <view style="font-size:14px; color:#2b85e4; font-weight:900;">{{rawData.result}}</view>
+      </view>
     </view>
-  <i-input value="{{ rawData.record }}" bindchange="getInputValue" data-title="record" type="textarea" title="评价记录" placeholder="对任务完成情况/巡查情况，或电梯安全状况进行补充说明" />
+  </view>
+  <view wx:if="{{type > 1}}" style="padding: 7px 15px;">
+    <text style="color: #495060;min-width: 65px;padding-right: 10px; display:inline-block; font-size:14px; color:#495060;">电梯得分</text>
+    <view style="display:inline-block;" >
+      <i-input-number style="display:inline;" value="{{ rawData.score }}" min="0" max="5" bindchange="handleNumberChange" />
+    </view>
+    <view style="padding-left:75px;"><text style="color: #80848f; font-size:12px;">请给完成任务后的当前电梯安全状况进行打分(0-5分)</text></view>
+  </view>
+  <i-input wx:if="{{type != 2}}" value="{{ rawData.record }}" bindchange="getInputValue" data-title="record" type="textarea" title="评价记录" placeholder="对任务完成情况，或电梯安全状况进行补充说明" />
+  <i-input wx:elif="{{type == 2 && inspectionErr == 'false'}}" value="{{ rawData.record }}" bindchange="getInputValue" data-title="record" type="textarea" title="补充说明" placeholder="对巡查情况，或电梯安全状况进行补充说明" />
 </i-panel>
+
+<view wx:if="{{type == 2 && inspectionErr == 'true'}}">
+  <i-panel title="异常信息">
+    <i-input value="{{ rawData.record }}" bindchange="getInputValue" data-title="record" type="textarea" title="异常情况说明" placeholder="对异常情况进行补充说明" />
+    <view style="padding: 7px 15px;">
+      <text style="color: #495060;min-width: 65px;padding-right: 10px; display:inline-block; font-size:14px; color:#495060;">建议处理方法</text>
+      <view style="display:inline-block;" >
+        <view wx:if="{{ event == 1 }}">
+          <radio-group bindchange="bindInsMethodRadioChange" style="font-size:14px; color:#495060;">
+            <radio style="margin-left:10rpx" color="#2b85e4" value='维修' checked disabled="{{event != 1}}">维修</radio>
+            <radio style="margin-left:40rpx" color="#2b85e4" value='更换' disabled="{{event != 1}}">更换</radio>
+            <radio style="margin-left:40rpx" color="#2b85e4" value='报废' disabled="{{event != 1}}">报废</radio>
+          </radio-group>
+        </view>
+        <view wx:else>
+          <view style="font-size:14px; color:#2b85e4; font-weight:900;">{{ rawData.method }}</view>
+        </view>
+      </view>
+    </view>
+    <i-input value="{{ rawData.mtdstate }}" bindchange="getInputValue" data-title="mtdstate" type="textarea" title="处理方法说明" placeholder="对处理方法情况进行补充说明" />
+    <view style="padding: 7px 15px;">
+      <view style="margin-bottom:10px;">
+       <text style="color: #495060;min-width: 65px;padding-right: 10px; display:inline-block; font-size:14px; color:#495060;">现场照片(最多3张)</text>
+      </view>
+      <view style="padding-left:0px; padding-bottom:5px;">
+        <view>
+          <image wx:for="{{resultUrlList}}" style="width:156rpx; height:156rpx; border: solid #dddee1 1px; margin-left:5px;" src='{{ item }}'></image>
+          <image style="width:60rpx; height:60rpx; padding:48rpx; border: solid #dddee1 1px; margin-left:5px;" src='../../img/icon_add.png' bindtap='updateResult' wx:if="{{ event == 1 }}"></image>
+        </view>
+      </view>
+    </view>
+  </i-panel>
+</view>
 
 <view wx:if="{{type == 1}}">
   <i-panel title="使用设备情况">
